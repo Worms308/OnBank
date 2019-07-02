@@ -1,19 +1,17 @@
-import { SUCCESS } from '../actions';
-
 const initialState = {
-    text: ''
-}
+  value: 0,
+};
 
-const reducer = (state = initialState, action) => {
-    switch(action.type) {
-        case SUCCESS:
-        return {
-            ...state,
-            [action.payload.itemType]: action.payload.text,
-        }
-        default:
-            return state;
-    }
-}
+const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'CHANGE_VALUE':
+      return {
+        ...state,
+        value: state.value + action.payload.value,
+      };
+    default:
+      return state;
+  }
+};
 
-export default reducer;
+export default rootReducer;
