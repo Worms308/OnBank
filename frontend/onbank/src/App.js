@@ -6,13 +6,23 @@ import FirstPage from './pages/FirstPage';
 
 function App() {
   return (
+    <Router path ='/'>
     <div className="App">
-     <Router>
-        <Route path="/" component={FirstPage} /> 
+     
+          <ul>
+            <li>
+              <Link to="/firstPage">FirstPage</Link>
+            </li>
+            <li>
+              <Link to="/secondPage">SecondPage</Link>
+            </li>
+          </ul>
+        <Route exact path="/firstPage" component={FirstPage} /> 
         <Route path="/secondPage" component={SecondPage} /> 
-     </Router>
+    
     
     </div>
+    </Router>
   );
 }
 
