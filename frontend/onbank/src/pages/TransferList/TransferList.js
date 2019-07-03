@@ -22,6 +22,5 @@ export default function TransferList() {
         <AccountBar/>
           <Table/>
     </Container>
-
   )
 }
