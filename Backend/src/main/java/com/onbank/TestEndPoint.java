@@ -10,13 +10,4 @@ public class TestEndPoint {
     public String getTest(){
         return "Hello world";
     }
-    @GetMapping("null")
-    public String getNullEx(){
-        throw new NullPointerException();
-    }
-    @GetMapping("unknown")
-    public String getUnknownEr(){
-        int i=11/0;
-        return "unknown ex";
-    }
 }

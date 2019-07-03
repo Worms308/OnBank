@@ -20,11 +20,4 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity <ExceptionResponse> nullPointerException(final Exception e) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse();
-        exceptionResponse.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        exceptionResponse.setDescription("Null Pointer Exception");
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
-    }
 }
