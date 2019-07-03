@@ -24,7 +24,4 @@ export default function TransferList() {
     </Container>
 
   )
-
-
-
 }
