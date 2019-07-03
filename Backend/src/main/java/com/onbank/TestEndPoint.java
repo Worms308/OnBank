@@ -6,9 +6,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestEndPoint {
 
-    @GetMapping(path = {"test", "hello"})
+    @GetMapping("hello")
     public String getTest(){
-        int i = 11/0;
         return "Hello world";
+    }
+    @GetMapping("null")
+    public String getNullEx(){
+        throw new NullPointerException();
+    }
+    @GetMapping("unknown")
+    public String getUnknownEr(){
+        int i=11/0;
+        return "unknown ex";
     }
 }

@@ -11,12 +11,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionControllerAdvice {
 
-    //
+    //Nieznany blad
     @ExceptionHandler(Exception.class)
-    public ResponseEntity <ExceptionResponse> assertionException(final Exception e) {
+    public ResponseEntity <ExceptionResponse> unknownException(final Exception e) {
         ExceptionResponse exceptionResponse = new ExceptionResponse();
-        exceptionResponse.setCode(HttpStatus.NOT_FOUND.value());
+        exceptionResponse.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         exceptionResponse.setDescription("Exception msg: " + e.toString());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity <ExceptionResponse> nullPointerException(final Exception e) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
+        exceptionResponse.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        exceptionResponse.setDescription("Null Pointer Exception");
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }
