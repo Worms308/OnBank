@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
     
     marginBottom: 20
   },
+  color:{
+    backgroundColor: "#FFF"
+  },
   menuButton: {
   },
   title: {
@@ -23,7 +26,12 @@ const useStyles = makeStyles(theme => ({
   bookmark:{
     marginLeft: theme.spacing(10),
     spacing: 2,
-    fontSize: 16,  
+    fontSize: 16, 
+    '&:hover': {
+      color: "green",
+      textDecoration: 'underline',
+      backgroundColor: "#FFF"
+    } 
   },
 }));
 
@@ -32,7 +40,7 @@ export default function ButtonAppBar() {
 
   return (
     <Container className={classes.root}>
-      <AppBar position="relative" color="default">
+      <AppBar position="relative" color="inherit" >
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             OnBank
