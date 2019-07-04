@@ -1,4 +1,4 @@
-package com.onbank.api.implementation;
+package com.onbank.api.service.implementation;
 
 import com.onbank.api.model.Transfer;
 import com.onbank.api.repository.TransferRepository;

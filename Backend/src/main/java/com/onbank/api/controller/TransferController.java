@@ -6,6 +6,7 @@ import com.onbank.api.service.TransferService;
 import com.onbank.api.transformer.TransferTransformer;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -21,10 +22,15 @@ public class TransferController {
     }
 
     @GetMapping()
-    public List<Transfer> getTransfers(){
+    public List<TransferDto> getTransfers(){
+        List<Transfer> transfersList = transferService.getTransfers();
+        List<TransferDto> transferDtoList = new ArrayList<>();
 
+        for(Transfer i: transfersList){
+            transferDtoList.add(transferTransformer.convertToDto(i));
+        }
 
-        return transferService.getTransfers();
+        return transferDtoList;
     }
 
     @GetMapping("/{Id}")
