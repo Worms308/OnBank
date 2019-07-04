@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class TransferDTO {
+public class TransferDto {
     private Long id;
     private Date date;
     private String name;
@@ -16,4 +16,5 @@ public class TransferDTO {
     private String typeOfOperation;
     private BigDecimal ammount;
     private BigDecimal accountBallance;
+
 }
