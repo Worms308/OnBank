@@ -1,27 +1,17 @@
 import React from 'react';
-import Table from '../Table'
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import AccountBar from './AccountBar'
+import RouteWithSubRoutes from 'routes/RouteWithSubRoutes';
+import AccountBar from './AccountBar';
+import TransactionTable from './TransactionTable/TransactionTable';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-   marginLeft: "auto",
- // width:"95%", 
-  color:'default'
-  },
-}));
-
-
-export default function TransferList() {
-
-  const classes = useStyles();
-
-  return(
-    <Container className={classes.root}>
-        <AccountBar/>
-        <br/>
-          <Table/>
-    </Container>
-  )
+export default function TransferList({ routes }) {
+  console.log(routes);
+  return (
+    <>
+      <AccountBar />
+      <TransactionTable />
+      {routes.map((route, i) => (
+        <RouteWithSubRoutes key={i} {...route} />
+      ))}
+    </>
+  );
 }
