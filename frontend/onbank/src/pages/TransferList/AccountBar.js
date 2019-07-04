@@ -9,9 +9,6 @@ const useStyles = makeStyles(theme => ({
       width:"100%", 
       backgroundColor: 'white	', 
       height: '15vh',
-
-
-
     },
     nameAccount:{
         paddingTop: 10,
@@ -23,21 +20,18 @@ const useStyles = makeStyles(theme => ({
         color: '#C0392B',
     },
     numbersGreen:{
-      color: '#3FD07C',
-      
+      color: '#3FD07C',  
     },
 
     numbersGray:{
       color: '#707070',
       textAlign:'right'
-   
     },
   div:{
     paddingTop: 20,
       float: 'right',
       marginRight: 100,
-      display: 'inline-block'
-    
+      display: 'inline-block' 
   },
   greydiv:{
     paddingTop: 20,
