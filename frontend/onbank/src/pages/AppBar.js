@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,createMuiTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,9 @@ import Container from '@material-ui/core/Container';
 import Tabs from '@material-ui/core/Tabs';
 
 const useStyles = makeStyles(theme => ({
+  
+  
+  
   root: {
     flexGrow: 1,
     
@@ -33,15 +36,25 @@ const useStyles = makeStyles(theme => ({
    marginLeft: "auto",
    marginRight: 0,
    fontSize:40,
-  }
+   color:"#707070"
+  },
+  
 }));
 
+// const theme = createMuiTheme({
+//   palette: {
+//     primary: 
+//          '#27AE60'
+      
+//     }
+//   },
+// )
 
 
 export default function ButtonAppBar() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  const primary="#27AE60"
   function handleChange(event, newValue) {
     setValue(newValue);
   }
