@@ -1,7 +1,16 @@
 package com.onbank.api.service;
 
-import org.springframework.stereotype.Service;
+import com.onbank.api.model.Transfer;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@Service
-public class TransferService {
+import java.util.List;
+
+public interface TransferService {
+
+    List<Transfer> getTransfers();
+
+    Transfer getTransferById(@PathVariable Long Id);
+
+    Transfer setTransfer(@RequestBody Transfer transfer);
 }
