@@ -3,19 +3,21 @@ import { Redirect } from 'react-router-dom';
 import { Grid, Paper, Tab, Tabs } from '@material-ui/core';
 import { paths } from 'routes/paths';
 
-const Table = () => {
+const TransactionsTable = () => {
   const [value, setValue] = React.useState(0);
+  const [redirect, setRedirect] = React.useState('');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 0) {
       console.log(paths.completedTransactions);
-      return <Redirect to={paths.completedTransactions} />;
+      setRedirect(paths.completedTransactions);
     }
     if (newValue === 1) {
       console.log(paths.pendingTransactions);
-      return <Redirect to={paths.pendingTransactions} />;
+      setRedirect(paths.pendingTransactions);
     }
+    console.log(redirect);
   };
 
   return (
@@ -31,6 +33,7 @@ const Table = () => {
           >
             <Tab label="Zrealizowane" />
             <Tab label="Oczekujące/Blokady" />
+            {redirect && <Redirect to={redirect}/>}
           </Tabs>
         </Paper>
       </Grid>
@@ -38,4 +41,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default TransactionsTable;
