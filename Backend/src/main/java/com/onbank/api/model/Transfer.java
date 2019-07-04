@@ -1,4 +1,4 @@
-package com.onbank.api;
+package com.onbank.api.model;
 
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class Transfer {
     private String name;
     @Column(name="surname", nullable=false, length=100)
     private String surname;
-    @Column(name="accountnumber", nullable=false, unique = true)
+    @Column(name="accountnumber", nullable=false)
     @Size(min = 26, max = 28)
     private String accountNumber;
     @Column(name="description", nullable=false, length=4000)
