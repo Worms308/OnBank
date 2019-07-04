@@ -1,12 +1,12 @@
 import { paths } from 'routes/paths';
-import TransferList from 'pages/TransferList/TransferList';
-import CompletedTransactions from 'pages/TransferList/TransactionTable/ComplitedTransactions/ComplitedTransactions';
-import PendingTransactions from 'pages/TransferList/TransactionTable/PendingTransactions/PendingTransactions';
+import Transactions from 'pages/Transactions/Transactions';
+import CompletedTransactions from 'pages/Transactions/TransactionsTable/ComplitedTransactions/ComplitedTransactions';
+import PendingTransactions from 'pages/Transactions/TransactionsTable/PendingTransactions/PendingTransactions';
 
 export const routes = [
   {
-    path: `${paths.transferList}`,
-    component: TransferList,
+    path: `${paths.transactions}`,
+    component: Transactions,
     routes: [
       {
         path: `${paths.completedTransactions}`,

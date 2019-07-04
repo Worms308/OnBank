@@ -1,26 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Grid, Paper, Tab, Tabs } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import { paths } from 'routes/paths';
-
-const StyledTabs = withStyles({
-  root: {
-    borderBottom: '1px solid #D7DADD',
-  },
-  indicator: {
-    backgroundColor: '#27AE60',
-  },
-})(Tabs);
-
-const StyledTab = withStyles({
-  root: {
-    '&$selected': {
-      color: '#27AE60',
-    },
-  },
-  selected: {},
-})(Tab);
 
 const Table = () => {
   const [value, setValue] = React.useState(0);
@@ -40,7 +21,7 @@ const Table = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <>
+        <Paper>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -51,7 +32,7 @@ const Table = () => {
             <Tab label="Zrealizowane" />
             <Tab label="Oczekujące/Blokady" />
           </Tabs>
-        </>
+        </Paper>
       </Grid>
     </Grid>
   );
