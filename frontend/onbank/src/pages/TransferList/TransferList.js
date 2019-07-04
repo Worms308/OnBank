@@ -20,6 +20,7 @@ export default function TransferList() {
   return(
     <Container className={classes.root}>
         <AccountBar/>
+        <br/>
           <Table/>
     </Container>
   )

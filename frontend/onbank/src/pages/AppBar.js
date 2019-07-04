@@ -41,16 +41,6 @@ const useStyles = makeStyles(theme => ({
   
 }));
 
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: 
-//          '#27AE60'
-      
-//     }
-//   },
-// )
-
-
 export default function ButtonAppBar() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);

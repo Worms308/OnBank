@@ -2,20 +2,21 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
     root: {
       width:"100%", 
       backgroundColor: 'white	', 
       height: '15vh',
-      borderWidth: "1px",
-      borderColor: "black !important"
+
 
 
     },
     nameAccount:{
         paddingTop: 10,
-        color:'#707070'
+        color:'#707070',
+        marginLeft: 20,
     },
     numbersRed:{
         flex: 1,
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
     },
     numbersGreen:{
       color: '#3FD07C',
+      
     },
 
     numbersGray:{
@@ -51,7 +53,7 @@ export default function AccountBar() {
     const classes = useStyles();
   
     return(
-      <Container className={classes.root} >
+      <Paper className={classes.root} >
 
         <div  style={{display : 'inline-block'}} >
           <Typography variant="h5" className={classes.nameAccount} >Nazwa konta</Typography>
@@ -74,7 +76,7 @@ export default function AccountBar() {
         </div>
 
         
-      </Container>
+      </Paper>
   
     )
   
