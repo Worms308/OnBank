@@ -21,7 +21,10 @@ public class TransferController {
     }
 
     @GetMapping()
-    public List<Transfer> getTransfers(){ return transferService.getTransfers();
+    public List<Transfer> getTransfers(){
+
+
+        return transferService.getTransfers();
     }
 
     @GetMapping("/{Id}")
