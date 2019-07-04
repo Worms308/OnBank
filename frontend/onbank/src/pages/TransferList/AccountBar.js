@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
@@ -18,9 +17,11 @@ const useStyles = makeStyles(theme => ({
     numbersRed:{
         flex: 1,
         color: '#C0392B',
+        textAlign :'right'  
     },
     numbersGreen:{
-      color: '#3FD07C',  
+      color: '#3FD07C',
+      textAlign :'right'  
     },
 
     numbersGray:{
@@ -60,12 +61,12 @@ export default function AccountBar() {
          </div> 
  
          <div className={classes.div}>
-         <Typography variant="subtitle1" className={classes.numbersGreen} style={{textAlign :'right'}}>Saldo</Typography>     
+         <Typography variant="subtitle1" className={classes.numbersGreen} >Saldo</Typography>     
          <Typography variant="h5" className={classes.numbersGreen}>  50,00 PLN</Typography>
          </div>
 
          <div className={classes.div}>
-          <Typography variant="subtitle1" className={classes.numbersRed} style={{textAlign :'right'}}>Blokady</Typography> 
+          <Typography variant="subtitle1" className={classes.numbersRed}>Blokady</Typography> 
           <Typography variant="h5" className={classes.numbersRed} > -100,00 PLN</Typography>
         </div>
 

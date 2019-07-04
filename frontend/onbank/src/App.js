@@ -11,6 +11,7 @@ import Navigator from 'pages/Navigator';
 import Template from 'pages/Template/Template';
 
 const App = () => (
+  
   <Provider store={store}>
     <Template>
       <Router path="/">
@@ -22,6 +23,7 @@ const App = () => (
       </Router>
     </Template>
   </Provider>
+  
 );
 
 export default App;
