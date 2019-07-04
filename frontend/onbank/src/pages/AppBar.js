@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import Tab from '@material-ui/core/Tab';
 import Container from '@material-ui/core/Container';
+import Tabs from '@material-ui/core/Tabs';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,38 +17,55 @@ const useStyles = makeStyles(theme => ({
   color:{
     backgroundColor: "#FFF"
   },
+  on: {
+    fontWeight: 'bold',
+    color:'#27AE60'
+  },
   menuButton: {
   },
-  title: {
-    flexGrow: 1,
-    marginLeft: theme.spacing(2),
-  },
   bookmark:{
-    marginLeft: theme.spacing(10),
-    spacing: 2,
-    fontSize: 16, 
-    '&:hover': {
-      color: "green",
-      textDecoration: 'underline',
-      backgroundColor: "#FFF"
-    } 
+    marginLeft: theme.spacing(6),
+    spacing: 4,
+    fontSize: 15, 
+    textAlign: 'right'
   },
+  icon:{
+   marginLeft: "auto",
+   marginRight: 0,
+   fontSize:40,
+  }
 }));
+
+
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  function handleChange(event, newValue) {
+    setValue(newValue);
+  }
 
   return (
     <Container className={classes.root}>
       <AppBar position="relative" color="inherit" >
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            OnBank
-            <Button color="inherit" className={classes.bookmark} >Transakcje</Button>
-            <Button color="inherit" className={classes.bookmark} > Więcej Transakcji</Button>
-            <Button color="inherit" className={classes.bookmark} > Jeszcze Więcej Transakcji</Button>
-          </Typography>
-        <AccountCircle style={{ fontSize: 40 }}></AccountCircle>
+          <Typography variant="h6" className={classes.on}>ON</Typography>
+          <Typography variant="h6" className={classes.title}>BANK</Typography>
+          <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="fullWidth"
+          >
+
+          <Tab label="Strona główna" className={classes.bookmark}/>
+          <Tab label="Transakcje" className={classes.bookmark}/>
+          <Tab label="Płatności" className={classes.bookmark}/>
+        </Tabs>
+         
+        <AccountCircle className={classes.icon}></AccountCircle>
         </Toolbar>
       </AppBar>
     </Container>
