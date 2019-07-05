@@ -5,12 +5,14 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@Entity(name = "transfer")
+@Entity
+@Table(name = "transfer")
 public class Transfer {
     @Id
     @Column(name="Id", nullable=false, unique = true)

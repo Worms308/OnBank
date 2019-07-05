@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @CrossOrigin
 @RestController
@@ -21,25 +23,12 @@ public class TransferController {
         this.transferService = transferService;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<TransferDto> getTransfers(){
-        List<Transfer> transfersList = transferService.getTransfers();
-        List<TransferDto> transferDtoList = new ArrayList<>();
+        List<Transfer> transfer = transferService.getTransfers();
+        List<TransferDto> transferDto = transfer.stream().map(transferTransformer::convertToDto).collect(Collectors.toList());
 
-        for(Transfer i: transfersList){
-            transferDtoList.add(transferTransformer.convertToDto(i));
-        }
-
-        return transferDtoList;
+        return transferDto;
     }
-
-    @GetMapping("/{Id}")
-    public TransferDto getTransferById(@PathVariable Long Id){ return transferTransformer.convertToDto(transferService.getTransferById(Id)); }
-
-    @PostMapping()
-    public Transfer setTransfer(@RequestBody TransferDto transferDto){
-        return transferTransformer.convertToEntity(
-                transferTransformer.convertToDto(transferService.setTransfer(
-                transferTransformer.convertToEntity(transferDto)))); }
 }
 
