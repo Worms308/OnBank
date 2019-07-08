@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,6 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
+import Responsive from 'react-responsive';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Fade from '@material-ui/core/Fade';
+
+const Desktop = props => <Responsive {...props} minWidth={992} />;
+const Mobile = props => <Responsive {...props} maxWidth={1024} />;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +28,7 @@ const useStyles = makeStyles(theme => ({
     color: '#27AE60',
   },
   menuButton: {},
+
   bookmark: {
     marginLeft: theme.spacing(6),
     spacing: 4,
@@ -32,9 +41,23 @@ const useStyles = makeStyles(theme => ({
     fontSize: 40,
     color: '#707070',
   },
+
 }));
 
 export default function ButtonAppBar() {
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   function handleChange(event, newValue) {
@@ -42,6 +65,8 @@ export default function ButtonAppBar() {
   }
 
   return (
+    <Fragment>
+    <Desktop>
     <AppBar position="relative" color="inherit" className={classes.root}>
       <Toolbar>
         <Typography variant="h6" className={classes.on}>
@@ -65,5 +90,40 @@ export default function ButtonAppBar() {
         <AccountCircle className={classes.icon}></AccountCircle>
       </Toolbar>
     </AppBar>
+    </Desktop>
+
+    <Mobile>
+      <AppBar position="relative" color="inherit" className={classes.root}>
+        
+        <Toolbar>
+        <Button onClick={handleClick} >
+          <Typography variant="h6" className={classes.on}>
+            ON
+          </Typography>
+          <Typography variant="h6" className={classes.title}>
+            BANK
+          </Typography>
+          </Button>
+          <AccountCircle className={classes.icon}></AccountCircle>
+        </Toolbar>
+       
+        
+      
+      </AppBar>
+      <Menu
+        id="fade-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Fade}
+      >
+        <MenuItem onClick={handleClose}>Strona główna</MenuItem>
+        <MenuItem onClick={handleClose}>Transakcje</MenuItem>
+        <MenuItem onClick={handleClose}>Płatności</MenuItem>  
+      </Menu>
+    </Mobile>
+
+    </Fragment>
   );
 }

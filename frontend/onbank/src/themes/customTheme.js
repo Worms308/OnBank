@@ -1,4 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+// import React, { Component } from 'react';
+// import Responsive from 'react-responsive';
 
 export default createMuiTheme({
   palette: {
@@ -8,3 +10,7 @@ export default createMuiTheme({
     },
   },
 });
+
+
+// export const Desktop = props => <Responsive {...props} minWidth={992} />;
+// export const Mobile = props => <Responsive {...props} maxWidth={1024} />;
