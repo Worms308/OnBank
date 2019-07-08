@@ -11,6 +11,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+//import HomeIcon from '@material-ui/core/HomeIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
@@ -60,7 +61,6 @@ const useStyles = makeStyles(theme => ({
   burgerTitleBank:{
    
     display: 'inline'
-
   }
 
 }));
@@ -91,12 +91,21 @@ export default function ButtonAppBar() {
       <Divider/>
       </List>
       <List>
-        {['Transfery', 'Przelewy', 'Płatności', 'Wyloguj'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button>
+          <ListItemIcon><MailIcon /></ListItemIcon>
+          <ListItemText primary="Przelewy" />
+        </ListItem>
+
+        <ListItem button>
+          <ListItemIcon><MailIcon /></ListItemIcon>
+          <ListItemText primary="Przelewy" />
+        </ListItem>
+       
+        <ListItem button>
+          <ListItemIcon><InboxIcon /></ListItemIcon>
+          <ListItemText primary="Płatności" />
+        </ListItem>
+
       </List>
       
     </div>
@@ -104,7 +113,7 @@ export default function ButtonAppBar() {
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  function handleChange(event, newValue) {
+  function handleChange(newValue) {
     setValue(newValue);
   }
 
@@ -113,10 +122,9 @@ export default function ButtonAppBar() {
     <AppBar position="relative" color="inherit" className={classes.root}>
       <Toolbar>
         <Hidden smUp>
-
-        <Button onClick={toggleDrawer('left', true)}><ViewHeadline></ViewHeadline></Button>
+         <Button onClick={toggleDrawer('left', true)}><ViewHeadline></ViewHeadline></Button>
          <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
-        {sideList('left')}
+         {sideList('left')}
       </Drawer>
         </Hidden>
         

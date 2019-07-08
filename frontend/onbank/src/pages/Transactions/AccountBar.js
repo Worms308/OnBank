@@ -19,17 +19,15 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('md')]: {
        
           marginRight:50,
-        },
-        
+        },   
     },
     avalaibleFunds:{
       color: '#707070',
       textAlign:'right',
-      [theme.breakpoints.down('md')]: {
-       
+      [theme.breakpoints.down('md')]: {  
+
         marginRight:50,
-      },
-      
+      },  
     },
   divLock:{
       paddingTop: 15,
@@ -49,6 +47,7 @@ const useStyles = makeStyles(theme => ({
       marginRight: 50,
      
       [theme.breakpoints.down('md')]: {
+
         float: 'none',
         display: 'inline',
       },
@@ -84,12 +83,5 @@ export default function AccountBar() {
               <Typography variant="h5" className={classes.lock} > -100,00 PLN</Typography>
             </div>
       </Paper>
-      
-
-
-    
     )
-  
-  
-  
   }
