@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Grid, Typography } from '@material-ui/core';
 import Table from 'shared/Table';
-import { Grid } from '@material-ui/core';
+import { getTransactionsAction } from 'actions/transactionsActions';
 
 const datatableData = [
   [
@@ -59,7 +61,9 @@ const columns = [
               {array[0]}
             </Grid>
             <Grid item xs={12}>
-              {array[1].match(/[A-Z]{2}|(?:(?:\d{2}|\d{4})(?=(\d{4})*$))/g).join(' ')}
+              <Typography noWrap>
+                {array[1].match(/[A-Z]{2}|(?:(?:\d{2}|\d{4})(?=(\d{4})*$))/g).join(' ')}
+              </Typography>
             </Grid>
           </Grid>
         );
@@ -92,10 +96,30 @@ const options = {
   print: false,
 };
 
-const ComplitedTransactions = () => (
-  <>
-    <Table data={datatableData} columns={columns} options={options} />
-  </>
-);
+class ComplitedTransactions extends React.Component {
+  componentDidMount() {
+    const { getTransactions } = this.props;
+    getTransactions();
+  }
 
-export default ComplitedTransactions;
+  render() {
+    return <Table data={datatableData} columns={columns} options={options} />;
+  }
+}
+
+const mapStateToProps = ({ transactions }) => {
+  return { transactions };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getTransactions: () => {
+      dispatch(getTransactionsAction());
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ComplitedTransactions);
