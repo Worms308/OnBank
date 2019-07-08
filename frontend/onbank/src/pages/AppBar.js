@@ -7,12 +7,16 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import ViewHeadline from '@material-ui/icons/ViewHeadline'
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Fade from '@material-ui/core/Fade';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 import Hidden from '@material-ui/core/Hidden';
-
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,27 +44,63 @@ const useStyles = makeStyles(theme => ({
     fontSize: 40,
     color: '#707070',
   },
-  burgerItem: {
-    "&:hover": {
-      backgroundColor: 'rgb(7, 177, 77, 0.42)'
-    }
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+  burgerTitleOn:{
+      fontWeight: 'bold',
+      color: '#27AE60',
+      
+      marginLeft:70,
+      display: 'inline'
+  },
+  burgerTitleBank:{
+   
+    display: 'inline'
+
   }
 
 }));
 
 export default function ButtonAppBar() {
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleClose() {
-    setAnchorEl(null);
-  }
-
+  const [state, setState] = React.useState({
+    left: false,
+  });
+  
+  const toggleDrawer = (side, open) => event => {
+    if (event.type === 'keydown') {
+      return;
+    }
+    setState({ ...state, [side]: open });
+  };
+  const sideList = side => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+      <ListItemText>
+        <Typography variant="h6" className={classes.burgerTitleOn}>  ON  </Typography>
+        <Typography variant="h6" className={classes.burgerTitleBank}>  BANK </Typography>
+      </ListItemText>
+      <Divider/>
+      </List>
+      <List>
+        {['Transfery', 'Przelewy', 'Płatności', 'Wyloguj'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      
+    </div>
+  );
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -73,24 +113,15 @@ export default function ButtonAppBar() {
     <AppBar position="relative" color="inherit" className={classes.root}>
       <Toolbar>
         <Hidden smUp>
-        <ViewHeadline onClick={handleClick}>
-          </ViewHeadline>
-          <Menu
-        id="fade-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Fade}
-      >
-        <MenuItem onClick={handleClose} className={classes.burgerItem}>Strona główna</MenuItem>
-        <MenuItem onClick={handleClose} className={classes.burgerItem}>Transakcje</MenuItem>
-        <MenuItem onClick={handleClose} className={classes.burgerItem}>Płatności</MenuItem>  
-      </Menu>
+
+        <Button onClick={toggleDrawer('left', true)}><ViewHeadline></ViewHeadline></Button>
+         <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
+        {sideList('left')}
+      </Drawer>
         </Hidden>
         
         <Typography variant="h6" className={classes.on}>
-          ON
+           ON
         </Typography>
         <Typography variant="h6" className={classes.title}>
           BANK
