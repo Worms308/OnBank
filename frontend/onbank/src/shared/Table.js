@@ -1,16 +1,8 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
 
-const Table = ({ data, columns }) => (
-  <MUIDataTable
-    data={data}
-    columns={columns}
-    options={{
-      selectableRows: false,
-      filterType: 'checkbox',
-      print: false,
-    }}
-  />
+const Table = ({ data, columns, options }) => (
+  <MUIDataTable data={data} columns={columns} options={options} />
 );
 
 export default Table;
