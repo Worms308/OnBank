@@ -7,14 +7,12 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import ViewHeadline from '@material-ui/icons/ViewHeadline'
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import Responsive from 'react-responsive';
-//import Button from '@material-ui/core/Button';
+
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
+import Hidden from '@material-ui/core/Hidden';
 
-const Desktop = props => <Responsive {...props} minWidth={992} />;
-const Mobile = props => <Responsive {...props} maxWidth={1024} />;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,52 +70,12 @@ export default function ButtonAppBar() {
 
   return (
     <Fragment>
-    <Desktop>
     <AppBar position="relative" color="inherit" className={classes.root}>
       <Toolbar>
-        <Typography variant="h6" className={classes.on}>
-          ON
-        </Typography>
-        <Typography variant="h6" className={classes.title}>
-          BANK
-        </Typography>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-        >
-          <Tab label="Strona główna" className={classes.bookmark} />
-          <Tab label="Transakcje" className={classes.bookmark} />
-          <Tab label="Płatności" className={classes.bookmark} />
-        </Tabs>
-
-        <AccountCircle className={classes.icon}></AccountCircle>
-      </Toolbar>
-    </AppBar>
-    </Desktop>
-
-    <Mobile>
-      <AppBar position="relative" color="inherit" className={classes.root}>
-        
-        <Toolbar>
+        <Hidden smUp>
         <ViewHeadline onClick={handleClick}>
-          
           </ViewHeadline>
-        {/* <Button onClick={handleClick} > */}
-          <Typography variant="h6" className={classes.on}>
-            ON
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            BANK
-          </Typography>
-          {/* </Button> */}
-          <AccountCircle className={classes.icon}></AccountCircle>
-        </Toolbar>
-          
-      </AppBar>
-      <Menu
+          <Menu
         id="fade-menu"
         anchorEl={anchorEl}
         keepMounted
@@ -129,8 +87,35 @@ export default function ButtonAppBar() {
         <MenuItem onClick={handleClose} className={classes.burgerItem}>Transakcje</MenuItem>
         <MenuItem onClick={handleClose} className={classes.burgerItem}>Płatności</MenuItem>  
       </Menu>
-    </Mobile>
+        </Hidden>
+        
+        <Typography variant="h6" className={classes.on}>
+          ON
+        </Typography>
+        <Typography variant="h6" className={classes.title}>
+          BANK
+        </Typography>
+        <Hidden xsDown>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="fullWidth"
+        >
+          <Tab label="Strona główna" className={classes.bookmark} />
+          <Tab label="Transakcje" className={classes.bookmark} />
+          <Tab label="Płatności" className={classes.bookmark} />
+        </Tabs>
+        </Hidden>
 
+        <Hidden xsUp>
+
+        </Hidden>
+
+        <AccountCircle className={classes.icon}></AccountCircle>
+      </Toolbar>
+    </AppBar>
     </Fragment>
   );
 }
