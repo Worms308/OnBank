@@ -11,7 +11,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-//import HomeIcon from '@material-ui/core/HomeIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
@@ -116,7 +115,11 @@ export default function ButtonAppBar() {
   function handleChange(newValue) {
     setValue(newValue);
   }
+  const [value1, setValue1] = React.useState(2);
 
+  function handleChange(event, newValue) {
+    setValue(newValue);
+  }
   return (
     <Fragment>
     <AppBar position="relative" color="inherit" className={classes.root}>
