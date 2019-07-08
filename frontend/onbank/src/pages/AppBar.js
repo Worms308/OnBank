@@ -4,10 +4,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import ViewHeadline from '@material-ui/icons/ViewHeadline'
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Responsive from 'react-responsive';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
@@ -41,6 +42,11 @@ const useStyles = makeStyles(theme => ({
     fontSize: 40,
     color: '#707070',
   },
+  burgerItem: {
+    "&:hover": {
+      backgroundColor: 'rgb(7, 177, 77, 0.42)'
+    }
+  }
 
 }));
 
@@ -96,19 +102,20 @@ export default function ButtonAppBar() {
       <AppBar position="relative" color="inherit" className={classes.root}>
         
         <Toolbar>
-        <Button onClick={handleClick} >
+        <ViewHeadline onClick={handleClick}>
+          
+          </ViewHeadline>
+        {/* <Button onClick={handleClick} > */}
           <Typography variant="h6" className={classes.on}>
             ON
           </Typography>
           <Typography variant="h6" className={classes.title}>
             BANK
           </Typography>
-          </Button>
+          {/* </Button> */}
           <AccountCircle className={classes.icon}></AccountCircle>
         </Toolbar>
-       
-        
-      
+          
       </AppBar>
       <Menu
         id="fade-menu"
@@ -118,9 +125,9 @@ export default function ButtonAppBar() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Strona główna</MenuItem>
-        <MenuItem onClick={handleClose}>Transakcje</MenuItem>
-        <MenuItem onClick={handleClose}>Płatności</MenuItem>  
+        <MenuItem onClick={handleClose} className={classes.burgerItem}>Strona główna</MenuItem>
+        <MenuItem onClick={handleClose} className={classes.burgerItem}>Transakcje</MenuItem>
+        <MenuItem onClick={handleClose} className={classes.burgerItem}>Płatności</MenuItem>  
       </Menu>
     </Mobile>
 
