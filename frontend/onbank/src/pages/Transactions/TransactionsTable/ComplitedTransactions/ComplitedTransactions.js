@@ -55,8 +55,12 @@ const columns = [
         const array = value.split(/([0-9]+)/);
         return (
           <Grid container>
-            <Grid item xs={12}>{array[0]}</Grid>
-            <Grid item xs={12}>{array[1].match(/[A-Z]{2}|(?:(?:\d{2}|\d{4})(?=(\d{4})*$))/g).join(" ")}</Grid>
+            <Grid item xs={12}>
+              {array[0]}
+            </Grid>
+            <Grid item xs={12}>
+              {array[1].match(/[A-Z]{2}|(?:(?:\d{2}|\d{4})(?=(\d{4})*$))/g).join(' ')}
+            </Grid>
           </Grid>
         );
       },
@@ -82,6 +86,16 @@ const columns = [
   { name: 'saldo', label: 'Saldo' },
 ];
 
-const ComplitedTransactions = () => <Table data={datatableData} columns={columns}/>;
+const options = {
+  selectableRows: false,
+  filterType: 'checkbox',
+  print: false,
+};
+
+const ComplitedTransactions = () => (
+  <>
+    <Table data={datatableData} columns={columns} options={options} />
+  </>
+);
 
 export default ComplitedTransactions;

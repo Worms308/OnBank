@@ -54,6 +54,12 @@ const columns = [
   { name: 'saldo', label: 'Saldo' },
 ];
 
-const PendingTransactions = () => <Table data={datatableData} columns={columns} />;
+const options = {
+  selectableRows: false,
+  filterType: 'checkbox',
+  print: false,
+};
+
+const PendingTransactions = () => <Table data={datatableData} columns={columns} options={options} />;
 
 export default PendingTransactions;
