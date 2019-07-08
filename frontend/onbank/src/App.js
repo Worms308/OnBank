@@ -15,7 +15,7 @@ const App = () => (
   <Provider store={store}>
     <ThemeProvider theme={customTheme}>
       <>
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         <Template>
           <Router path="/">
             <Switch>

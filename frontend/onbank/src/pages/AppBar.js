@@ -109,10 +109,6 @@ export default function ButtonAppBar() {
         </Tabs>
         </Hidden>
 
-        <Hidden xsUp>
-
-        </Hidden>
-
         <AccountCircle className={classes.icon}></AccountCircle>
       </Toolbar>
     </AppBar>

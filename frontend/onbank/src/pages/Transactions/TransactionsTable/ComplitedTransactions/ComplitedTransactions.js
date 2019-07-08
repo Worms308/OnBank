@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 
 const datatableData = [
   [
-    '01.01.2019',
+    '02.01.2019',
     'Jan Kowalski 00000000000000000000000000',
     'Hajs z YT',
     'Przelew z rachunku',
