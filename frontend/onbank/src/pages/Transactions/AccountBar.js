@@ -15,29 +15,51 @@ const useStyles = makeStyles(theme => ({
     },
     lock:{ 
         color: '#C0392B',
-        textAlign :'right'  
+        textAlign :'right',
+        [theme.breakpoints.down('md')]: {
+       
+          marginRight:50,
+        },
+        
     },
     avalaibleFunds:{
       color: '#707070',
-      textAlign:'right'
+      textAlign:'right',
+      [theme.breakpoints.down('md')]: {
+       
+        marginRight:50,
+      },
       
     },
   divLock:{
-      marginLeft: 10,
+      paddingTop: 15,
+      marginRight: 100,
+      float:"right",
       display: 'inline-block',
-      [theme.breakpoints.up('md')]: {
-        marginLeft: 10,
-      
-        display: 'inline-block',
+      [theme.breakpoints.down('md')]: {
+       
+        float: 'none',
+        display: 'inline',
       },
   },
   
   divAvalaibleFunds:{
       float: 'right',
+      paddingTop:15,
+      marginRight: 50,
      
-      marginRight: 10,
-      display: 'inline-block'
+      [theme.breakpoints.down('md')]: {
+        float: 'none',
+        display: 'inline',
+      },
   },
+  divNameAccount:{
+    display: 'inline-block',
+    [theme.breakpoints.down('md')]: {
+ 
+      display: 'block',
+    },
+  }
   }));
 
 
@@ -47,7 +69,7 @@ export default function AccountBar() {
   
     return(
       <Paper>   
-           <div >
+           <div className={classes.divNameAccount}>
              <Typography variant="h5" className={classes.nameAccount} >Nazwa konta</Typography>
              <Typography variant="h5" className={classes.nameAccount}>00 0000 0000 0000 0000 0000 0000</Typography>
            </div>
