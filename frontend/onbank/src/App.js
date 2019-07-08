@@ -14,18 +14,20 @@ import Template from 'pages/Template/Template';
 const App = () => (
   <Provider store={store}>
     <ThemeProvider theme={customTheme}>
-      <CssBaseline />
-      <Template>
-        <Router path="/">
-          <Switch>
-            <Route exact path={paths.home} component={Navigator} />
-            {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
-            ))}
-            <Redirect to={paths.home} />
-          </Switch>
-        </Router>
-      </Template>
+      <>
+        <CssBaseline />
+        <Template>
+          <Router path="/">
+            <Switch>
+              <Route exact path={paths.home} component={Navigator} />
+              {routes.map((route, i) => (
+                <RouteWithSubRoutes key={i} {...route} />
+              ))}
+              <Redirect to={paths.home} />
+            </Switch>
+          </Router>
+        </Template>
+      </>
     </ThemeProvider>
   </Provider>
 );

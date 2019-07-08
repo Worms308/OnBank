@@ -59,11 +59,6 @@ export default function AccountBar() {
          <Typography variant="subtitle1" className={classes.numbersGray} >Dostępne środki</Typography>     
          <Typography variant="h5" className={classes.numbersGray}>  1 000,00 PLN</Typography>
          </div> 
- 
-         <div className={classes.div}>
-         <Typography variant="subtitle1" className={classes.numbersGreen} >Saldo</Typography>     
-         <Typography variant="h5" className={classes.numbersGreen}>  50,00 PLN</Typography>
-         </div>
 
          <div className={classes.div}>
           <Typography variant="subtitle1" className={classes.numbersRed}>Blokady</Typography> 
