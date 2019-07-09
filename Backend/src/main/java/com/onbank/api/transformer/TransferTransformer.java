@@ -6,13 +6,13 @@ import org.springframework.beans.BeanUtils;
 
 public class TransferTransformer {
 
-    public TransferDto convertToDto(Transfer transfer){
+    static public TransferDto convertToDto(Transfer transfer){
         TransferDto transferDto = new TransferDto();
         BeanUtils.copyProperties(transfer, transferDto);
         return transferDto;
     }
 
-    public Transfer convertToEntity(TransferDto transferDto){
+    static public Transfer convertToEntity(TransferDto transferDto){
         Transfer transfer = new Transfer();
         BeanUtils.copyProperties(transferDto, transfer);
         return transfer;

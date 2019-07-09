@@ -2,23 +2,21 @@ package com.onbank.api.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "transfer")
 public class Transfer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="Id", nullable=false, unique = true)
     private Long id;
     @Column(name="date", nullable=false)
-    private Date date;
+    private LocalDateTime date;
     @Column(name="name", nullable=false, length=50)
     private String name;
     @Column(name="surname", nullable=false, length=100)
@@ -29,7 +27,7 @@ public class Transfer {
     @Column(name="description", nullable=false, length=4000)
     private String description;
     @Column(name="typeofoperation", nullable=false, length=200)
-    private String typeOfOperation;
+    private enumTypeofOperation typeOfOperation;
     @Column(name="ammount", nullable=false)
     private BigDecimal ammount;
     @Column(name="accountballance", nullable=false)
