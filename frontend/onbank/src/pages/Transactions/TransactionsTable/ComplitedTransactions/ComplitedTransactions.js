@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Typography } from '@material-ui/core';
 import Table from 'shared/Table';
-import { getTransactionsAction } from 'actions/transactionsActions';
+import { getTransactionsAction, sendTransactionsAction } from 'actions/transactionsActions';
 
 const datatableData = [
   [
@@ -103,7 +103,13 @@ class ComplitedTransactions extends React.Component {
   }
 
   render() {
-    return <Table data={datatableData} columns={columns} options={options} />;
+    const { sendTransactions } = this.props;
+    return (
+      <>
+        <button onClick={sendTransactions}>Przelew</button>
+        <Table data={datatableData} columns={columns} options={options} />
+      </>
+    );
   }
 }
 
@@ -115,6 +121,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getTransactions: () => {
       dispatch(getTransactionsAction());
+    },
+    sendTransactions: () => {
+      dispatch(sendTransactionsAction());
     },
   };
 };

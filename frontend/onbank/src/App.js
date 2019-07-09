@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import store from 'store';
 import { routes } from 'routes';
 import { paths } from 'routes/paths';
@@ -15,6 +17,7 @@ const App = () => (
   <Provider store={store}>
     <ThemeProvider theme={customTheme}>
       <>
+        <ToastContainer />
         <CssBaseline />
         <Template>
           <Router path="/">
