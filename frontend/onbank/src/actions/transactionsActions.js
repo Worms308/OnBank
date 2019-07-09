@@ -6,7 +6,7 @@ export const FETCH_FAILURE = 'FETCH_FAILURE';
 
 export const getTransactionsAction = () => dispatch => {
   dispatch({ type: FETCH_REQUEST });
-  return getTransactions().then(response => {
-    console.log(response);
-  });
+  return getTransactions()
+    .then(response => console.log(response))
+    .catch(err => console.log(err));
 };

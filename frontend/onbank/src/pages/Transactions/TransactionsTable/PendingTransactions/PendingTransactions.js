@@ -60,6 +60,8 @@ const options = {
   print: false,
 };
 
-const PendingTransactions = () => <Table data={datatableData} columns={columns} options={options} />;
+const PendingTransactions = () => (
+  <Table data={datatableData} columns={columns} options={options} />
+);
 
 export default PendingTransactions;

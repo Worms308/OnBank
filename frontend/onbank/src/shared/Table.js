@@ -5,7 +5,6 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 const Table = ({ data, columns, options }) => {
   const theme = useTheme();
-  console.log(theme);
   const custom = () =>
     createMuiTheme({
       overrides: {
