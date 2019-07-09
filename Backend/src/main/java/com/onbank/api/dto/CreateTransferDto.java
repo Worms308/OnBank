@@ -1,5 +1,6 @@
 package com.onbank.api.dto;
 
+import com.onbank.api.model.enumTypeofOperation;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -14,7 +15,7 @@ public class CreateTransferDto {
     private String surname;
     private String accountNumber;
     private String description;
-    private String typeOfOperation;
+    private enumTypeofOperation typeOfOperation;
     private BigDecimal ammount;
 
 }

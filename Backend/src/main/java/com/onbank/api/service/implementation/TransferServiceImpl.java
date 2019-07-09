@@ -18,4 +18,9 @@ public class TransferServiceImpl implements TransferService {
         return transferRepository.findAll();
     }
 
+    @Override
+    public Transfer setTransfer(Transfer transfer) {
+        return transferRepository.save(transfer);
+    }
+
 }

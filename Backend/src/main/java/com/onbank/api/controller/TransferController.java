@@ -1,12 +1,14 @@
 package com.onbank.api.controller;
 
 import com.onbank.api.dto.TransferDto;
+import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.model.Transfer;
 import com.onbank.api.service.TransferService;
 import com.onbank.api.transformer.TransferTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,12 @@ public class TransferController {
         List<TransferDto> transferDto = transfer.stream().map(TransferTransformer::convertToDto).collect(Collectors.toList());
 
         return transferDto;
+    }
+
+    @PostMapping
+    public TransferDto setTransfer(@Valid @RequestBody CreateTransferDto transferDto){
+        return TransferTransformer.convertToDto(
+                transferService.setTransfer(TransferTransformer.convertToEntity(transferDto)));
     }
 }
 
