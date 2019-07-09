@@ -1,15 +1,16 @@
 import React from 'react';
 import Table from 'shared/Table';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+import currencyFormat from 'core/CurrencyFormat';
 
 const datatableData = [
   [
-    '01.01.2019',
+    '02.01.2019',
     'Jan Kowalski 00000000000000000000000000',
-    'Hajs z YT',
+    'Hajs za YT',
     'Przelew z rachunku',
-    '50,00 PLN',
-    '999 950,00 PLN',
+    50.0,
+    999950.0,
   ],
 ];
 
@@ -27,31 +28,55 @@ const columns = [
               {array[0]}
             </Grid>
             <Grid item xs={12}>
-              {array[1].match(/[A-Z]{2}|(?:(?:\d{2}|\d{4})(?=(\d{4})*$))/g).join(' ')}
+              <Typography variant="subtitle" noWrap>
+                {array[1].match(/[A-Z]{2}|(?:(?:\d{2}|\d{4})(?=(\d{4})*$))/g).join(' ')}
+              </Typography>
             </Grid>
           </Grid>
         );
       },
     },
   },
-  { name: 'description', label: 'Opis operacji' },
+  {
+    name: 'description',
+    label: 'Opis operacji',
+    options: {
+      customBodyRender: value => (
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="subtitle" noWrap>
+              {value}
+            </Typography>
+          </Grid>
+        </Grid>
+      ),
+    },
+  },
   { name: 'type', label: 'Rodzaj operacji' },
   {
     name: 'cost',
     label: 'Kwota operacji',
     options: {
       customBodyRender: value => {
-        if (value < '0') {
-          return <span style={{ color: '#C0392B' }}>{value}</span>;
+        if (value < 0) {
+          return <span style={{ color: '#C0392B' }}>{currencyFormat(value)}</span>;
         }
-        if (value > '0') {
-          return <span style={{ color: '#3FD07C' }}>{value}</span>;
+        if (value > 0) {
+          return <span style={{ color: '#3FD07C' }}>{currencyFormat(value)}</span>;
         }
-        return value;
+        return currencyFormat(value);
       },
     },
   },
-  { name: 'saldo', label: 'Saldo' },
+  {
+    name: 'saldo',
+    label: 'Saldo',
+    options: {
+      customBodyRender: value => {
+        return <span>{currencyFormat(value)}</span>;
+      },
+    },
+  },
 ];
 
 const options = {
@@ -60,6 +85,8 @@ const options = {
   print: false,
 };
 
-const PendingTransactions = () => <Table data={datatableData} columns={columns} options={options} />;
+const PendingTransactions = () => (
+  <Table data={datatableData} columns={columns} options={options} />
+);
 
 export default PendingTransactions;

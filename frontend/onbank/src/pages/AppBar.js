@@ -4,17 +4,19 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import ViewHeadline from '@material-ui/icons/ViewHeadline'
+import ViewHeadline from '@material-ui/icons/ViewHeadline';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import Responsive from 'react-responsive';
-//import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Fade from '@material-ui/core/Fade';
-
-const Desktop = props => <Responsive {...props} minWidth={992} />;
-const Mobile = props => <Responsive {...props} maxWidth={1024} />;
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import Hidden from '@material-ui/core/Hidden';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,95 +44,126 @@ const useStyles = makeStyles(theme => ({
     fontSize: 40,
     color: '#707070',
   },
-  burgerItem: {
-    "&:hover": {
-      backgroundColor: 'rgb(7, 177, 77, 0.42)'
-    }
-  }
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+  burgerTitleOn: {
+    fontWeight: 'bold',
+    color: '#27AE60',
 
+    marginLeft: 70,
+    display: 'inline',
+  },
+  burgerTitleBank: {
+    display: 'inline',
+  },
 }));
 
 export default function ButtonAppBar() {
+  const [state, setState] = React.useState({
+    left: false,
+  });
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const toggleDrawer = (side, open) => event => {
+    if (event.type === 'keydown') {
+      return;
+    }
+    setState({ ...state, [side]: open });
+  };
+  const sideList = side => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+        <ListItemText>
+          <Typography variant="h6" className={classes.burgerTitleOn}>
+            {' '}
+            ON{' '}
+          </Typography>
+          <Typography variant="h6" className={classes.burgerTitleBank}>
+            {' '}
+            BANK{' '}
+          </Typography>
+        </ListItemText>
+        <Divider />
+      </List>
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <MailIcon />
+          </ListItemIcon>
+          <ListItemText primary="Przelewy" />
+        </ListItem>
 
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
+        <ListItem button>
+          <ListItemIcon>
+            <MailIcon />
+          </ListItemIcon>
+          <ListItemText primary="Przelewy" />
+        </ListItem>
 
-  function handleClose() {
-    setAnchorEl(null);
-  }
-
+        <ListItem button>
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Płatności" />
+        </ListItem>
+      </List>
+    </div>
+  );
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  function handleChange(newValue) {
+    setValue(newValue);
+  }
+  const [value1, setValue1] = React.useState(2);
+
   function handleChange(event, newValue) {
     setValue(newValue);
   }
-
   return (
     <Fragment>
-    <Desktop>
-    <AppBar position="relative" color="inherit" className={classes.root}>
-      <Toolbar>
-        <Typography variant="h6" className={classes.on}>
-          ON
-        </Typography>
-        <Typography variant="h6" className={classes.title}>
-          BANK
-        </Typography>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-        >
-          <Tab label="Strona główna" className={classes.bookmark} />
-          <Tab label="Transakcje" className={classes.bookmark} />
-          <Tab label="Płatności" className={classes.bookmark} />
-        </Tabs>
-
-        <AccountCircle className={classes.icon}></AccountCircle>
-      </Toolbar>
-    </AppBar>
-    </Desktop>
-
-    <Mobile>
       <AppBar position="relative" color="inherit" className={classes.root}>
-        
         <Toolbar>
-        <ViewHeadline onClick={handleClick}>
-          
-          </ViewHeadline>
-        {/* <Button onClick={handleClick} > */}
+          <Hidden smUp>
+            <Button onClick={toggleDrawer('left', true)}>
+              <ViewHeadline></ViewHeadline>
+            </Button>
+            <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
+              {sideList('left')}
+            </Drawer>
+          </Hidden>
+
           <Typography variant="h6" className={classes.on}>
             ON
           </Typography>
           <Typography variant="h6" className={classes.title}>
             BANK
           </Typography>
-          {/* </Button> */}
+          <Hidden xsDown>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+            >
+              <Tab label="Strona główna" className={classes.bookmark} />
+              <Tab label="Nowy Przelew" className={classes.bookmark} />
+              <Tab label="Płatności" className={classes.bookmark} />
+            </Tabs>
+          </Hidden>
+
           <AccountCircle className={classes.icon}></AccountCircle>
         </Toolbar>
-          
       </AppBar>
-      <Menu
-        id="fade-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Fade}
-      >
-        <MenuItem onClick={handleClose} className={classes.burgerItem}>Strona główna</MenuItem>
-        <MenuItem onClick={handleClose} className={classes.burgerItem}>Transakcje</MenuItem>
-        <MenuItem onClick={handleClose} className={classes.burgerItem}>Płatności</MenuItem>  
-      </Menu>
-    </Mobile>
-
     </Fragment>
   );
 }
