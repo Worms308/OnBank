@@ -1,49 +1,49 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Grid, Typography } from '@material-ui/core';
 import Table from 'shared/Table';
-import { getTransactionsAction, sendTransactionsAction } from 'actions/transactionsActions';
+import { Grid, Typography } from '@material-ui/core';
+import currencyFormat from 'core/CurrencyFormat';
+import AccountNumberFormat from 'core/AccountNumberFormat';
 
 const datatableData = [
   [
-    '02.01.2019',
+    '01.01.2019',
     'Jan Kowalski 00000000000000000000000000',
     'Hajs z YT',
     'Przelew z rachunku',
-    '50,00 PLN',
-    '999 950,00 PLN',
+    50.0,
+    999950.0,
   ],
   [
     '01.01.2019',
     'Jan Nowak 00000000000000000000000000',
     'Hajs z YT',
     'Przelew z rachunku',
-    '-50,00 PLN',
-    '999 950,00 PLN',
+    -50.0,
+    999950.0,
   ],
   [
     '01.01.2019',
     'Jan Adamiak 00000000000000000000000000',
     'Hajs z YT',
     'Przelew z rachunku',
-    '50,00 PLN',
-    '999 950,00 PLN',
+    50.0,
+    999950.0,
   ],
   [
     '01.01.2019',
     'Jan Testowski 00000000000000000000000000',
     'Hajs z YT',
     'Przelew z rachunku',
-    '-50,00 PLN',
-    '999 950,00 PLN',
+    -50.0,
+    999950.0,
   ],
   [
     '01.01.2019',
     `Jan Brostojewski 00000000000000000000000000`,
     'Hajs z YT',
     'Przelew z rachunku',
-    '50,00 PLN',
-    '999 950,00 PLN',
+    50.0,
+    999950.0,
   ],
 ];
 
@@ -61,8 +61,8 @@ const columns = [
               {array[0]}
             </Grid>
             <Grid item xs={12}>
-              <Typography noWrap>
-                {array[1].match(/[A-Z]{2}|(?:(?:\d{2}|\d{4})(?=(\d{4})*$))/g).join(' ')}
+              <Typography variant="subtitle1" noWrap>
+                {AccountNumberFormat(array[1])}
               </Typography>
             </Grid>
           </Grid>
@@ -70,24 +70,46 @@ const columns = [
       },
     },
   },
-  { name: 'description', label: 'Opis operacji' },
+  {
+    name: 'description',
+    label: 'Opis operacji',
+    options: {
+      customBodyRender: value => (
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="subtitle1" noWrap>
+              {value}
+            </Typography>
+          </Grid>
+        </Grid>
+      ),
+    },
+  },
   { name: 'type', label: 'Rodzaj operacji' },
   {
     name: 'cost',
     label: 'Kwota operacji',
     options: {
       customBodyRender: value => {
-        if (value < '0') {
-          return <span style={{ color: '#C0392B' }}>{value}</span>;
+        if (value < 0) {
+          return <span style={{ color: '#C0392B' }}>{currencyFormat(value)}</span>;
         }
-        if (value > '0') {
-          return <span style={{ color: '#3FD07C' }}>{value}</span>;
+        if (value > 0) {
+          return <span style={{ color: '#3FD07C' }}>{currencyFormat(value)}</span>;
         }
-        return value;
+        return currencyFormat(value);
       },
     },
   },
-  { name: 'saldo', label: 'Saldo' },
+  {
+    name: 'saldo',
+    label: 'Saldo',
+    options: {
+      customBodyRender: value => {
+        return <span>{currencyFormat(value)}</span>;
+      },
+    },
+  },
 ];
 
 const options = {
@@ -96,39 +118,10 @@ const options = {
   print: false,
 };
 
-class ComplitedTransactions extends React.Component {
-  componentDidMount() {
-    const { getTransactions } = this.props;
-    getTransactions();
-  }
+const ComplitedTransactions = () => (
+  <>
+    <Table data={datatableData} columns={columns} options={options} />
+  </>
+);
 
-  render() {
-    const { sendTransactions } = this.props;
-    return (
-      <>
-        <button onClick={sendTransactions}>Przelew</button>
-        <Table data={datatableData} columns={columns} options={options} />
-      </>
-    );
-  }
-}
-
-const mapStateToProps = ({ transactions }) => {
-  return { transactions };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getTransactions: () => {
-      dispatch(getTransactionsAction());
-    },
-    sendTransactions: () => {
-      dispatch(sendTransactionsAction());
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ComplitedTransactions);
+export default ComplitedTransactions;

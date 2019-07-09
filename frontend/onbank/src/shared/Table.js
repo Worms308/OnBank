@@ -1,12 +1,17 @@
 import React from 'react';
+import { createMuiTheme, MuiThemeProvider, useTheme } from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
-import { useTheme } from '@material-ui/styles';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 const Table = ({ data, columns, options }) => {
   const theme = useTheme();
   const custom = () =>
     createMuiTheme({
+      palette: {
+        primary: { 500: '#27AE60' },
+        background: {
+          default: '#ECF0F1',
+        },
+      },
       overrides: {
         MUIDataTable: {
           paper: {
