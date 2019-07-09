@@ -27,7 +27,7 @@ public class Transfer {
     @Column(name="description", nullable=false, length=4000)
     private String description;
     @Column(name="typeofoperation", nullable=false, length=200)
-    private enumTypeofOperation typeOfOperation;
+    private OperationType OperationType;
     @Column(name="ammount", nullable=false)
     private BigDecimal ammount;
     @Column(name="accountballance", nullable=false)
