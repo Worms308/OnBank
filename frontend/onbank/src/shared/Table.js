@@ -20,20 +20,28 @@ const Table = ({ data, columns, options }) => {
               '-5px 0 5px -5px rgba(0,0,0,0.2), 5px 0 5px -5px rgba(0,0,0,0.2), 0 5px 5px -5px rgba(0,0,0,0.2)',
           },
         },
-        MUIDataTableBodyCell: {
-          root: {
-            minHeight: '50px',
+        MUIDataTableBodyRow: {
+          responsiveStacked: {
+            [theme.breakpoints.down('sm')]: {
+              display: 'grid',
+              gridTemplateColumns: '50% 50%',
+            },
           },
+        },
+        MUIDataTableBodyCell: {
+
           cellStacked: {
             [theme.breakpoints.down('sm')]: {
-              width: '50%',
-              minHeight: '70px',
+              width: '100%',
+              height: '100%',
+              whiteSpace: 'normal'
             },
           },
           responsiveStacked: {
             [theme.breakpoints.down('sm')]: {
-              width: '50%',
-              minHeight: '70px',
+              width: '100%',
+              height: '100%',
+              whiteSpace: 'normal'
             },
           },
         },

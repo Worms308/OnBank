@@ -12,6 +12,7 @@ import RouteWithSubRoutes from 'routes/RouteWithSubRoutes';
 import customTheme from 'themes/customTheme';
 import Navigator from 'pages/Navigator';
 import Template from 'pages/Template/Template';
+import NewTransfer from 'pages/NewTransfer/NewTransfer';
 
 const App = () => (
   <Provider store={store}>
@@ -19,19 +20,19 @@ const App = () => (
       <>
         <ToastContainer />
         <CssBaseline />
-        <Template>
-          <Router path="/">
-            <Switch>
+        <Router path="/">
+          <Switch>
+            <Template>
               <Route exact path={paths.home} component={Navigator} />
-              <Route path={paths.newTransfer} component={Navigator} />
+              <Route path={paths.newTransfer} component={NewTransfer} />
 
               {routes.map((route, i) => (
                 <RouteWithSubRoutes key={i} {...route} />
               ))}
               <Redirect to={paths.home} />
-            </Switch>
-          </Router>
-        </Template>
+            </Template>
+          </Switch>
+        </Router>
       </>
     </ThemeProvider>
   </Provider>

@@ -1,6 +1,5 @@
 import React from 'react';
 import Table from 'shared/Table';
-import { Grid, Typography } from '@material-ui/core';
 import currencyFormat from 'core/CurrencyFormat';
 import AccountNumberFormat from 'core/AccountNumberFormat';
 
@@ -19,21 +18,15 @@ const columns = [
   { name: 'date', label: 'Data' },
   {
     name: 'account',
-    label: 'Odbiorca/Nadawca',
+    label: 'Odbiorca / Nadawca',
     options: {
       customBodyRender: value => {
         const array = value.split(/([0-9]+)/);
         return (
-          <Grid container>
-            <Grid item xs={12}>
-              {array[0]}
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="subtitle1" noWrap>
-                {AccountNumberFormat(array[1])}
-              </Typography>
-            </Grid>
-          </Grid>
+          <div>
+            <div>{array[0]}</div>
+            <div style={{ color: '#999', fontSize: '12px' }}>{AccountNumberFormat(array[1])}</div>
+          </div>
         );
       },
     },
@@ -42,15 +35,12 @@ const columns = [
     name: 'description',
     label: 'Opis operacji',
     options: {
-      customBodyRender: value => (
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant="subtitle1" noWrap>
-              {value}
-            </Typography>
-          </Grid>
-        </Grid>
-      ),
+      customBodyRender: value => {
+        if (value.length > 32) {
+          return <div style={{ width: '120px' }}>{value.substring(0, 32)}...</div>;
+        }
+        return <div>{value}</div>;
+      },
     },
   },
   { name: 'type', label: 'Rodzaj operacji' },
