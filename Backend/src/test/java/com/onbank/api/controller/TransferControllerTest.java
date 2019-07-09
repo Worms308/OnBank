@@ -25,7 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 @LoadProperties
 @SpringBootTest
-@WebMvcTest(TransferController.class)
 @SpringJUnitWebConfig(classes = {AppConfig.class, DatabaseConfig.class})
 class TransferControllerTest {
 
