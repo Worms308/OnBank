@@ -1,13 +1,16 @@
 package com.onbank.api.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "transfer")
 public class Transfer {
@@ -27,6 +30,7 @@ public class Transfer {
     @Column(name="description", nullable=false, length=4000)
     private String description;
     @Column(name="typeofoperation", nullable=false, length=200)
+    @Enumerated(EnumType.STRING)
     private OperationType OperationType;
     @Column(name="ammount", nullable=false)
     private BigDecimal ammount;
