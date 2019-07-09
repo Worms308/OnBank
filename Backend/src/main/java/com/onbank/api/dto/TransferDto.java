@@ -1,7 +1,14 @@
 package com.onbank.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.onbank.api.model.enumTypeofOperation;
+import com.onbank.api.model.serializers.DateDeserializer;
+import com.onbank.api.model.serializers.DateSerializer;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,6 +22,8 @@ import java.time.LocalDateTime;
 public class TransferDto {
     private Long id;
     @NotNull(message = "Date cannot be empty.")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
     @NotNull(message = "Name cannot be empty.")
     @Size(min = 1, max = 50, message = "Name must be between 1-50 characters.")
