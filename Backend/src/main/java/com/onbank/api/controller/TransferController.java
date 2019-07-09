@@ -6,6 +6,7 @@ import com.onbank.api.model.Transfer;
 import com.onbank.api.service.TransferService;
 import com.onbank.api.transformer.TransferTransformer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/transfers")
+@Validated
 public class TransferController {
 
     private final TransferService transferService;
