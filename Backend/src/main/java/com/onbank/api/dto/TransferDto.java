@@ -1,19 +1,20 @@
 package com.onbank.api.dto;
 
+import com.onbank.api.model.enumTypeofOperation;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class TransferDto {
     private Long id;
-    private Date date;
+    private LocalDateTime date;
     private String name;
     private String surname;
     private String accountNumber;
     private String description;
-    private String typeOfOperation;
+    private enumTypeofOperation typeOfOperation;
     private BigDecimal ammount;
     private BigDecimal accountBallance;
 

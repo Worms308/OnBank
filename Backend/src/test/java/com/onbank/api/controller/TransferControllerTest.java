@@ -1,18 +1,16 @@
 package com.onbank.api.controller;
-/*
+
 import com.onbank.AppConfig;
+import com.onbank.DatabaseConfig;
 import com.onbank.LoadProperties;
-import com.onbank.api.dto.TransferDto;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -26,45 +24,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 @LoadProperties
-@EnableCaching
 @SpringBootTest
-@SpringJUnitWebConfig(classes = {AppConfig.class})
+@WebMvcTest(TransferController.class)
+@SpringJUnitWebConfig(classes = {AppConfig.class, DatabaseConfig.class})
 class TransferControllerTest {
 
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
 
     private MockMvc mockMvc;
+
+    @Autowired
+    WebApplicationContext webApplicationContext;
 
     @MockBean
     private TransferController transferController;
 
-    @MockBean
-    private TransferDto transferDto;
-
     @Before
-    public void setup(){
+    void setup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
-    void getTransfersOkTest() {
+    void getTransfersOk() {
         assertThat(transferController).isNotNull();
     }
 
     @Test
-    void getTransferTest() throws Exception {
-        this.mockMvc.perform(get("/api/transfers")).andDo(print()).andExpect(status().isOk());
+    void getEmptyResponse() {
+        assertThat(this.transferController.getTransfers()).isEmpty();
     }
 
     @Test
-    public void getTransferOkTest() throws Exception {
-
+    void getStatusCheck() throws Exception {
+        this.mockMvc.perform(get("/api/transfers"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
-}*/
+}
