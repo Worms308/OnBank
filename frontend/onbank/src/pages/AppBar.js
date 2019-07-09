@@ -34,9 +34,11 @@ const useStyles = makeStyles(theme => ({
 
   bookmark: {
     marginLeft: theme.spacing(6),
-    spacing: 4,
-    fontSize: 15,
-    textAlign: 'right',
+    fontSize: 16,
+    textAlign: 'center',
+    //display: 'inline-block',
+    whiteSpace: 'nowrap'
+
   },
   icon: {
     marginLeft: 'auto',
@@ -124,7 +126,7 @@ export default function ButtonAppBar() {
     <Fragment>
     <AppBar position="relative" color="inherit" className={classes.root}>
       <Toolbar>
-        <Hidden smUp>
+        <Hidden mdUp>
          <Button onClick={toggleDrawer('left', true)}><ViewHeadline></ViewHeadline></Button>
          <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
          {sideList('left')}
@@ -137,7 +139,7 @@ export default function ButtonAppBar() {
         <Typography variant="h6" className={classes.title}>
           BANK
         </Typography>
-        <Hidden xsDown>
+        <Hidden smDown>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -146,8 +148,8 @@ export default function ButtonAppBar() {
           variant="fullWidth"
         >
           <Tab label="Strona główna" className={classes.bookmark} />
-          <Tab label="Transakcje" className={classes.bookmark} />
-          <Tab label="Płatności" className={classes.bookmark} />
+          <Tab label="Nowy Przelew" className={classes.bookmark} />
+          <Tab label="Lista przelewów" className={classes.bookmark} />
         </Tabs>
         </Hidden>
 

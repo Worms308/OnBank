@@ -20,6 +20,8 @@ const App = () => (
           <Router path="/">
             <Switch>
               <Route exact path={paths.home} component={Navigator} />
+              <Route path={paths.newTransfer} component={Navigator} />
+
               {routes.map((route, i) => (
                 <RouteWithSubRoutes key={i} {...route} />
               ))}
