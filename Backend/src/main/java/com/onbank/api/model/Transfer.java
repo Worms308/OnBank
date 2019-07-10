@@ -49,7 +49,7 @@ public class Transfer {
     @Column(name = "sender")
     @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
     //@NotNull(message = "Account number cannot be empty.")
-    @Pattern(regexp = "PL\\d{26}|\\d{26}")
+    @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
     private String sender;
     //TODO tabelka z uzytkownikami
     @Column(name = "senderaccount", length = 50)

@@ -14,6 +14,7 @@ public class TransferServiceImpl implements TransferService {
 
     private final TransferRepository transferRepository;
 
+    @Override
     public List<Transfer> getTransfers(){
         return transferRepository.findAll();
     }
