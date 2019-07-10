@@ -49,7 +49,7 @@ class TransferControllerTest {
     }
 
     @Test
-    void getStatusConnection() throws Exception {
+    void shouldReturnCorrectConnection() throws Exception {
        String transfer = mockMvc.perform(get("/api/transfers"))
                             .andDo(print())
                             .andExpect(status().isOk())
@@ -60,7 +60,7 @@ class TransferControllerTest {
 
 
     @Test
-    void getEmptyList() throws Exception {
+    void shouldReturnNoTransfers() throws Exception {
 
         mockMvc.perform(get("/api/transfers"))
                 .andDo(print())
@@ -84,7 +84,7 @@ class TransferControllerTest {
     }
 
     @Test
-    void getDatabaseList() throws Exception {
+    void shouldReturnTransfers() throws Exception {
         mockMvc.perform(get("/api/transfers"))
                 .andDo(print())
                 .andExpect(status().isOk())
