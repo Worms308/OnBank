@@ -4,25 +4,18 @@ import com.onbank.LoadProperties;
 import com.onbank.api.model.OperationType;
 import com.onbank.api.model.Transfer;
 import com.onbank.api.repository.TransferRepository;
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,24 +31,15 @@ class TransferControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    WebApplicationContext webApplicationContext;
+    private WebApplicationContext webApplicationContext;
 
     @Autowired
-    TransferRepository transferRepository;
+    private TransferRepository transferRepository;
 
     @BeforeEach
     void setup(){
+        transferRepository.deleteAll();
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-
-    @Test
-    void shouldReturnCorrectConnection() throws Exception {
-       String transfer = mockMvc.perform(get("/api/transfers"))
-                            .andDo(print())
-                            .andExpect(status().isOk())
-                            .andReturn().getResponse().getContentAsString();
-
-        assertThat(transfer).isNotEmpty();
     }
 
 
@@ -68,7 +52,7 @@ class TransferControllerTest {
                 .andExpect(jsonPath("$", hasSize(0)));
     }
 
-    Transfer createMockObject(){
+    private Transfer createMockObject(){
         BigDecimal bigDecimal = new BigDecimal(32324.3);
         Transfer transfer = new Transfer();
         transfer.setOperationType(OperationType.CREDIT_OPERATION);
