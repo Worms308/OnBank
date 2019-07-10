@@ -68,8 +68,7 @@ class TransferControllerTest {
                 .andExpect(jsonPath("$", hasSize(0)));
     }
 
-    @Test
-    void databaseInsert(){
+    Transfer createMockObject(){
         BigDecimal bigDecimal = new BigDecimal(32324.3);
         Transfer transfer = new Transfer();
         transfer.setOperationType(OperationType.CREDIT_OPERATION);
@@ -80,11 +79,12 @@ class TransferControllerTest {
         transfer.setDescription("Opis operacji");
         transfer.setName("Jan");
         transfer.setSurname("Kowalski");
-        transferRepository.save(transfer);
+        return transfer;
     }
 
     @Test
     void shouldReturnTransfers() throws Exception {
+        transferRepository.save(createMockObject());
         mockMvc.perform(get("/api/transfers"))
                 .andDo(print())
                 .andExpect(status().isOk())
