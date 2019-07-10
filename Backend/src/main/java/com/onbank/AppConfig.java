@@ -8,4 +8,5 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @Configuration
 public class AppConfig {
+
 }
