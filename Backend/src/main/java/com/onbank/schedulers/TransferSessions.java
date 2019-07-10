@@ -1,4 +1,4 @@
-package com.onbank.schedulders;
+package com.onbank.schedulers;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
