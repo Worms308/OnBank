@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.onbank.LoadProperties;
+import com.onbank.ObjectToJson;
 import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.model.OperationType;
 import com.onbank.api.model.Transfer;
@@ -45,9 +46,6 @@ class TransferControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private TransferController transferController;
-
-    @Autowired
     private TransferRepository transferRepository;
 
     @BeforeEach
@@ -56,23 +54,22 @@ class TransferControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    @Test
-    void shouldAddTransferToDb() throws Exception {
+    private CreateTransferDto createTransferDto(){
         CreateTransferDto createTransferDto = new CreateTransferDto();
         createTransferDto.setName("Jan");
         createTransferDto.setSurname("Kowalski");
         createTransferDto.setDate(LocalDateTime.of(2015, 05, 22, 18, 30, 13));
-        createTransferDto.setAccountNumber("PL22711020040000300201355387");
+        createTransferDto.setAccountNumber("PL32349188939421535264612669");
         createTransferDto.setAmmount(new BigDecimal("1500.53"));
         createTransferDto.setDescription("Testowy przelew ĄŹŻ");
         createTransferDto.setOperationType(OperationType.CURRENCY_OPERATION);
+        return createTransferDto;
+    }
 
-        ObjectMapper mapper = new ObjectMapper();
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ISO_DATE_TIME));
-        mapper.registerModule(javaTimeModule);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(createTransferDto);
+    @Test
+    void shouldAddTransferToDb() throws Exception {
+        CreateTransferDto createTransferDto = this.createTransferDto();
+        String requestJson = ObjectToJson.convert(createTransferDto);
 
         this.mockMvc.perform(post("/api/transfers")
                 .contentType(APPLICATION_JSON_UTF8)
@@ -93,7 +90,7 @@ class TransferControllerTest {
         Transfer transfer = new Transfer();
         transfer.setOperationType(OperationType.CREDIT_OPERATION);
         transfer.setAccountBallance(bigDecimal);
-        transfer.setAccountNumber("PL47593749203719738493829384");
+        transfer.setAccountNumber("PL32349188939421535264612669");
         transfer.setAmmount(bigDecimal);
         transfer.setDate(LocalDateTime.now());
         transfer.setDescription("Opis operacji");

@@ -2,6 +2,7 @@ package com.onbank.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.onbank.api.model.OperationType;
+import com.onbank.api.validators.AccountNumber;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,6 +31,7 @@ public class CreateTransferDto {
     @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
     @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)",
             message = "Invalid account number.")
+    @AccountNumber(message = "Invalid account number.")
     private String accountNumber;
     private String description;
     @NotNull(message = "Type of operation cannot be empty.")

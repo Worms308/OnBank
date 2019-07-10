@@ -1,5 +1,6 @@
 package com.onbank.api.model;
 
+import com.onbank.api.validators.AccountNumber;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Transfer {
     @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
     @NotNull(message = "Account number cannot be empty.")
     @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
+    @AccountNumber(message = "Invalid account number.")
     private String accountNumber;
     @Column(name="description", length=4000)
     private String description;

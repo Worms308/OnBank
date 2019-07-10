@@ -20,7 +20,7 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
-    public Transfer setTransfer(Transfer transfer) {
+    public Transfer createTransfer(Transfer transfer) {
         return transferRepository.save(transfer);
     }
 

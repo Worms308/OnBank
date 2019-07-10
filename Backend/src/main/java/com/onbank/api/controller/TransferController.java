@@ -31,7 +31,7 @@ public class TransferController {
     @PostMapping
     public TransferDto setTransfer(@Valid @RequestBody CreateTransferDto transferDto){
         return TransferTransformer.convertToDto(
-                transferService.setTransfer(TransferTransformer.convertToEntity(transferDto)));
+                transferService.createTransfer(TransferTransformer.convertToEntity(transferDto)));
     }
 }
 
