@@ -1,12 +1,8 @@
 package com.onbank.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.onbank.api.model.enumTypeofOperation;
-import com.onbank.api.model.serializers.DateDeserializer;
-import com.onbank.api.model.serializers.DateSerializer;
+
+import com.onbank.api.model.OperationType;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,7 +12,6 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 
 @Data
 public class TransferDto {
@@ -38,9 +33,10 @@ public class TransferDto {
     private String accountNumber;
     private String description;
     @NotNull(message = "Type of operation cannot be empty.")
-    private enumTypeofOperation typeOfOperation;
+    private OperationType OperationType;
     @NotNull(message = "Amount cannot be empty.")
     @Positive(message = "Amount must be bigger than 0,00.")
     private BigDecimal ammount;
     private BigDecimal accountBallance;
+
 }

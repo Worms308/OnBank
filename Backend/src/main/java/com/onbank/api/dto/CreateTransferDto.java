@@ -1,7 +1,7 @@
 package com.onbank.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.onbank.api.model.enumTypeofOperation;
+import com.onbank.api.model.OperationType;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,7 +31,7 @@ public class CreateTransferDto {
     private String accountNumber;
     private String description;
     @NotNull(message = "Type of operation cannot be empty.")
-    private enumTypeofOperation typeOfOperation;
+    private OperationType OperationType;
     @NotNull(message = "Amount cannot be empty.")
     @Positive(message = "Amount must be bigger than 0,00.")
     private BigDecimal ammount;

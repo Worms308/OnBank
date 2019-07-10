@@ -25,9 +25,7 @@ public class TransferController {
     @GetMapping
     public List<TransferDto> getTransfers(){
         List<Transfer> transfer = transferService.getTransfers();
-        List<TransferDto> transferDto = transfer.stream().map(TransferTransformer::convertToDto).collect(Collectors.toList());
-
-        return transferDto;
+        return transfer.stream().map(TransferTransformer::convertToDto).collect(Collectors.toList());
     }
 
     @PostMapping

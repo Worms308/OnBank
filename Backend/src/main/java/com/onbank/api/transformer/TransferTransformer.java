@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 
 public class TransferTransformer {
 
-    static public TransferDto convertToDto(Transfer transfer){
+    public static TransferDto convertToDto(Transfer transfer){
         TransferDto transferDto = new TransferDto();
         BeanUtils.copyProperties(transfer, transferDto);
         return transferDto;
     }
 
-    static public Transfer convertToEntity(TransferDto transferDto){
+    public static Transfer convertToEntity(TransferDto transferDto){
         Transfer transfer = new Transfer();
         BeanUtils.copyProperties(transferDto, transfer);
         return transfer;

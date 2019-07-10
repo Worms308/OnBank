@@ -3,7 +3,6 @@ package com.onbank.api.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,7 +38,8 @@ public class Transfer {
     private String description;
     @NotNull(message = "Type of operation cannot be empty.")
     @Column(name="typeofoperation", nullable=false, length=200)
-    private enumTypeofOperation typeOfOperation;
+    @Enumerated(EnumType.STRING)
+    private OperationType OperationType;
     @Column(name="ammount", nullable=false)
     @NotNull(message = "Amount cannot be empty.")
     @Positive(message = "Amount must be bigger than 0,00.")
