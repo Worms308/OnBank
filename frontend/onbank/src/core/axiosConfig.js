@@ -3,7 +3,8 @@ import { toast } from 'react-toastify';
 
 const baseURL = 'http://localhost:8080/api/';
 
-const axiosInstance = axios.create({ baseURL });
+const axiosInstanceGet = axios.create({ baseURL });
+const axiosInstancePost = axios.create({ baseURL });
 
 const requestHandler = request => {
   return request;
@@ -13,21 +14,28 @@ const errorHandler = error => {
   if (!error.response) {
     toast.error('Sprawdź połączenie z internetem');
   } else if (error.response) {
-    toast.error('Sprawdź połączenie z internetem');
+    toast.error(`${error.response.code} - ${error.response.description}`);
   }
   return Promise.reject(error);
 };
 
-const successHandler = response => {
-  toast.success('OK');
-  return response;
-};
+axiosInstanceGet.interceptors.request.use(request => requestHandler(request));
 
-axiosInstance.interceptors.request.use(request => requestHandler(request));
-
-axiosInstance.interceptors.response.use(
-  response => successHandler(response),
+axiosInstanceGet.interceptors.response.use(
+  response => {
+    return response;
+  },
   error => errorHandler(error),
 );
 
-export { axiosInstance };
+axiosInstancePost.interceptors.request.use(request => requestHandler(request));
+
+axiosInstancePost.interceptors.response.use(
+  response => {
+    toast.success('Wiadomość wysłana');
+    return response;
+  },
+  error => errorHandler(error),
+);
+
+export { axiosInstanceGet, axiosInstancePost };

@@ -1,4 +1,4 @@
-import { axiosInstance } from 'core/axiosConfig';
+import { axiosInstanceGet, axiosInstancePost } from 'core/axiosConfig';
 
 export const TRANSACTIONS_URL = '/transfers';
 
@@ -12,8 +12,8 @@ const data = {
   ammount: 32323.21,
 };
 
-const getAccountData = () => axiosInstance({ method: 'get', url: TRANSACTIONS_URL });
-const getTransactions = () => axiosInstance({ method: 'get', url: TRANSACTIONS_URL });
-const sendTransactions = () => axiosInstance({ method: 'post', url: TRANSACTIONS_URL, data });
+const getAccountData = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
+const getTransactions = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
+const sendTransactions = () => axiosInstancePost({ method: 'post', url: TRANSACTIONS_URL, data });
 
 export { getAccountData, getTransactions, sendTransactions };
