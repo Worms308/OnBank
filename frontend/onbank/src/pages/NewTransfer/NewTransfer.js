@@ -1,4 +1,3 @@
-import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +8,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import NumberFormat from 'react-number-format';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
-//import AccountNumberFormat from 'core/AccountNumberFormat';
+// import React, {useState } from "react";
+// import { DateTimePicker, KeyboardDateTimePicker } from "@material-ui/pickers";
+
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
+import DateFnsUtils from '@date-io/date-fns';
+import LuxonUtils from '@date-io/luxon';
+import React, { useState } from "react";
+import { DateTimePicker, KeyboardDateTimePicker } from "@material-ui/pickers";
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -67,6 +75,12 @@ const useStyles = makeStyles(theme => ({
     button:{
       marginLeft:'55%',
       marginBottom:'2%'
+    },
+    datePicker:{
+      marginLeft:'33%',
+      [theme.breakpoints.down('sm')]: {
+        marginLeft:'10%',
+    },
     }
    
   }));
@@ -95,6 +109,24 @@ const useStyles = makeStyles(theme => ({
     inputRef: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
   };
+  function InlineDateTimePickerDemo(props) {
+    const [selectedDate, handleDateChange] = useState(new Date("2018-01-01T00:00:00.000Z"));
+  
+    return (
+      <>
+        <KeyboardDateTimePicker
+          variant="inline"
+          ampm={false}
+          label="Wprowadź datę"
+          value={selectedDate}
+          onChange={handleDateChange}
+          onError={console.log}
+          disablePast
+          format="yyyy.MM.dd HH:mm"
+        />
+      </>
+    );
+  }
 
 export default function NewTransfer()
 {
@@ -104,6 +136,8 @@ export default function NewTransfer()
         name: '',
         
       });
+    const [selectedDate, handleDateChange] = useState(new Date());
+      
 
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
@@ -148,16 +182,12 @@ export default function NewTransfer()
             }}
         />
         <br/>
-        <TextField
-        id="date"
-        label="Data przelewu"
-        type="date"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br/>
+        <div className={classes.datePicker}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} >
+          <InlineDateTimePickerDemo />
+        </MuiPickersUtilsProvider>
+        </div>
+        <br/>
         <FormControlLabel
           value="start"
           control={<Checkbox color="default" />}
