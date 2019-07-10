@@ -39,10 +39,12 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -63,6 +65,7 @@ class TransferControllerTest {
 
     @BeforeEach
     void setup(){
+        transferRepository.deleteAll();
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -106,5 +109,37 @@ class TransferControllerTest {
         fromDB.get(0).setId(null);
 
         assertThat(fromDB.get(0)).isEqualTo(TransferTransformer.convertToEntity(createTransferDto));
+    }
+
+    private Transfer createMockObject(){
+        BigDecimal bigDecimal = new BigDecimal(32324.3);
+        Transfer transfer = new Transfer();
+        transfer.setOperationType(OperationType.CREDIT_OPERATION);
+        transfer.setAccountBallance(bigDecimal);
+        transfer.setAccountNumber("PL47593749203719738493829384");
+        transfer.setAmmount(bigDecimal);
+        transfer.setDate(LocalDateTime.now());
+        transfer.setDescription("Opis operacji");
+        transfer.setName("Jan");
+        transfer.setSurname("Kowalski");
+        return transfer;
+    }
+
+    @Test
+    void shouldReturnTransfers() throws Exception {
+        transferRepository.save(createMockObject());
+        mockMvc.perform(get("/api/transfers"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    void shouldReturnNoTransfers() throws Exception {
+
+        mockMvc.perform(get("/api/transfers"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
     }
 }
