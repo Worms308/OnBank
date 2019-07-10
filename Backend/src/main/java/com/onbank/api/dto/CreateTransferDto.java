@@ -28,7 +28,7 @@ public class CreateTransferDto {
     private String surname;
     @NotNull(message = "Account number cannot be empty.")
     @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
-    @Pattern(regexp = "PL\\d{26}|\\d{26}",
+    @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)",
             message = "Invalid account number.")
     private String accountNumber;
     private String description;

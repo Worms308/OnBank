@@ -30,7 +30,7 @@ public class Transfer {
     @Column(name="accountnumber", nullable=false)
     @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
     @NotNull(message = "Account number cannot be empty.")
-    @Pattern(regexp = "PL\\d{26}|\\d{26}")
+    @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
     private String accountNumber;
     @Column(name="description", length=4000)
     private String description;
@@ -44,4 +44,16 @@ public class Transfer {
     private BigDecimal ammount;
     @Column(name="accountballance", nullable=false)
     private BigDecimal accountBallance;
+
+    //TODO pobrać numer konta od nadawcy przy robieniu przelewu
+    @Column(name = "sender")
+    @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
+    //@NotNull(message = "Account number cannot be empty.")
+    @Pattern(regexp = "PL\\d{26}|\\d{26}")
+    private String sender;
+    //TODO tabelka z uzytkownikami
+    @Column(name = "senderaccount", length = 50)
+    //@NotNull(message = "Sender name cannot be empty.")
+    private int senderAccount;
+
 }
