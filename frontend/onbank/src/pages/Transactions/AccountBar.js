@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import currencyFormat from 'core/CurrencyFormat';
 import AccountNumberFormat from 'core/AccountNumberFormat';
+import { getAccountDataAction } from 'actions/transactionsActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,17 +60,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function AccountBar() {
+const AccountBar = ({ accountData, getAccountData }) => {
   const classes = useStyles();
 
+  useEffect(getAccountData);
   return (
     <Paper>
       <div className={classes.divNameAccount}>
         <Typography variant="h5" className={classes.nameAccount}>
-          Nazwa konta
+          {accountData.name}
         </Typography>
         <Typography variant="h5" className={classes.nameAccount}>
-          {AccountNumberFormat('00000000000000000000000000')}
+          {AccountNumberFormat(accountData.accountNumber)}
         </Typography>
       </div>
 
@@ -77,7 +80,7 @@ export default function AccountBar() {
           Dostępne środki
         </Typography>
         <Typography variant="h5" className={classes.avalaibleFunds}>
-          {currencyFormat(1000.0)}
+          {currencyFormat(accountData.availableFunds)}
         </Typography>
       </div>
 
@@ -86,9 +89,27 @@ export default function AccountBar() {
           Blokady
         </Typography>
         <Typography variant="h5" className={classes.lock}>
-          {currencyFormat(-100.0)}
+          {currencyFormat(accountData.blockedFunds)}
         </Typography>
       </div>
     </Paper>
   );
-}
+};
+
+const mapStateToProps = ({ transactions }) => {
+  const accountData = transactions.mockAccountBar;
+  return { accountData };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getAccountData: () => {
+      dispatch(getAccountDataAction('accountData'));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AccountBar);

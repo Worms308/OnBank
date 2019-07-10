@@ -12,7 +12,8 @@ const data = {
   ammount: 32323.21,
 };
 
+const getAccountData = () => axiosInstance({ method: 'get', url: TRANSACTIONS_URL });
 const getTransactions = () => axiosInstance({ method: 'get', url: TRANSACTIONS_URL });
 const sendTransactions = () => axiosInstance({ method: 'post', url: TRANSACTIONS_URL, data });
 
-export { getTransactions, sendTransactions };
+export { getAccountData, getTransactions, sendTransactions };

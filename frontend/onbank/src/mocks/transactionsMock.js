@@ -1,10 +1,15 @@
-export const transactionList = {
-  data: [
+const transactions = {
+  mockAccountBar: {
+    name: 'Konto na wypasie',
+    accountNumber: 'PL00000000000000000000000000',
+    blockedFunds: -100,
+    availableFunds: 1000,
+  },
+  mockTransactionList: [
     {
       id: 1,
       date: '2019-01-01',
-      name: 'JAN',
-      surname: 'ABACKI',
+      receiver: 'Jan Kowalski',
       accountNumber: 'PL00000000000000000000000000',
       description: 'MAŁE PIENIADZE DLA STUDENTA',
       typeOfOperation: 'PRZELEW NA KONTO',
@@ -14,8 +19,7 @@ export const transactionList = {
     {
       id: 2,
       date: '2019-03-01',
-      name: 'JAN',
-      surname: 'ABACKI',
+      receiver: 'Onwelo Sp.Z.O.O',
       accountNumber: 'PL00000000000000000000000000',
       description: 'MAŁE PIENIADZE DLA STUDENTA LOREM IPSUM ',
       typeOfOperation: 'PRZELEW NA KONTO',
@@ -24,3 +28,5 @@ export const transactionList = {
     },
   ],
 };
+
+export default transactions;

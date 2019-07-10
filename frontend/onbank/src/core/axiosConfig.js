@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const axiosInstance = axios.create({ baseURL: 'http://localhost:8080/api/' });
+const baseURL = 'http://localhost:8080/api/';
+
+const axiosInstance = axios.create({ baseURL });
 
 const requestHandler = request => {
   return request;
@@ -10,12 +12,14 @@ const requestHandler = request => {
 const errorHandler = error => {
   if (!error.response) {
     toast.error('Sprawdź połączenie z internetem');
+  } else if (error.response) {
+    toast.error('Sprawdź połączenie z internetem');
   }
   return Promise.reject(error);
 };
 
 const successHandler = response => {
-  toast.success('ok');
+  toast.success('OK');
   return response;
 };
 
@@ -26,4 +30,4 @@ axiosInstance.interceptors.response.use(
   error => errorHandler(error),
 );
 
-export { axiosInstance, requestHandler, errorHandler, successHandler };
+export { axiosInstance };

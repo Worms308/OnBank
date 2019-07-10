@@ -1,7 +1,7 @@
 import { FETCH_SUCCESS } from 'actions/transactionsActions';
-import { transactionList } from 'mocks/transactionsMock';
+import transactionList from 'mocks/transactionsMock';
 
-const transactionsReducers = (state = transactionList, action) => {
+const transactionsReducer = (state = transactionList, action) => {
   switch (action.type) {
     case FETCH_SUCCESS:
       return {
@@ -13,4 +13,4 @@ const transactionsReducers = (state = transactionList, action) => {
   }
 };
 
-export default transactionsReducers;
+export default transactionsReducer;
