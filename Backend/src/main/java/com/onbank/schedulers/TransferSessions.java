@@ -6,22 +6,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class TransferSessions {
 
-    @Scheduled(cron = "0 30 8 * * ?")
+
+    @Scheduled(cron = "${onbank.outgoing.transfer.morning.date}")
     public void outgoingTransferMorningSession() {
         System.out.println("Hello darkness my old friend- outgoing morning");
     }
 
-    @Scheduled(cron = "0 0 10 * * ?")
+    @Scheduled(cron = "${onbank.incoming.transfer.morning.date}")
     public void incomingTransferMorningSession() {
         System.out.println("Hello darkness my old friend - incoming morning");
     }
 
-    @Scheduled(cron = "0 30 14 * * ?")
+    @Scheduled(cron = "${onbank.outgoing.transfer.daily.date}")
     public void outgoingTransferDailySession() {
         System.out.println("Hello darkness my old friend - outgoing daily");
     }
 
-    @Scheduled(cron = "0 0 16 * * ?")
+    @Scheduled(cron = "${onbank.incoming.transfer.daily.date}")
     public void incomingTransferDailySession() {
         System.out.println("Hello darkness my old friend - incoming daily");
     }
