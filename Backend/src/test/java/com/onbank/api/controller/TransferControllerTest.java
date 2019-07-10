@@ -57,16 +57,6 @@ class TransferControllerTest {
     }
 
     @Test
-    void getStatusCheck() throws Exception {
-        String transfer = mockMvc.perform(get("/api/transfers"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
-
-        assertThat(transfer).isNotEmpty();
-    }
-
-    @Test
     void shouldAddTransferToDb() throws Exception {
         CreateTransferDto createTransferDto = new CreateTransferDto();
         createTransferDto.setName("Jan");
