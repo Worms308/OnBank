@@ -6,6 +6,8 @@ import com.onbank.api.model.OperationType;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
@@ -33,6 +35,7 @@ public class TransferDto {
     private String accountNumber;
     private String description;
     @NotNull(message = "Type of operation cannot be empty.")
+    @Enumerated(EnumType.STRING)
     private OperationType OperationType;
     @NotNull(message = "Amount cannot be empty.")
     @Positive(message = "Amount must be bigger than 0,00.")
