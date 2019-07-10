@@ -8,15 +8,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import NumberFormat from 'react-number-format';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
-// import React, {useState } from "react";
-// import { DateTimePicker, KeyboardDateTimePicker } from "@material-ui/pickers";
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
 import DateFnsUtils from '@date-io/date-fns';
-import LuxonUtils from '@date-io/luxon';
-import React, { useState } from "react";
-import { DateTimePicker, KeyboardDateTimePicker } from "@material-ui/pickers";
+import React, { Form,useState } from "react";
+import {KeyboardDateTimePicker } from "@material-ui/pickers";
 
 
 const useStyles = makeStyles(theme => ({
@@ -110,7 +106,7 @@ const useStyles = makeStyles(theme => ({
     onChange: PropTypes.func.isRequired,
   };
   function InlineDateTimePickerDemo(props) {
-    const [selectedDate, handleDateChange] = useState(new Date("2018-01-01T00:00:00.000Z"));
+    const [selectedDate, handleDateChange] = useState(new Date());
   
     return (
       <>
