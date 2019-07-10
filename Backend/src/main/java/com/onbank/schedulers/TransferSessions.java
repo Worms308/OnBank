@@ -7,24 +7,13 @@ import org.springframework.stereotype.Component;
 public class TransferSessions {
 
 
-    @Scheduled(cron = "${onbank.outgoing.transfer.morning.date}")
+    @Scheduled(cron = "${onbank.outgoing.transfer.date}")
     public void outgoingTransferMorningSession() {
-        System.out.println("Hello darkness my old friend- outgoing morning");
+        System.out.println("Hello darkness my old friend- outgoing");
     }
 
-    @Scheduled(cron = "${onbank.incoming.transfer.morning.date}")
+    @Scheduled(cron = "${onbank.incoming.transfer.date}")
     public void incomingTransferMorningSession() {
-        System.out.println("Hello darkness my old friend - incoming morning");
+        System.out.println("Hello darkness my old friend - incoming");
     }
-
-    @Scheduled(cron = "${onbank.outgoing.transfer.daily.date}")
-    public void outgoingTransferDailySession() {
-        System.out.println("Hello darkness my old friend - outgoing daily");
-    }
-
-    @Scheduled(cron = "${onbank.incoming.transfer.daily.date}")
-    public void incomingTransferDailySession() {
-        System.out.println("Hello darkness my old friend - incoming daily");
-    }
-
 }
