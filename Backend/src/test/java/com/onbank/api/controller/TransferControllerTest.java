@@ -42,13 +42,13 @@ class TransferControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    WebApplicationContext webApplicationContext;
+    private WebApplicationContext webApplicationContext;
 
     @Autowired
-    TransferController transferController;
+    private TransferController transferController;
 
     @Autowired
-    TransferRepository transferRepository;
+    private TransferRepository transferRepository;
 
     @BeforeEach
     void setup() {
