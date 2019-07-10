@@ -1,12 +1,12 @@
 import { getTransactions, sendTransactions } from 'API/transactions';
 
-export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
-export const FETCH_FAILURE = 'FETCH_FAILURE';
 
-export const getTransactionsAction = () => dispatch => {
+export const getTransactionsAction = name => dispatch => {
   return getTransactions()
-    .then(response => console.log(response))
+    .then(response => {
+      dispatch({ type: FETCH_SUCCESS, payload: { name, data: response } });
+    })
     .catch(err => console.log(err));
 };
 
