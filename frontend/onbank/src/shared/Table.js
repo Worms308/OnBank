@@ -6,13 +6,21 @@ import AccountNumberFormat from 'core/AccountNumberFormat';
 import DateFormat from 'core/DateFormat';
 
 const columns = [
-  { name: 'date', label: 'Data' },
+  {
+    name: 'date',
+    label: 'Data',
+    options: {
+      customBodyRender: value => {
+        return <span>{DateFormat(new Date(value), true)}</span>;
+      },
+    },
+  },
   {
     name: 'account',
     label: 'Odbiorca / Nadawca',
     options: {
       customBodyRender: value => {
-        const array = value.split(/([0-9]+)/);
+        const array = value.split(',');
         return (
           <div>
             <div>{array[0]}</div>

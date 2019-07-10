@@ -1,5 +1,4 @@
 const DateFormat = (date, shortData = false) => {
-  console.log(date);
   const monthNames = [
     'Styczeń',
     'Luty',
@@ -21,7 +20,9 @@ const DateFormat = (date, shortData = false) => {
   const year = date.getFullYear();
 
   if (shortData) {
-    return `${day}.${monthIndex+1}.${year}`;
+    let month = date.getMonth() + 1;
+    if (month < 10) month = `0${month}`;
+    return `${day}.${month}.${year}`;
   }
   return `${day} ${monthNames[monthIndex]} ${year}`;
 };
