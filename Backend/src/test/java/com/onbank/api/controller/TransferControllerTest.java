@@ -13,6 +13,7 @@ import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.dto.TransferDto;
 import com.onbank.api.model.OperationType;
 import com.onbank.api.model.Transfer;
+import com.onbank.api.repository.TransferRepository;
 import com.onbank.api.transformer.TransferTransformer;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -56,6 +58,9 @@ class TransferControllerTest {
     @Autowired
     TransferController transferController;
 
+    @Autowired
+    TransferRepository transferRepository;
+
     @BeforeEach
     void setup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -73,43 +78,33 @@ class TransferControllerTest {
 
     @Test
     void shouldAddTransferToDb() throws Exception{
-//        CreateTransferDto createTransferDto = new CreateTransferDto();
-//        createTransferDto.setName("Jan");
-//        createTransferDto.setSurname("Kowalski");
-//        createTransferDto.setDate(LocalDateTime.of(2015, 05, 22, 18, 30, 13));
-//        createTransferDto.setAccountNumber("PL22711020040000300201355387");
-//        createTransferDto.setAmmount(new BigDecimal(1500.53));
-//        createTransferDto.setDescription("Testowy przelew ĄŹŻ");
-//        createTransferDto.setOperationType(OperationType.CURRENCY_OPERATION);
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        JavaTimeModule javaTimeModule=new JavaTimeModule();
-//        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ISO_DATE_TIME));
-//        mapper.registerModule(javaTimeModule);
-//        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-//        String requestJson=ow.writeValueAsString(createTransferDto);
-//
-//        this.mockMvc.perform(post("/api/transfers")
-//                    .contentType(APPLICATION_JSON_UTF8)
-//                    .content(requestJson))
-//                .andDo(print())
-//                .andExpect(status().isOk());
-//
-//        String transfer = mockMvc.perform(get("/api/transfers"))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andReturn().getResponse().getContentAsString();
-//
-//        System.err.println(transfer);
-//        //Gson g = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, LocalDateTimeDeserializer.class).create();
-//        Gson g = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new JsonSerializer).create();
-//
-//        //Gson g = new Gson();
-//        TransferDto[] p = g.fromJson(transfer, TransferDto[].class);
-//        p[0].setId(null);
-//        Transfer dto = TransferTransformer.convertToEntity(p[0]);
-//        Transfer createDto = TransferTransformer.convertToEntity(createTransferDto);
-//
-//        assertThat(dto).isEqualTo(createDto);
+        CreateTransferDto createTransferDto = new CreateTransferDto();
+        createTransferDto.setName("Jan");
+        createTransferDto.setSurname("Kowalski");
+        createTransferDto.setDate(LocalDateTime.of(2015, 05, 22, 18, 30, 13));
+        createTransferDto.setAccountNumber("PL22711020040000300201355387");
+        createTransferDto.setAmmount(new BigDecimal("1500.53"));
+        createTransferDto.setDescription("Testowy przelew ĄŹŻ");
+        createTransferDto.setOperationType(OperationType.CURRENCY_OPERATION);
+
+        ObjectMapper mapper = new ObjectMapper();
+        JavaTimeModule javaTimeModule=new JavaTimeModule();
+        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ISO_DATE_TIME));
+        mapper.registerModule(javaTimeModule);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson=ow.writeValueAsString(createTransferDto);
+
+        this.mockMvc.perform(post("/api/transfers")
+                    .contentType(APPLICATION_JSON_UTF8)
+                    .content(requestJson))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        List<Transfer> fromDB = transferRepository.findAll();
+        assertThat(fromDB.size()).isEqualTo(1);
+
+        fromDB.get(0).setId(null);
+
+        assertThat(fromDB.get(0)).isEqualTo(TransferTransformer.convertToEntity(createTransferDto));
     }
 }

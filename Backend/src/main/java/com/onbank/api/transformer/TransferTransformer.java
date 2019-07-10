@@ -25,7 +25,7 @@ public class TransferTransformer {
         Transfer transfer = new Transfer();
         BeanUtils.copyProperties(transferDto, transfer);
         //TODO obliczanie stanu konta po przelewie
-        transfer.setAccountBallance(new BigDecimal(0.0));
+        transfer.setAccountBallance(new BigDecimal("0.00"));
         return transfer;
     }
 }
