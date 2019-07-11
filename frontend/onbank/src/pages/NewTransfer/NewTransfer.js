@@ -22,68 +22,66 @@ import * as Yup from 'yup';
 import { sendTransactionsAction } from 'actions/transactionsActions';
 
 const useStyles = makeStyles(theme => ({
+  
   root: {
     paddingTop: 20,
   },
-  recieverField: {
-    marginLeft: '33%',
-    width: '26%',
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: '10%',
-      width: '50%',
-    },
-  },
-  typographyText: {
-    marginLeft: '33%',
-    whiteSpace: 'nowrap',
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: '10%',
-    },
-  },
-  textField: {
-    marginLeft: '33%',
-    marginTop: 0,
-    width: '30%',
-    marginBottom: '2%',
-    whiteSpace: 'nowrap',
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: '10%',
-      width: '70%',
-    },
-  },
-  textFieldAmount: {
-    marginLeft: '33%',
-    marginTop: 0,
-    width: '10%',
-    marginBottom: '2%',
-    whiteSpace: 'nowrap',
-    display: 'inline-block',
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: '10%',
-      width: '70%',
-    },
-  },
   divButton: {
-    marginLeft: '33%',
-    paddingBottom: 20,
-    display: 'inline-block',
+    display: 'flex',
+    flexDirection:'row'
   },
-  icon: {
-    fontSize: 50,
+
+  form:{
+    width:'100%',
+   height:'100%',
+    display: 'flex',
+    flexDirection:'column',
+    alignItems: 'center',
   },
-  checkbox: {
-    marginLeft: '32%',
+  inputs:{
+    width:'40%',
+    height: '70vh',
+    
   },
-  button: {
-    marginLeft: '55%',
-    marginBottom: '2%',
+  recieverInput:{
+    marginBottom:20,
+    width:'100%',
+    marginLeft:'0%',
+    
   },
-  datePicker: {
-    marginLeft: '33%',
+  accountNumberInput:{
+    marginBottom:20,
+  },
+  titleTransfer:{
+    marginBottom:20,
+  },
+  amount:{
+    marginBottom:20,
+  },
+  button:{
+    float:'right',
+    marginRight:'10%'
+  },
+  inputWidth:{
+    width:450,
     [theme.breakpoints.down('sm')]: {
-      marginLeft: '10%',
+     
+      width: '100%',
     },
   },
+  icon:{
+    fontSize:40,
+    display:'inline-block'
+  },
+  inputRecieverLabel:{
+    width:350,
+    display:'inline-block',
+    [theme.breakpoints.down('sm')]: {
+     
+      width: '100%',
+    },
+  }
+
 }));
 
 function NumberFormatCustom(props) {
@@ -138,63 +136,71 @@ const NewTransfer = ({ sendTransactions }) => {
         }}
       >
         {({ errors, touched, handleChange, handleBlur, values, isSubmitting }) => (
-          <Form>
-            <div className={classes.divInputs}>
-              <FormControl
-                className={classes.recieverField}
-                error={!!(errors.receiver && touched.receiver)}
-              >
-                <InputLabel htmlFor="receiverInput">Odbiorca</InputLabel>
-                <Input
-                  id="receiverInput"
-                  name="receiver"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.receiver}
-                  aria-describedby="receiver-error-text"
-                />
-                {errors.receiver && touched.receiver ? (
-                  <FormHelperText id="receiver-error-text">Error</FormHelperText>
-                ) : null}
-              </FormControl>
-              <PermContactCalendar className={classes.icon} />
-
-              <FormControl
-                className={classes.textField}
-                error={!!(errors.accountNumber && touched.accountNumber)}
-              >
-                <InputLabel htmlFor="accountNumberInput">Nr konta</InputLabel>
-                <Input
-                  id="accountNumberInput"
-                  name="accountNumber"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.accountNumber}
-                  aria-describedby="accountNumber-error-text"
-                />
-                {errors.accountNumber && touched.accountNumber ? (
-                  <FormHelperText id="accountNumber-error-text">Error</FormHelperText>
-                ) : null}
-              </FormControl>
-
-              <FormControl
-                className={classes.textField}
-                error={!!(errors.description && touched.description)}
-              >
-                <InputLabel htmlFor="descriptionInput">Tytulem przelewu</InputLabel>
-                <Input
-                  id="descriptionInput"
-                  name="description"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.description}
-                  aria-describedby="description-error-text"
-                />
-                {errors.description && touched.description ? (
-                  <FormHelperText id="description-error-text">Error</FormHelperText>
-                ) : null}
-              </FormControl>
-
+          <Form className={classes.form}>
+            <div className={classes.inputs}>
+              <div className={classes.recieverInput}>
+                <FormControl
+                 // className={classes.recieverField}
+                  error={!!(errors.receiver && touched.receiver)}
+                >
+                  
+                  <InputLabel htmlFor="receiverInput">Odbiorca</InputLabel>
+                  <Input
+                    id="receiverInput"
+                    name="receiver"
+                    className={classes.inputRecieverLabel}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.receiver}
+                    aria-describedby="receiver-error-text"
+                  />
+                  {errors.receiver && touched.receiver ? (
+                    <FormHelperText id="receiver-error-text">Error</FormHelperText>
+                  ) : null}
+                </FormControl>
+                <PermContactCalendar className={classes.icon} />
+              </div>
+              <div className={classes.accountNumberInput}>
+                <FormControl
+                  className={classes.textField}
+                  error={!!(errors.accountNumber && touched.accountNumber)}
+                  >
+                  <InputLabel htmlFor="accountNumberInput">Nr konta</InputLabel>
+                  <Input
+                    id="accountNumberInput"
+                    name="accountNumber"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.accountNumber}
+                    className={classes.inputWidth}
+                    aria-describedby="accountNumber-error-text"
+                  />
+                  {errors.accountNumber && touched.accountNumber ? (
+                    <FormHelperText id="accountNumber-error-text">Error</FormHelperText>
+                  ) : null}
+                </FormControl> 
+              </div>
+              <div className={classes.titleTransfer}>
+                <FormControl
+                  className={classes.inputWidth}
+                  error={!!(errors.description && touched.description)}
+                  >
+                  <InputLabel htmlFor="descriptionInput">Tytulem przelewu</InputLabel>
+                  <Input
+                    id="descriptionInput"
+                    name="description"
+                    
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.description}
+                    aria-describedby="description-error-text"
+                  />
+                  {errors.description && touched.description ? (
+                    <FormHelperText id="description-error-text">Error</FormHelperText>
+                  ) : null}
+                </FormControl> 
+              </div>
+              <div className={classes.amount}>
               <FormControl
                 className={classes.textFieldAmount}
                 error={!!(errors.ammount && touched.ammount)}
@@ -213,12 +219,14 @@ const NewTransfer = ({ sendTransactions }) => {
                   <FormHelperText id="ammount-error-text">Error</FormHelperText>
                 ) : null}
               </FormControl>
-              <br />
+              </div>
+              {/* <br /> */}
               <div className={classes.datePicker}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDateTimePicker
                     variant="inline"
                     ampm={false}
+                    className={classes.inputWidth}
                     label="Wprowadź datę"
                     disablePast
                     format="dd.MM.yyyy HH:mm:ss"
@@ -227,7 +235,6 @@ const NewTransfer = ({ sendTransactions }) => {
                   />
                 </MuiPickersUtilsProvider>
               </div>
-              <br />
               <FormControlLabel
                 value="start"
                 control={<Checkbox color="default" />}
@@ -235,15 +242,18 @@ const NewTransfer = ({ sendTransactions }) => {
                 labelPlacement="end"
                 className={classes.checkbox}
               />
+              <br/>
+              <div className={classes.button}>
+              {isSubmitting ? (
+                <CircularProgress />
+              ) : (
+                <Button variant="contained" color="primary" className={classes.button} type="submit">
+                  Wyślij
+                </Button>
+              )}
+               </div>
             </div>
-            <br />
-            {isSubmitting ? (
-              <CircularProgress />
-            ) : (
-              <Button variant="contained" color="primary" className={classes.button} type="submit">
-                Wyślij
-              </Button>
-            )}
+            
           </Form>
         )}
       </Formik>
