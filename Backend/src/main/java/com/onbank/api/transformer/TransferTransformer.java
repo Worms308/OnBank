@@ -21,7 +21,7 @@ public class TransferTransformer {
         return transfer;
     }
 
-    static public Transfer convertToEntity(CreateTransferDto transferDto){
+    public static Transfer convertToEntity(CreateTransferDto transferDto){
         Transfer transfer = new Transfer();
         BeanUtils.copyProperties(transferDto, transfer);
         return transfer;
