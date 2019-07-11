@@ -24,8 +24,6 @@ public class TransferTransformer {
     static public Transfer convertToEntity(CreateTransferDto transferDto){
         Transfer transfer = new Transfer();
         BeanUtils.copyProperties(transferDto, transfer);
-        //TODO obliczanie stanu konta po przelewie
-        transfer.setAccountBalance(new BigDecimal("0.00"));
         return transfer;
     }
 }
