@@ -6,10 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
-// import InputAdornment from '@material-ui/core/InputAdornment';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import {
   Button,
@@ -30,19 +27,12 @@ import { sendTransactionsAction } from 'actions/transactionsActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // height:1000,
     height: 'auto',
     marginTop: 10,
   },
-  divButton: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-
   form: {
     width: '100%',
     height: 'auto',
-    //  height:'100vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -52,7 +42,6 @@ const useStyles = makeStyles(theme => ({
       flexDirection: 'column',
     },
   },
-  inputs: {},
   recieverInput: {
     marginBottom: 20,
     width: '100%',
@@ -82,15 +71,7 @@ const useStyles = makeStyles(theme => ({
     color: '#707070',
     '&:hover': {
       backgroundColor: '#E3E5E1',
-
       borderRadius: 10,
-    },
-  },
-  inputRecieverLabel: {
-    width: 350,
-    display: 'block',
-    [theme.breakpoints.down('sm')]: {
-      width: 200,
     },
   },
 }));
@@ -185,22 +166,26 @@ const NewTransfer = ({ sendTransactions }) => {
           <Form className={classes.form}>
             <div className={classes.inputs}>
               <div className={classes.recieverInput}>
-                <FormControl error={!!(errors.receiver && touched.receiver)}>
-                  <InputLabel htmlFor="receiverInput">Odbiorca</InputLabel>
-                  <Input
-                    id="receiverInput"
-                    name="receiver"
-                    className={classes.inputRecieverLabel}
+              <FormControl error={!!(errors.receiver && touched.receiver)} >
+                <InputLabel htmlFor="receiver-error-text">Odbiorca</InputLabel>
+                <Input
+                  id="receiverInput"
+                  name="receiver"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.receiver}
                     aria-describedby="receiver-error-text"
-                  />
-                  {errors.receiver && touched.receiver ? (
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <PermContactCalendar className={classes.icon}>
+                      </PermContactCalendar>
+                    </InputAdornment>
+                  }
+                />
+                {errors.receiver && touched.receiver ? (
                     <FormHelperText id="receiver-error-text">{errors.receiver}</FormHelperText>
                   ) : null}
-                </FormControl>
-                <PermContactCalendar className={classes.icon} />
+              </FormControl>
               </div>
               <div className={classes.accountNumberInput}>
                 <FormControl
@@ -311,7 +296,7 @@ const NewTransfer = ({ sendTransactions }) => {
                 labelPlacement="end"
                 className={classes.checkbox}
               />
-              <br />
+             
               <div className={classes.button}>
                 {isSubmitting ? (
                   <CircularProgress />
@@ -319,7 +304,6 @@ const NewTransfer = ({ sendTransactions }) => {
                   <Button
                     variant="contained"
                     color="primary"
-                    className={classes.button}
                     type="submit"
                   >
                     Wyślij
