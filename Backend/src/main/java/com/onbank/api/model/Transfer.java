@@ -16,46 +16,50 @@ import javax.validation.constraints.Pattern;
 @Table(name = "transfer")
 public class Transfer {
     @Id
-    @Column(name="Id", nullable=false, unique = true)
+    @Column(name="id", nullable=false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name="date", nullable=false)
     @NotNull(message = "Date cannot be empty.")
     private LocalDateTime date;
-    @Column(name="name", nullable=false, length=50)
-    @NotNull(message = "Name cannot be empty.")
-    private String name;
-    @Column(name="surname", nullable=false, length=100)
-    @NotNull(message = "Surname cannot be empty.")
-    private String surname;
-    @Column(name="accountnumber", nullable=false)
+
+    @Column(name="recipientname", nullable=false, length=200)
+    @NotNull(message = "Recipient cannot be empty.")
+    private String recipientName;
+
+    @Column(name="recipientaccountnumber", nullable=false)
     @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
     @NotNull(message = "Account number cannot be empty.")
     @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
     @AccountNumber(message = "Invalid account number.")
-    private String accountNumber;
+    private String recipientAccountNumber;
+
     @Column(name="description", length=4000)
     private String description;
+
     @NotNull(message = "Type of operation cannot be empty.")
     @Column(name="typeofoperation", nullable=false, length=200)
     @Enumerated(EnumType.STRING)
     private OperationType OperationType;
-    @Column(name="ammount", nullable=false)
+
+    @Column(name="amount", nullable=false)
     @NotNull(message = "Amount cannot be empty.")
     @Positive(message = "Amount must be bigger than 0,00.")
-    private BigDecimal ammount;
-    @Column(name="accountballance", nullable=false)
-    private BigDecimal accountBallance;
+    private BigDecimal amount;
 
-    //TODO pobrać numer konta od nadawcy przy robieniu przelewu
-    @Column(name = "sender")
+    @Column(name="accountbalance", nullable=false)
+    private BigDecimal accountBalance;
+
+    @Column(name = "sendername", length = 200)
+    @NotNull(message = "Sender name cannot be empty.")
+    private String senderName;
+
+    @Column(name="senderaccountnumber", nullable=false)
     @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
-    //@NotNull(message = "Account number cannot be empty.")
+    @NotNull(message = "Account number cannot be empty.")
     @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
-    private String sender;
-    //TODO tabelka z uzytkownikami
-    @Column(name = "senderaccount", length = 50)
-    //@NotNull(message = "Sender name cannot be empty.")
-    private int senderAccount;
+    @AccountNumber(message = "Invalid account number.")
+    private String senderAccountNumber;
 
 }

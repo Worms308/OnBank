@@ -6,10 +6,12 @@ import com.onbank.api.model.Transfer;
 import com.onbank.api.service.TransferService;
 import com.onbank.api.transformer.TransferTransformer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,15 +25,20 @@ public class TransferController {
     private final TransferService transferService;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<TransferDto> getTransfers(){
         List<Transfer> transfer = transferService.getTransfers();
         return transfer.stream().map(TransferTransformer::convertToDto).collect(Collectors.toList());
     }
 
     @PostMapping
-    public TransferDto setTransfer(@Valid @RequestBody CreateTransferDto transferDto){
-        return TransferTransformer.convertToDto(
-                transferService.createTransfer(TransferTransformer.convertToEntity(transferDto)));
+    @ResponseStatus(HttpStatus.OK)
+    public void createTransfer(@Valid @RequestBody CreateTransferDto transferDto){
+        Transfer tmpTransfer = TransferTransformer.convertToEntity(transferDto);
+        tmpTransfer.setAccountBalance(new BigDecimal("0.00"));
+        tmpTransfer.setSenderName("Sender");
+        tmpTransfer.setSenderAccountNumber("PL32349188939421535264612669");
+        transferService.createTransfer(tmpTransfer);
     }
 }
 

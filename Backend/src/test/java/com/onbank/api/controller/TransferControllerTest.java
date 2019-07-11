@@ -56,11 +56,10 @@ class TransferControllerTest {
 
     private CreateTransferDto createTransferDto(){
         CreateTransferDto createTransferDto = new CreateTransferDto();
-        createTransferDto.setName("Jan");
-        createTransferDto.setSurname("Kowalski");
+        createTransferDto.setRecipientName("Jan Kowalski");
         createTransferDto.setDate(LocalDateTime.of(2015, 05, 22, 18, 30, 13));
-        createTransferDto.setAccountNumber("PL32349188939421535264612669");
-        createTransferDto.setAmmount(new BigDecimal("1500.53"));
+        createTransferDto.setRecipientAccountNumber("PL32349188939421535264612669");
+        createTransferDto.setAmount(new BigDecimal("1500.53"));
         createTransferDto.setDescription("Testowy przelew ĄŹŻ");
         createTransferDto.setOperationType(OperationType.CURRENCY_OPERATION);
         return createTransferDto;
@@ -81,6 +80,8 @@ class TransferControllerTest {
         assertThat(fromDB.size()).isEqualTo(1);
 
         fromDB.get(0).setId(null);
+        fromDB.get(0).setSenderName(null);
+        fromDB.get(0).setSenderAccountNumber(null);
 
         assertThat(fromDB.get(0)).isEqualTo(TransferTransformer.convertToEntity(createTransferDto));
     }
@@ -89,13 +90,14 @@ class TransferControllerTest {
         BigDecimal bigDecimal = new BigDecimal(32324.3);
         Transfer transfer = new Transfer();
         transfer.setOperationType(OperationType.CREDIT_OPERATION);
-        transfer.setAccountBallance(bigDecimal);
-        transfer.setAccountNumber("PL32349188939421535264612669");
-        transfer.setAmmount(bigDecimal);
+        transfer.setAccountBalance(bigDecimal);
+        transfer.setRecipientAccountNumber("PL32349188939421535264612669");
+        transfer.setSenderAccountNumber("PL32349188939421535264612669");
+        transfer.setAmount(bigDecimal);
         transfer.setDate(LocalDateTime.now());
         transfer.setDescription("Opis operacji");
-        transfer.setName("Jan");
-        transfer.setSurname("Kowalski");
+        transfer.setRecipientName("Jan Kowalski");
+        transfer.setSenderName("Jan Kowalski");
         return transfer;
     }
 
