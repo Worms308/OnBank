@@ -51,6 +51,11 @@ public class Transfer {
     @Column(name="accountbalance", nullable=false)
     private BigDecimal accountBalance;
 
+    @Column(name = "realizationstate", nullable = false)
+    @NotNull(message = "Transfer state cannot be empty.")
+    @Enumerated(EnumType.STRING)
+    private TransferState realizationState;
+
     @Column(name = "sendername", length = 200)
     @NotNull(message = "Sender name cannot be empty.")
     private String senderName;

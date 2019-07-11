@@ -9,6 +9,7 @@ import com.onbank.ObjectToJson;
 import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.model.OperationType;
 import com.onbank.api.model.Transfer;
+import com.onbank.api.model.TransferState;
 import com.onbank.api.repository.TransferRepository;
 import com.onbank.api.transformer.TransferTransformer;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,6 +100,7 @@ class TransferControllerTest {
         transfer.setDescription("Opis operacji");
         transfer.setRecipientName("Jan Kowalski");
         transfer.setSenderName("Jan Kowalski");
+        transfer.setRealizationState(TransferState.WAITING);
         return transfer;
     }
 
