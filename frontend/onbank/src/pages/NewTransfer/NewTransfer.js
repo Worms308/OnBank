@@ -154,7 +154,9 @@ const SignupSchema = () => {
       .min(2, 'Opis jest za krótki')
       .max(4000, 'Opis jest za długi')
       .required(requiredMessage),
-    ammount: Yup.string().required(requiredMessage),
+    ammount: Yup.number()
+      .min(0.1, 'Za mała kwota')
+      .required(requiredMessage),
   });
 };
 
@@ -170,7 +172,8 @@ const NewTransfer = ({ sendTransactions }) => {
           description: '',
           ammount: '',
           date: new Date(),
-          operationType: '',
+          typeTransfer: '',
+          saveReceiver: false,
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, { setSubmitting }) => {
@@ -281,15 +284,15 @@ const NewTransfer = ({ sendTransactions }) => {
               </div>
               <div>
                 <h4>Rodzaj przelewu</h4>
-                <RadioGroup aria-label="position" name="position" row>
+                <RadioGroup aria-label="position" name="typeTransfer" onChange={handleChange} row>
                   <FormControlLabel
-                    value="bottom"
+                    value="NORMAL"
                     control={<Radio color="default" />}
                     label="Elixir"
                     labelPlacement="end"
                   />
                   <FormControlLabel
-                    value="end"
+                    value="INSTANT"
                     control={<Radio color="default" />}
                     label="Natychmiastowy"
                     labelPlacement="end"
@@ -297,8 +300,13 @@ const NewTransfer = ({ sendTransactions }) => {
                 </RadioGroup>
               </div>
               <FormControlLabel
-                value="start"
-                control={<Checkbox color="default" />}
+                control={
+                  <Checkbox
+                    checked={values.saveReceiver}
+                    onChange={handleChange('saveReceiver')}
+                    color="default"
+                  />
+                }
                 label="Zapamiętaj odbiorcę"
                 labelPlacement="end"
                 className={classes.checkbox}
