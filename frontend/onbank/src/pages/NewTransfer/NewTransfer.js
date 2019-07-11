@@ -4,6 +4,8 @@ import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
 import {
   Button,
   Checkbox,
@@ -24,7 +26,8 @@ import { sendTransactionsAction } from 'actions/transactionsActions';
 const useStyles = makeStyles(theme => ({
   
   root: {
-    paddingTop: 20,
+    //paddingTop: 20,
+    height:'90vh'
   },
   divButton: {
     display: 'flex',
@@ -130,6 +133,15 @@ const SignupSchema = Yup.object().shape({
 const NewTransfer = ({ sendTransactions }) => {
   const classes = useStyles();
 
+  const [value, setValue] = React.useState('female');
+
+  function handleChange(event) {
+    setValue(event.target.value);
+  }
+  function handleChangeRadio(event) {
+    setValue(event.target.value);
+  }
+
   return (
     <Paper className={classes.root}>
       <Formik
@@ -169,7 +181,8 @@ const NewTransfer = ({ sendTransactions }) => {
                     <FormHelperText id="receiver-error-text">Error</FormHelperText>
                   ) : null}
                 </FormControl>
-                <PermContactCalendar className={classes.icon} />
+                <div  className={classes.icon}><PermContactCalendar /></div>
+                
               </div>
               <div className={classes.accountNumberInput}>
                 <FormControl
@@ -245,6 +258,23 @@ const NewTransfer = ({ sendTransactions }) => {
                     value={values.date}
                   />
                 </MuiPickersUtilsProvider>
+                <div>
+                  <h4>Rodzaj przelewu</h4>
+                  <RadioGroup aria-label="position" name="position" value={value} onChange={handleChangeRadio} row>
+                    <FormControlLabel
+                      value="bottom"
+                      control={<Radio color="default" />}
+                      label="Elixir"
+                      labelPlacement="end"
+                    />
+                    <FormControlLabel
+                      value="end"
+                      control={<Radio color="default" />}
+                      label="Natychmiastowy"
+                      labelPlacement="end"
+                    />
+                  </RadioGroup>
+                </div>
               </div>
               <FormControlLabel
                 value="start"
