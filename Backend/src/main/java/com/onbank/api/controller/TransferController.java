@@ -1,11 +1,13 @@
 package com.onbank.api.controller;
 
+import com.onbank.MockUser;
 import com.onbank.api.dto.TransferDto;
 import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.model.Transfer;
 import com.onbank.api.service.TransferService;
 import com.onbank.api.transformer.TransferTransformer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,9 @@ public class TransferController {
 
     private final TransferService transferService;
 
+    @Autowired
+    private MockUser loggedUser;
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<TransferDto> getTransfers(){
@@ -36,8 +41,8 @@ public class TransferController {
     public void createTransfer(@Valid @RequestBody CreateTransferDto transferDto){
         Transfer tmpTransfer = TransferTransformer.convertToEntity(transferDto);
         tmpTransfer.setAccountBalance(new BigDecimal("0.00"));
-        tmpTransfer.setSenderName("Sender");
-        tmpTransfer.setSenderAccountNumber("PL32349188939421535264612669");
+        tmpTransfer.setSenderName(loggedUser.getUsername());
+        tmpTransfer.setSenderAccountNumber(loggedUser.getAccountNumber());
         transferService.createTransfer(tmpTransfer);
     }
 }

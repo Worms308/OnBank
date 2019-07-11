@@ -80,6 +80,7 @@ class TransferControllerTest {
         assertThat(fromDB.size()).isEqualTo(1);
 
         fromDB.get(0).setId(null);
+        fromDB.get(0).setAccountBalance(null);
         fromDB.get(0).setSenderName(null);
         fromDB.get(0).setSenderAccountNumber(null);
 
