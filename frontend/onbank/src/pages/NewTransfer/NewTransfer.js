@@ -12,6 +12,7 @@ import {
   Button,
   Checkbox,
   CircularProgress,
+  FormLabel,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -137,7 +138,9 @@ const SignupSchema = () => {
       .required(requiredMessage),
     ammount: Yup.number()
       .min(0.1, 'Za mała kwota')
+      .typeError('Nie można wprowadzić ujemnej kwoty')
       .required(requiredMessage),
+    typeTransfer: Yup.string().required('Proszę wybrać rodzaj operacji'),
   });
 };
 
@@ -153,39 +156,37 @@ const NewTransfer = ({ sendTransactions }) => {
           description: '',
           ammount: '',
           date: new Date(),
-          typeTransfer: '',
+          typeTransfer: 'NORMAL',
           saveReceiver: false,
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
-          setSubmitting(false);
+          sendTransactions(values);
         }}
       >
         {({ errors, touched, handleChange, handleBlur, values, isSubmitting }) => (
           <Form className={classes.form}>
             <div className={classes.inputs}>
               <div className={classes.recieverInput}>
-              <FormControl error={!!(errors.receiver && touched.receiver)} >
-                <InputLabel htmlFor="receiver-error-text">Odbiorca</InputLabel>
-                <Input
-                  id="receiverInput"
-                  name="receiver"
+                <FormControl error={!!(errors.receiver && touched.receiver)}>
+                  <InputLabel htmlFor="receiver-error-text">Odbiorca</InputLabel>
+                  <Input
+                    id="receiverInput"
+                    name="receiver"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.receiver}
                     aria-describedby="receiver-error-text"
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <PermContactCalendar className={classes.icon}>
-                      </PermContactCalendar>
-                    </InputAdornment>
-                  }
-                />
-                {errors.receiver && touched.receiver ? (
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <PermContactCalendar className={classes.icon}></PermContactCalendar>
+                      </InputAdornment>
+                    }
+                  />
+                  {errors.receiver && touched.receiver ? (
                     <FormHelperText id="receiver-error-text">{errors.receiver}</FormHelperText>
                   ) : null}
-              </FormControl>
+                </FormControl>
               </div>
               <div className={classes.accountNumberInput}>
                 <FormControl
@@ -268,21 +269,40 @@ const NewTransfer = ({ sendTransactions }) => {
                 </MuiPickersUtilsProvider>
               </div>
               <div>
-                <h4>Rodzaj przelewu</h4>
-                <RadioGroup aria-label="position" name="typeTransfer" onChange={handleChange} row>
-                  <FormControlLabel
-                    value="NORMAL"
-                    control={<Radio color="default" />}
-                    label="Elixir"
-                    labelPlacement="end"
-                  />
-                  <FormControlLabel
-                    value="INSTANT"
-                    control={<Radio color="default" />}
-                    label="Natychmiastowy"
-                    labelPlacement="end"
-                  />
-                </RadioGroup>
+                <FormControl
+                  className={classes.textFieldAmount}
+                  error={!!(errors.typeTransfer && touched.typeTransfer)}
+                >
+                  <FormLabel component="legend">Rodzaj przelewu</FormLabel>
+                  <RadioGroup
+                    aria-label="position"
+                    name="typeTransfer"
+                    value={values.typeTransfer}
+                    onChange={handleChange}
+                    row
+                  >
+                    <FormControlLabel
+                      control={
+                        <Radio
+                          checked={values.typeTransfer === 'NORMAL'}
+                          value="NORMAL"
+                          color="default"
+                        />
+                      }
+                      label="Elixir"
+                      labelPlacement="end"
+                    />
+                    <FormControlLabel
+                      value="INSTANT"
+                      control={<Radio color="default" />}
+                      label="Natychmiastowy"
+                      labelPlacement="end"
+                    />
+                  </RadioGroup>
+                  {errors.typeTransfer && touched.typeTransfer ? (
+                    <FormHelperText>{errors.typeTransfer}</FormHelperText>
+                  ) : null}
+                </FormControl>
               </div>
               <FormControlLabel
                 control={
@@ -296,16 +316,12 @@ const NewTransfer = ({ sendTransactions }) => {
                 labelPlacement="end"
                 className={classes.checkbox}
               />
-             
+
               <div className={classes.button}>
                 {isSubmitting ? (
                   <CircularProgress />
                 ) : (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                  >
+                  <Button variant="contained" color="primary" type="submit">
                     Wyślij
                   </Button>
                 )}
@@ -320,8 +336,8 @@ const NewTransfer = ({ sendTransactions }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendTransactions: () => {
-      dispatch(sendTransactionsAction());
+    sendTransactions: (values) => {
+      dispatch(sendTransactionsAction(values));
     },
   };
 };

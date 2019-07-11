@@ -19,7 +19,8 @@ export const getTransactionsAction = name => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const sendTransactionsAction = () => dispatch => {
+export const sendTransactionsAction = data => dispatch => {
+  console.log(data);
   return sendTransactions()
     .then(response => console.log(response))
     .catch(err => console.log(err));
