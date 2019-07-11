@@ -4,6 +4,7 @@ import MUIDataTable from 'mui-datatables';
 import currencyFormat from 'core/CurrencyFormat';
 import AccountNumberFormat from 'core/AccountNumberFormat';
 import DateFormat from 'core/DateFormat';
+import ConvertOperationType from 'core/ConvertOperationType';
 
 const columns = [
   {
@@ -42,7 +43,15 @@ const columns = [
       },
     },
   },
-  { name: 'type', label: 'Rodzaj operacji' },
+  {
+    name: 'type',
+    label: 'Rodzaj operacji',
+    options: {
+      customBodyRender: value => {
+        return ConvertOperationType(value);
+      },
+    },
+  },
   {
     name: 'cost',
     label: 'Kwota operacji',
