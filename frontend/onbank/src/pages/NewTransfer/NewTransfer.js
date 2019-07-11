@@ -37,10 +37,20 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection:'column',
     alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+     
+      width: '100%',
+      display:'block',
+      marginLeft:'10%',
+    },
   },
   inputs:{
     width:'40%',
     height: '70vh',
+    [theme.breakpoints.down('')]: {
+     
+      width: '100%',
+    },
     
   },
   recieverInput:{
@@ -59,26 +69,28 @@ const useStyles = makeStyles(theme => ({
     marginBottom:20,
   },
   button:{
-    float:'right',
+    display:'flex',
+    justifyContent: 'flex-end',
     marginRight:'10%'
   },
   inputWidth:{
     width:450,
     [theme.breakpoints.down('sm')]: {
      
-      width: '100%',
+      width: 280,
     },
   },
   icon:{
-    fontSize:40,
-    display:'inline-block'
+    fontSize:30,
+    display:'inline',
+    color:"#707070"
   },
   inputRecieverLabel:{
     width:350,
-    display:'inline-block',
+    display:'block',
     [theme.breakpoints.down('sm')]: {
      
-      width: '100%',
+      width: 200,
     },
   }
 
@@ -140,7 +152,6 @@ const NewTransfer = ({ sendTransactions }) => {
             <div className={classes.inputs}>
               <div className={classes.recieverInput}>
                 <FormControl
-                 // className={classes.recieverField}
                   error={!!(errors.receiver && touched.receiver)}
                 >
                   
