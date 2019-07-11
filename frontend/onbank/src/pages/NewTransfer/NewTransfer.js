@@ -6,6 +6,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+// import AccountCircle from '@material-ui/icons/AccountCircle';
+// import InputAdornment from '@material-ui/core/InputAdornment';
+
 import {
   Button,
   Checkbox,
@@ -26,8 +31,9 @@ import { sendTransactionsAction } from 'actions/transactionsActions';
 const useStyles = makeStyles(theme => ({
   
   root: {
-    //paddingTop: 20,
-    height:'90vh'
+   // height:1000,
+   height:'auto',
+    marginTop:10,
   },
   divButton: {
     display: 'flex',
@@ -36,25 +42,20 @@ const useStyles = makeStyles(theme => ({
 
   form:{
     width:'100%',
-   height:'100%',
+    height:'auto',
+  //  height:'100vh',
     display: 'flex',
     flexDirection:'column',
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
      
       width: '100%',
-      display:'block',
-      marginLeft:'10%',
+      display: 'flex',
+      flexDirection:'column',
     },
   },
   inputs:{
-    width:'40%',
-    height: '70vh',
-    [theme.breakpoints.down('')]: {
-     
-      width: '100%',
-    },
-    
+  
   },
   recieverInput:{
     marginBottom:20,
@@ -74,25 +75,26 @@ const useStyles = makeStyles(theme => ({
   button:{
     display:'flex',
     justifyContent: 'flex-end',
-    marginRight:'10%'
+    marginBottom:20,
   },
   inputWidth:{
     width:450,
     [theme.breakpoints.down('sm')]: {
-     
       width: 280,
     },
   },
   icon:{
-    fontSize:30,
-    display:'inline',
-    color:"#707070"
+    color:"#707070",
+    '&:hover':{
+      backgroundColor: '#E3E5E1',
+     
+      borderRadius: 10,
+    }
   },
   inputRecieverLabel:{
     width:350,
     display:'block',
     [theme.breakpoints.down('sm')]: {
-     
       width: 200,
     },
   }
@@ -167,21 +169,21 @@ const NewTransfer = ({ sendTransactions }) => {
                   error={!!(errors.receiver && touched.receiver)}
                 >
                   
-                  <InputLabel htmlFor="receiverInput">Odbiorca</InputLabel>
-                  <Input
-                    id="receiverInput"
-                    name="receiver"
-                    className={classes.inputRecieverLabel}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.receiver}
-                    aria-describedby="receiver-error-text"
-                  />
+                  <div className={classes.margin}>
+                    <Grid container spacing={1} alignItems="flex-end">
+                      
+                      <Grid item>
+                        <TextField id="input-with-icon-grid" label="Odbiorca" />
+                      </Grid>
+                      <Grid item>
+                      <PermContactCalendar className={classes.icon}/>
+                      </Grid>
+                    </Grid>
+                  </div>
                   {errors.receiver && touched.receiver ? (
                     <FormHelperText id="receiver-error-text">Error</FormHelperText>
                   ) : null}
                 </FormControl>
-                <div  className={classes.icon}><PermContactCalendar /></div>
                 
               </div>
               <div className={classes.accountNumberInput}>
