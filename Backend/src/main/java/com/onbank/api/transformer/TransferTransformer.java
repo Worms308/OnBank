@@ -23,7 +23,6 @@ public class TransferTransformer {
     public static Transfer convertToEntity(CreateTransferDto transferDto) {
         Transfer transfer = new Transfer();
         BeanUtils.copyProperties(transferDto, transfer);
-        transfer.setRealizationState(TransferState.WAITING);
         return transfer;
     }
 }
