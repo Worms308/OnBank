@@ -13,14 +13,14 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class CreateTransferDto {
     @NotNull(message = "Date cannot be empty.")
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     @NotNull(message = "Recipient cannot be empty.")
     @Size(min = 1, max = 200, message = "Name must be between 1-200 characters.")

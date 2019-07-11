@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -58,7 +59,7 @@ class TransferControllerTest {
     private CreateTransferDto createTransferDto(){
         CreateTransferDto createTransferDto = new CreateTransferDto();
         createTransferDto.setRecipientName("Jan Kowalski");
-        createTransferDto.setDate(LocalDateTime.of(2015, 05, 22, 18, 30, 13));
+        createTransferDto.setDate(LocalDate.of(2015, 05, 22));
         createTransferDto.setRecipientAccountNumber("PL32349188939421535264612669");
         createTransferDto.setAmount(new BigDecimal("1500.53"));
         createTransferDto.setDescription("Testowy przelew ĄŹŻ");
@@ -96,7 +97,7 @@ class TransferControllerTest {
         transfer.setRecipientAccountNumber("PL32349188939421535264612669");
         transfer.setSenderAccountNumber("PL32349188939421535264612669");
         transfer.setAmount(bigDecimal);
-        transfer.setDate(LocalDateTime.now());
+        transfer.setDate(LocalDate.now());
         transfer.setDescription("Opis operacji");
         transfer.setRecipientName("Jan Kowalski");
         transfer.setSenderName("Jan Kowalski");
