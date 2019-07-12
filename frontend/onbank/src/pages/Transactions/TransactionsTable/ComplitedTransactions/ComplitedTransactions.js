@@ -25,11 +25,11 @@ const mapStateToProps = ({ transactions }) => {
     transactions.mockTransactionList.map(res =>
       dataTableData.push([
         res.date,
-        `${res.receiver || ''},${res.accountNumber || ''}`,
+        `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
         res.description,
         res.operationType,
-        res.ammount,
-        res.accountBallance,
+        res.amount,
+        res.accountBalance,
       ]),
     );
   }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const currencyFormat = (number = '') => {
-  if (number && !isNaN(number)) {
+  if ((number || number === 0) && !isNaN(number)) {
     const cost = parseFloat(number);
     return `${cost
       .toFixed(2)

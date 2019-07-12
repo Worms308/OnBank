@@ -26,6 +26,10 @@ const ConvertOperationType = type => {
       return 'CAPITALIZATION';
     case operationType.OTHERS:
       return 'OTHERS';
+    case operationType.NORMAL:
+      return 'Elixir';
+    case operationType.INSTANT:
+      return 'Natychmiastowy';
     default:
       return type;
   }
