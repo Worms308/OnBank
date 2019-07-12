@@ -10,7 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import {
   Button,
-  Checkbox,
+ // Checkbox,
   CircularProgress,
   FormLabel,
   FormControl,
@@ -55,6 +55,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 20,
   },
   amount: {
+    marginBottom: 20,
+  },
+  datePicker:{
     marginBottom: 20,
   },
   button: {
@@ -174,6 +177,7 @@ const NewTransfer = ({ sendTransactions }) => {
                     id="receiverInput"
                     name="receiver"
                     onChange={handleChange}
+                    className={classes.inputWidth}
                     onBlur={handleBlur}
                     value={values.receiver}
                     aria-describedby="receiver-error-text"
@@ -220,6 +224,7 @@ const NewTransfer = ({ sendTransactions }) => {
                   <Input
                     id="descriptionInput"
                     name="description"
+                    multiline
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.description}
@@ -252,7 +257,7 @@ const NewTransfer = ({ sendTransactions }) => {
                   ) : null}
                 </FormControl>
               </div>
-              {/* <br /> */}
+            
               <div className={classes.datePicker}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <>
@@ -261,6 +266,7 @@ const NewTransfer = ({ sendTransactions }) => {
                       format="dd.MM.yyyy"
                       disablePast
                       value={values.date}
+                      className={classes.datePicker}
                       onChange={handleChange('date')}
                       animateYearScrolling
                     />
@@ -304,7 +310,7 @@ const NewTransfer = ({ sendTransactions }) => {
                   ) : null}
                 </FormControl>
               </div>
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={
                   <Checkbox
                     checked={values.saveReceiver}
@@ -315,7 +321,7 @@ const NewTransfer = ({ sendTransactions }) => {
                 label="Zapamiętaj odbiorcę"
                 labelPlacement="end"
                 className={classes.checkbox}
-              />
+              /> */}
 
               <div className={classes.button}>
                 {isSubmitting ? (
