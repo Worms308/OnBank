@@ -14,8 +14,8 @@ import java.util.List;
 
 public class TransferToCSV {
 
-    private final static String[] columns = {"date", "recipientName", "recipientAccountNumber", "senderName",
-            "senderAccountNumber", "description", "OperationType", "amount"};
+//    private final static String[] columns = {"date", "recipientName", "recipientAccountNumber", "senderName",
+//            "senderAccountNumber", "description", "OperationType", "amount"};
 
     public static void generateCSV(String filename, List<Transfer> transfers)
             throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
@@ -23,13 +23,8 @@ public class TransferToCSV {
         new File("csv/outcoming/").mkdir();
         FileWriter writer = new FileWriter(filename);
 
-        ColumnPositionMappingStrategy mappingStrategy = new ColumnPositionMappingStrategy();
-        mappingStrategy.setType(Transfer.class);
-
-        mappingStrategy.setColumnMapping(columns);
-
         StatefulBeanToCsvBuilder<Transfer> builder = new StatefulBeanToCsvBuilder(writer);
-        StatefulBeanToCsv beanWriter = builder.withMappingStrategy(mappingStrategy).build();
+        StatefulBeanToCsv beanWriter = builder.build();
 
         beanWriter.write(transfers);
         writer.close();

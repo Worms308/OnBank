@@ -1,8 +1,8 @@
 package com.onbank.api.model;
 
 import com.onbank.api.validators.AccountNumber;
+import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +11,6 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -20,14 +19,15 @@ public class Transfer {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @CsvBindByName
     private Long id;
 
     @Column(name = "date", nullable = false)
-    @NotNull(message = "Date cannot be empty.")
+    @CsvBindByName
     private LocalDate date;
 
     @Column(name = "recipientname", nullable = false, length = 200)
-    @NotNull(message = "Recipient cannot be empty.")
+    @CsvBindByName
     private String recipientName;
 
     @Column(name = "recipientaccountnumber", nullable = false)
@@ -35,31 +35,38 @@ public class Transfer {
     @NotNull(message = "Account number cannot be empty.")
     @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
     @AccountNumber(message = "Invalid account number.")
+    @CsvBindByName
     private String recipientAccountNumber;
 
     @Column(name = "description", length = 4000)
+    @CsvBindByName
     private String description;
 
     @NotNull(message = "Type of operation cannot be empty.")
     @Column(name = "typeofoperation", nullable = false, length = 200)
     @Enumerated(EnumType.STRING)
-    private OperationType OperationType;
+    @CsvBindByName
+    private OperationType operationType;
 
     @Column(name = "amount", nullable = false)
     @NotNull(message = "Amount cannot be empty.")
     @Positive(message = "Amount must be bigger than 0,00.")
+    @CsvBindByName
     private BigDecimal amount;
 
     @Column(name = "accountbalance", nullable = false)
+    @CsvBindByName
     private BigDecimal accountBalance;
 
     @Column(name = "realizationstate", nullable = false)
     @NotNull(message = "Transfer state cannot be empty.")
     @Enumerated(EnumType.STRING)
+    @CsvBindByName
     private TransferState realizationState;
 
     @Column(name = "sendername", length = 200)
     @NotNull(message = "Sender name cannot be empty.")
+    @CsvBindByName
     private String senderName;
 
     @Column(name = "senderaccountnumber", nullable = false)
@@ -67,6 +74,7 @@ public class Transfer {
     @NotNull(message = "Account number cannot be empty.")
     @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
     @AccountNumber(message = "Invalid account number.")
+    @CsvBindByName
     private String senderAccountNumber;
 
 }
