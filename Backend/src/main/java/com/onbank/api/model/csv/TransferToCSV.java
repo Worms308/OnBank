@@ -19,8 +19,8 @@ public class TransferToCSV {
 
     public static void generateCSV(String filename, List<Transfer> transfers)
             throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-        filename = "csv/" + filename;
-        new File("csv/").mkdir();
+        filename = "csv/outcoming/" + filename;
+        new File("csv/outcoming/").mkdir();
         FileWriter writer = new FileWriter(filename);
 
         ColumnPositionMappingStrategy mappingStrategy = new ColumnPositionMappingStrategy();

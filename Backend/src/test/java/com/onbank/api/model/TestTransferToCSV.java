@@ -54,7 +54,7 @@ public class TestTransferToCSV {
         transfers.add(createMockObject());
 
         TransferToCSV.generateCSV("plik.csv", transfers);
-        File csv = new File("csv/plik.csv");
+        File csv = new File("csv/outcoming/plik.csv");
 
         assertThat(csv.exists()).isTrue();
         csv.delete();
