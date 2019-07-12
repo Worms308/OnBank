@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import NumberFormat from 'react-number-format';
 import { Redirect } from 'react-router-dom';
 import { paths } from 'routes/paths';
-import PropTypes from 'prop-types';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
@@ -23,77 +21,12 @@ import {
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import { sendTransactionsAction } from 'actions/transactionsActions';
 import {useStyles} from '../../themes/newTransferTheme'
 import {colorthemeButtonAndDate} from '../../themes/customTheme'
-
-const AccountNumberMask = props => {
-  const { inputRef, onChange, ...other } = props;
-
-  return (
-    <NumberFormat
-      {...other}
-      format="PL## #### #### #### #### #### ####"
-      getInputRef={inputRef}
-      onValueChange={values => {
-        onChange({
-          target: {
-            value: values.formattedValue.replace(/\s/g, ''),
-          },
-        });
-      }}
-    />
-  );
-};
-
-function NumberFormatCustom(props) {
-  const { inputRef, onChange, ...other } = props;
-
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={inputRef}
-      onValueChange={values => {
-        onChange({
-          target: {
-            value: values.value,
-          },
-        });
-      }}
-      thousandSeparator
-      suffix=" PLN"
-    />
-  );
-}
-
-NumberFormatCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
-
-const SignupSchema = () => {
-  const requiredMessage = 'Wymagane';
-  const patt = /[a-zA-Z]{2}[0-9]{26}/g;
-  return Yup.object().shape({
-    receiver: Yup.string()
-      .min(2, 'Nazwa odbiorcy jest za krótka')
-      .max(200, 'Nazwa odbiorcy jest za długa')
-      .required(requiredMessage),
-    accountNumber: Yup.string()
-      .required(requiredMessage)
-      .test('accountValidate', 'Błędny numer ', value => patt.test(value)),
-    description: Yup.string()
-      .min(2, 'Opis jest za krótki')
-      .max(4000, 'Opis jest za długi')
-      .required(requiredMessage),
-    ammount: Yup.number()
-      .min(0.1, 'Za mała kwota')
-      .typeError('Nie można wprowadzić ujemnej kwoty')
-      .required(requiredMessage),
-    typeTransfer: Yup.string().required('Proszę wybrać rodzaj operacji'),
-  });
-};
+import {AccountNumberMask} from './accountNumberMask'
+import {SignupSchema} from './signupSchema'
+import {NumberFormatCustom} from './numberFormatCustom'
 
 const NewTransfer = ({ sendTransactions, isLoading, isSuccess }) => {
   const classes = useStyles();
