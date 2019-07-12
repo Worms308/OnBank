@@ -8,3 +8,9 @@ export default createMuiTheme({
     },
   },
 });
+
+export const colorthemeButtonAndDate = createMuiTheme({
+  palette: {
+    primary: { main: '#27AE60', contrastText: '#fff' },
+  },
+});

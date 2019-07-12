@@ -21,15 +21,15 @@ class ComplitedTransactions extends React.Component {
 
 const mapStateToProps = ({ transactions }) => {
   const dataTableData = [];
-  if (transactions.mockTransactionList) {
-    transactions.mockTransactionList.map(res =>
+  if (transactions.transactionList) {
+    transactions.transactionList.map(res =>
       dataTableData.push([
         res.date,
-        `${res.receiver}, ${res.accountNumber}`,
+        `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
         res.description,
-        res.typeOfOperation,
-        res.ammount,
-        res.accountBallance,
+        res.operationType,
+        res.amount,
+        res.accountBalance,
       ]),
     );
   }
