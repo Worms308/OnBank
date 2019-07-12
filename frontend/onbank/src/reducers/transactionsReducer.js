@@ -17,11 +17,13 @@ const transactionsReducer = (state = transactionList, action) => {
       return {
         ...state,
         isLoading: false,
+        isSuccess: true,
       };
     case NEW_TRANSFER_FAILURE:
       return {
         ...state,
         isLoading: false,
+        isSuccess: false,
       };
     case FETCH_SUCCESS:
       return {

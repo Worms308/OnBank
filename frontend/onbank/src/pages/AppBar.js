@@ -19,14 +19,13 @@ import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import { paths } from 'routes/paths';
-import {useStyles} from '../themes/appBarTheme'
+import { useStyles } from '../themes/appBarTheme';
 
 const bookmarkArray = [
   { name: 'Strona główna', path: paths.home, icon: <Home /> },
   { name: 'Transakcje', path: paths.transactions, icon: <ViewList /> },
   { name: 'Przelew', path: paths.newTransfer, icon: <SwapHoriz /> },
 ];
-
 
 export default function ButtonAppBar() {
   const [state, setState] = React.useState({
@@ -98,7 +97,7 @@ export default function ButtonAppBar() {
         <Toolbar>
           <Hidden mdUp>
             <Button onClick={toggleDrawer('left', true)}>
-              <ViewHeadline></ViewHeadline>
+              <ViewHeadline />
             </Button>
             <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
               {sideList('left')}
@@ -129,7 +128,7 @@ export default function ButtonAppBar() {
               ))}
             </Tabs>
           </Hidden>
-          <AccountCircle className={classes.icon}></AccountCircle>
+          <AccountCircle className={classes.icon} />
           {redirect && <Redirect to={redirect} />}
         </Toolbar>
       </AppBar>

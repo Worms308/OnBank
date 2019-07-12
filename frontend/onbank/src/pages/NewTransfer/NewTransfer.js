@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
+import { Redirect } from 'react-router-dom';
+import { paths } from 'routes/paths';
 import PropTypes from 'prop-types';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -98,7 +100,7 @@ const SignupSchema = () => {
   });
 };
 
-const NewTransfer = ({ sendTransactions, isLoading }) => {
+const NewTransfer = ({ sendTransactions, isLoading, isSuccess }) => {
   const classes = useStyles();
 
   return (
@@ -274,6 +276,7 @@ const NewTransfer = ({ sendTransactions, isLoading }) => {
                     </Button>
                   </MuiThemeProvider>
                 )}
+                {isSuccess ? <Redirect to={paths.transactions} /> : null}
               </div>
             </div>
           </Form>
@@ -284,8 +287,8 @@ const NewTransfer = ({ sendTransactions, isLoading }) => {
 };
 
 const mapStateToProps = ({ transactions }) => {
-  const { isLoading } = transactions;
-  return { isLoading };
+  const { isLoading, isSuccess } = transactions;
+  return { isLoading, isSuccess };
 };
 
 const mapDispatchToProps = dispatch => {
