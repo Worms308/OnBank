@@ -2,16 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-
 import {
   Button,
-  // Checkbox,
   CircularProgress,
   FormLabel,
   FormControl,
@@ -26,71 +23,13 @@ import DateFnsUtils from '@date-io/date-fns';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { sendTransactionsAction } from 'actions/transactionsActions';
+import {useStyles} from '../../themes/newTransferTheme'
 
 const colorthemeButtonAndDate = createMuiTheme({
   palette: {
     primary: { main: '#27AE60', contrastText: '#fff' },
   },
 });
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: 'auto',
-    marginTop: 10,
-  },
-  form: {
-    width: '100%',
-    height: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-  },
-  recieverInput: {
-    marginBottom: 20,
-    marginTop: 20,
-    width: '100%',
-    marginLeft: '0%',
-  },
-  accountNumberInput: {
-    marginBottom: 20,
-  },
-  titleTransfer: {
-    marginBottom: 20,
-  },
-  amount: {
-    marginBottom: 20,
-  },
-  datePicker: {
-    marginBottom: 20,
-  },
-  buttonDiv: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: 20,
-  },
-  button: {
-    containedPrimary: '#FFF',
-  },
-  inputWidth: {
-    width: 450,
-    [theme.breakpoints.down('sm')]: {
-      width: 280,
-    },
-  },
-  icon: {
-    color: '#707070',
-
-    '&:hover': {
-      backgroundColor: '#E3E5E1',
-      borderRadius: 10,
-    },
-  },
-}));
 
 const AccountNumberMask = props => {
   const { inputRef, onChange, ...other } = props;
@@ -205,7 +144,7 @@ const NewTransfer = ({ sendTransactions, isLoading }) => {
                   ) : null}
                 </FormControl>
               </div>
-              <div className={classes.accountNumberInput}>
+              <div className={classes.inputStyle}>
                 <FormControl
                   className={classes.textField}
                   error={!!(errors.accountNumber && touched.accountNumber)}
@@ -228,7 +167,7 @@ const NewTransfer = ({ sendTransactions, isLoading }) => {
                   ) : null}
                 </FormControl>
               </div>
-              <div className={classes.titleTransfer}>
+              <div className={classes.inputStyle}>
                 <FormControl
                   className={classes.inputWidth}
                   error={!!(errors.description && touched.description)}
@@ -250,7 +189,7 @@ const NewTransfer = ({ sendTransactions, isLoading }) => {
                   ) : null}
                 </FormControl>
               </div>
-              <div className={classes.amount}>
+              <div className={classes.inputStyle}>
                 <FormControl
                   className={classes.textFieldAmount}
                   error={!!(errors.ammount && touched.ammount)}
@@ -271,7 +210,7 @@ const NewTransfer = ({ sendTransactions, isLoading }) => {
                 </FormControl>
               </div>
 
-              <div className={classes.datePicker}>
+              <div className={classes.inputStyle}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <MuiThemeProvider theme={colorthemeButtonAndDate}>
                     <>
@@ -325,19 +264,6 @@ const NewTransfer = ({ sendTransactions, isLoading }) => {
                   ) : null}
                 </FormControl>
               </div>
-              {/* <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={values.saveReceiver}
-                    onChange={handleChange('saveReceiver')}
-                    color="default"
-                  />
-                }
-                label="Zapamiętaj odbiorcę"
-                labelPlacement="end"
-                className={classes.checkbox}
-              /> */}
-
               <div className={classes.buttonDiv}>
                 {isLoading ? (
                   <CircularProgress size={30} />

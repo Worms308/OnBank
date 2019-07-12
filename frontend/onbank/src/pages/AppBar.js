@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -20,6 +19,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import { paths } from 'routes/paths';
+import {useStyles} from '../themes/appBarTheme'
 
 const bookmarkArray = [
   { name: 'Strona główna', path: paths.home, icon: <Home /> },
@@ -27,50 +27,6 @@ const bookmarkArray = [
   { name: 'Przelew', path: paths.newTransfer, icon: <SwapHoriz /> },
 ];
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    marginBottom: 20,
-  },
-  color: {
-    backgroundColor: '#FFF',
-  },
-  on: {
-    fontWeight: 'bold',
-    color: '#27AE60',
-  },
-  menuButton: {},
-
-  bookmark: {
-    marginLeft: theme.spacing(6),
-    fontSize: 16,
-    textAlign: 'center',
-    //display: 'inline-block',
-    whiteSpace: 'nowrap',
-  },
-  icon: {
-    marginLeft: 'auto',
-    marginRight: 0,
-    fontSize: 40,
-    color: '#707070',
-  },
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
-  burgerTitleOn: {
-    fontWeight: 'bold',
-    color: '#27AE60',
-
-    marginLeft: 70,
-    display: 'inline',
-  },
-  burgerTitleBank: {
-    display: 'inline',
-  },
-}));
 
 export default function ButtonAppBar() {
   const [state, setState] = React.useState({
