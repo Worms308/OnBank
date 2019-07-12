@@ -33,9 +33,8 @@ export const sendTransactionsAction = data => dispatch => {
     description: data.description,
     operationType: data.typeTransfer,
     amount: parseFloat(data.ammount),
-    // saveReceiver: data.saveReceiver,
   };
-  console.log(json);
+
   dispatch({ type: NEW_TRANSFER_REQUEST });
   return sendTransactions(json)
     .then(() => {

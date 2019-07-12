@@ -14,7 +14,9 @@ const errorHandler = error => {
   if (!error.response) {
     toast.error('Sprawdź połączenie z internetem');
   } else if (error.response) {
-    toast.error(`${error.response.code} - ${error.response.description}`);
+    toast.error(
+      `${error.response.code || 'Kod błędu'} - ${error.response.description || 'Komunikat błędu'}`,
+    );
   }
   return Promise.reject(error);
 };

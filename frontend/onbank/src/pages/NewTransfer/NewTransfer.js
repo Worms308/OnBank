@@ -7,11 +7,11 @@ import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import {
   Button,
- // Checkbox,
+  // Checkbox,
   CircularProgress,
   FormLabel,
   FormControl,
@@ -29,8 +29,8 @@ import { sendTransactionsAction } from 'actions/transactionsActions';
 
 const colorthemeButtonAndDate = createMuiTheme({
   palette: {
-    primary: { main: "#27AE60", contrastText: "#fff" },
-  }
+    primary: { main: '#27AE60', contrastText: '#fff' },
+  },
 });
 
 const useStyles = makeStyles(theme => ({
@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   },
   recieverInput: {
     marginBottom: 20,
-    marginTop:20,
+    marginTop: 20,
     width: '100%',
     marginLeft: '0%',
   },
@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   amount: {
     marginBottom: 20,
   },
-  datePicker:{
+  datePicker: {
     marginBottom: 20,
   },
   buttonDiv: {
@@ -73,9 +73,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end',
     marginBottom: 20,
   },
-  button:{
-    containedPrimary:'#FFF',
-    
+  button: {
+    containedPrimary: '#FFF',
   },
   inputWidth: {
     width: 450,
@@ -85,7 +84,7 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     color: '#707070',
-    
+
     '&:hover': {
       backgroundColor: '#E3E5E1',
       borderRadius: 10,
@@ -160,7 +159,7 @@ const SignupSchema = () => {
   });
 };
 
-const NewTransfer = ({ sendTransactions }) => {
+const NewTransfer = ({ sendTransactions, isLoading }) => {
   const classes = useStyles();
 
   return (
@@ -176,11 +175,11 @@ const NewTransfer = ({ sendTransactions }) => {
           saveReceiver: false,
         }}
         validationSchema={SignupSchema}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={values => {
           sendTransactions(values);
         }}
       >
-        {({ errors, touched, handleChange, handleBlur, values, isSubmitting }) => (
+        {({ errors, touched, handleChange, handleBlur, values }) => (
           <Form className={classes.form}>
             <div className={classes.inputs}>
               <div className={classes.recieverInput}>
@@ -197,7 +196,7 @@ const NewTransfer = ({ sendTransactions }) => {
                     aria-describedby="receiver-error-text"
                     endAdornment={
                       <InputAdornment position="end">
-                        <PermContactCalendar className={classes.icon}></PermContactCalendar>
+                        <PermContactCalendar className={classes.icon} />
                       </InputAdornment>
                     }
                   />
@@ -271,22 +270,22 @@ const NewTransfer = ({ sendTransactions }) => {
                   ) : null}
                 </FormControl>
               </div>
-            
+
               <div className={classes.datePicker}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <MuiThemeProvider theme={colorthemeButtonAndDate}>
-                  <>
-                    <DatePicker
-                      label="Data"
-                      format="dd.MM.yyyy"
-                      disablePast
-                      value={values.date}
-                      className={classes.datePicker}
-                      onChange={handleChange('date')}
-                      animateYearScrolling
-                    />
-                    {errors.date && touched.date ? <div>{errors.date}</div> : null}
-                  </>
+                    <>
+                      <DatePicker
+                        label="Data"
+                        format="dd.MM.yyyy"
+                        disablePast
+                        value={values.date}
+                        className={classes.datePicker}
+                        onChange={handleChange('date')}
+                        animateYearScrolling
+                      />
+                      {errors.date && touched.date ? <div>{errors.date}</div> : null}
+                    </>
                   </MuiThemeProvider>
                 </MuiPickersUtilsProvider>
               </div>
@@ -340,8 +339,8 @@ const NewTransfer = ({ sendTransactions }) => {
               /> */}
 
               <div className={classes.buttonDiv}>
-                {isSubmitting ? (
-                  <CircularProgress />
+                {isLoading ? (
+                  <CircularProgress size={30} />
                 ) : (
                   <MuiThemeProvider theme={colorthemeButtonAndDate}>
                     <Button variant="contained" color="primary" type="submit">
@@ -358,15 +357,20 @@ const NewTransfer = ({ sendTransactions }) => {
   );
 };
 
+const mapStateToProps = ({ transactions }) => {
+  const { isLoading } = transactions;
+  return { isLoading };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
-    sendTransactions: (values) => {
+    sendTransactions: values => {
       dispatch(sendTransactionsAction(values));
     },
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(NewTransfer);
