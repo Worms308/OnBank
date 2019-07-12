@@ -30,9 +30,6 @@ export const useStyles = makeStyles(theme => ({
       justifyContent: 'flex-end',
       marginBottom: 20,
     },
-    button: {
-      containedPrimary: '#FFF',
-    },
     inputWidth: {
       width: 450,
       [theme.breakpoints.down('sm')]: {

@@ -8,7 +8,7 @@ import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import {MuiThemeProvider } from '@material-ui/core/styles';
 import {
   Button,
   CircularProgress,
@@ -26,12 +26,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { sendTransactionsAction } from 'actions/transactionsActions';
 import {useStyles} from '../../themes/newTransferTheme'
-
-const colorthemeButtonAndDate = createMuiTheme({
-  palette: {
-    primary: { main: '#27AE60', contrastText: '#fff' },
-  },
-});
+import {colorthemeButtonAndDate} from '../../themes/customTheme'
 
 const AccountNumberMask = props => {
   const { inputRef, onChange, ...other } = props;

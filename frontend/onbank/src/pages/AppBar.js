@@ -27,7 +27,7 @@ const bookmarkArray = [
   { name: 'Przelew', path: paths.newTransfer, icon: <SwapHoriz /> },
 ];
 
-export default function ButtonAppBar() {
+export default function MyAppBar() {
   const [state, setState] = React.useState({
     left: false,
   });
