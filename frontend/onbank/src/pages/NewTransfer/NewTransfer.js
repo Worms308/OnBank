@@ -7,6 +7,7 @@ import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 import {
   Button,
@@ -25,6 +26,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { sendTransactionsAction } from 'actions/transactionsActions';
+
+const colorthemeButtonAndDate = createMuiTheme({
+  palette: {
+    primary: { main: "#27AE60", contrastText: "#fff" },
+  }
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,10 +68,14 @@ const useStyles = makeStyles(theme => ({
   datePicker:{
     marginBottom: 20,
   },
-  button: {
+  buttonDiv: {
     display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: 20,
+  },
+  button:{
+    containedPrimary:'#FFF',
+    
   },
   inputWidth: {
     width: 450,
@@ -74,6 +85,7 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     color: '#707070',
+    
     '&:hover': {
       backgroundColor: '#E3E5E1',
       borderRadius: 10,
@@ -262,6 +274,7 @@ const NewTransfer = ({ sendTransactions }) => {
             
               <div className={classes.datePicker}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <MuiThemeProvider theme={colorthemeButtonAndDate}>
                   <>
                     <DatePicker
                       label="Data"
@@ -274,6 +287,7 @@ const NewTransfer = ({ sendTransactions }) => {
                     />
                     {errors.date && touched.date ? <div>{errors.date}</div> : null}
                   </>
+                  </MuiThemeProvider>
                 </MuiPickersUtilsProvider>
               </div>
               <div>
@@ -325,13 +339,15 @@ const NewTransfer = ({ sendTransactions }) => {
                 className={classes.checkbox}
               /> */}
 
-              <div className={classes.button}>
+              <div className={classes.buttonDiv}>
                 {isSubmitting ? (
                   <CircularProgress />
                 ) : (
-                  <Button variant="contained" color="primary" type="submit">
-                    Wyślij
-                  </Button>
+                  <MuiThemeProvider theme={colorthemeButtonAndDate}>
+                    <Button variant="contained" color="primary" type="submit">
+                      Wyślij
+                    </Button>
+                  </MuiThemeProvider>
                 )}
               </div>
             </div>
