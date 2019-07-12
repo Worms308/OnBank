@@ -63,7 +63,7 @@ class TransferControllerTest {
         createTransferDto.setRecipientAccountNumber("PL32349188939421535264612669");
         createTransferDto.setAmount(new BigDecimal("1500.53"));
         createTransferDto.setDescription("Testowy przelew ĄŹŻ");
-        createTransferDto.setOperationType(OperationType.CURRENCY_OPERATION);
+        createTransferDto.setOperationType(OperationType.NORMAL);
         return createTransferDto;
     }
 
@@ -93,7 +93,7 @@ class TransferControllerTest {
     private Transfer createMockObject() {
         BigDecimal bigDecimal = new BigDecimal(32324.3);
         Transfer transfer = new Transfer();
-        transfer.setOperationType(OperationType.CREDIT_OPERATION);
+        transfer.setOperationType(OperationType.INSTANT);
         transfer.setAccountBalance(bigDecimal);
         transfer.setRecipientAccountNumber("PL32349188939421535264612669");
         transfer.setSenderAccountNumber("PL32349188939421535264612669");
