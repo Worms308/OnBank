@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
   recieverInput: {
     marginBottom: 20,
+    marginTop:20,
     width: '100%',
     marginLeft: '0%',
   },
@@ -176,6 +177,7 @@ const NewTransfer = ({ sendTransactions }) => {
                   <Input
                     id="receiverInput"
                     name="receiver"
+                    multiline
                     onChange={handleChange}
                     className={classes.inputWidth}
                     onBlur={handleBlur}
