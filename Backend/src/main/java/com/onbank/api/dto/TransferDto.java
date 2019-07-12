@@ -1,25 +1,23 @@
 package com.onbank.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.onbank.api.model.OperationType;
-import com.onbank.api.validators.AccountNumber;
+import com.onbank.api.model.TransferState;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class TransferDto {
     private Long id;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     private String recipientName;
 
@@ -33,6 +31,8 @@ public class TransferDto {
     private BigDecimal amount;
 
     private BigDecimal accountBalance;
+
+    private TransferState realizationState;
 
     private String senderName;
 
