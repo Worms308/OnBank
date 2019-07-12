@@ -7,6 +7,7 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -18,6 +19,8 @@ public class TransferToCSV {
 
     public static void generateCSV(String filename, List<Transfer> transfers)
             throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+        filename = "csv/" + filename;
+        new File("csv/").mkdir();
         FileWriter writer = new FileWriter(filename);
 
         ColumnPositionMappingStrategy mappingStrategy = new ColumnPositionMappingStrategy();
