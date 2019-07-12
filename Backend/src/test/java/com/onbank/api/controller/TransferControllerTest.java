@@ -9,6 +9,7 @@ import com.onbank.ObjectToJson;
 import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.model.OperationType;
 import com.onbank.api.model.Transfer;
+import com.onbank.api.model.TransferState;
 import com.onbank.api.repository.TransferRepository;
 import com.onbank.api.transformer.TransferTransformer;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -57,11 +59,11 @@ class TransferControllerTest {
     private CreateTransferDto createTransferDto(){
         CreateTransferDto createTransferDto = new CreateTransferDto();
         createTransferDto.setRecipientName("Jan Kowalski");
-        createTransferDto.setDate(LocalDateTime.of(2015, 05, 22, 18, 30, 13));
+        createTransferDto.setDate(LocalDate.of(2015, 05, 22));
         createTransferDto.setRecipientAccountNumber("PL32349188939421535264612669");
         createTransferDto.setAmount(new BigDecimal("1500.53"));
         createTransferDto.setDescription("Testowy przelew ĄŹŻ");
-        createTransferDto.setOperationType(OperationType.CURRENCY_OPERATION);
+        createTransferDto.setOperationType(OperationType.NORMAL);
         return createTransferDto;
     }
 
@@ -80,6 +82,7 @@ class TransferControllerTest {
         assertThat(fromDB.size()).isEqualTo(1);
 
         fromDB.get(0).setId(null);
+        fromDB.get(0).setRealizationState(null);
         fromDB.get(0).setAccountBalance(null);
         fromDB.get(0).setSenderName(null);
         fromDB.get(0).setSenderAccountNumber(null);
@@ -90,15 +93,16 @@ class TransferControllerTest {
     private Transfer createMockObject() {
         BigDecimal bigDecimal = new BigDecimal(32324.3);
         Transfer transfer = new Transfer();
-        transfer.setOperationType(OperationType.CREDIT_OPERATION);
+        transfer.setOperationType(OperationType.INSTANT);
         transfer.setAccountBalance(bigDecimal);
         transfer.setRecipientAccountNumber("PL32349188939421535264612669");
         transfer.setSenderAccountNumber("PL32349188939421535264612669");
         transfer.setAmount(bigDecimal);
-        transfer.setDate(LocalDateTime.now());
+        transfer.setDate(LocalDate.now());
         transfer.setDescription("Opis operacji");
         transfer.setRecipientName("Jan Kowalski");
         transfer.setSenderName("Jan Kowalski");
+        transfer.setRealizationState(TransferState.WAITING);
         return transfer;
     }
 
