@@ -1,4 +1,4 @@
-package com.onbank.api.model;
+package com.onbank.api.model.enums;
 
 public enum TransferState {
     WAITING,

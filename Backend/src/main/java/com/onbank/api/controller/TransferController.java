@@ -4,7 +4,7 @@ import com.onbank.Mocks;
 import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.dto.TransferDto;
 import com.onbank.api.model.Transfer;
-import com.onbank.api.model.TransferState;
+import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.service.TransferService;
 import com.onbank.api.transformer.TransferTransformer;
 import lombok.RequiredArgsConstructor;

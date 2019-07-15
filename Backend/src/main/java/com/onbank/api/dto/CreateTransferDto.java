@@ -1,7 +1,7 @@
 package com.onbank.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.onbank.api.model.OperationType;
+import com.onbank.api.model.enums.OperationType;
 import com.onbank.api.validators.AccountNumber;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
