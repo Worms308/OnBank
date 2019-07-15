@@ -19,13 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 @LoadProperties
@@ -40,7 +33,7 @@ public class TestTransferToCSV {
         transfer.setRecipientAccountNumber("PL32349188939421535264612669");
         transfer.setSenderAccountNumber("PL32349188939421535264612669");
         transfer.setAmount(bigDecimal);
-        transfer.setDate(LocalDate.now());
+        transfer.setDate(LocalDate.of(2019, 07, 15));
         transfer.setDescription("Opis operacji");
         transfer.setRecipientName("Jan Kowalski");
         transfer.setSenderName("Jan Kowalski");
@@ -74,9 +67,9 @@ public class TestTransferToCSV {
         FileWriter writer = new FileWriter(csv);
         writer.append(
                 "accountBalance,\"amount\",\"date\",\"description\",\"id\",\"operationType\",\"realizationState\",\"recipientAccountNumber\",\"recipientName\",\"senderAccountNumber\",\"senderName\"\n" +
-                "32324.3,\"32324.3\",\"2019-07-12\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n" +
-                "32324.3,\"32324.3\",\"2019-07-12\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n" +
-                "32324.3,\"32324.3\",\"2019-07-12\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n"
+                "32324.3,\"32324.3\",\"2019-07-15\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n" +
+                "32324.3,\"32324.3\",\"2019-07-15\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n" +
+                "32324.3,\"32324.3\",\"2019-07-15\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n"
         );
         writer.close();
 
@@ -86,5 +79,23 @@ public class TestTransferToCSV {
         assertThat(transfersFromParser.size()).isEqualTo(3);
 
         assertThat(transfers).isEqualTo(transfersFromParser);
+    }
+
+    @Test
+    void shouldCreateAndThenParse() throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException {
+        List<Transfer> transfers = new ArrayList<>();
+        transfers.add(createMockObject());
+        transfers.add(createMockObject());
+        transfers.add(createMockObject());
+
+        TransferToCSV.generateCSV("plik.csv", transfers);
+        File csv = new File("csv/outcoming/plik.csv");
+        List<Transfer> transfersFromParser = CSVToTransfer.generateTransfers("csv/outcoming/plik.csv");
+
+        assertThat(transfersFromParser.size()).isEqualTo(3);
+        assertThat(transfers).isEqualTo(transfersFromParser);
+
+        csv.delete();
+        assertThat(csv.exists()).isFalse();
     }
 }
