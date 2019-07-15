@@ -1,10 +1,10 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import NavBar from 'pages/AppBar';
+import NavigationBar from 'core/NavigationBar';
 
 const Template = ({ children }) => (
   <Container maxWidth="lg">
-    <NavBar />
+    <NavigationBar />
     {children}
   </Container>
 );

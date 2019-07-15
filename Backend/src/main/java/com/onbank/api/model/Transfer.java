@@ -1,7 +1,6 @@
 package com.onbank.api.model;
 
 import com.onbank.api.validators.AccountNumber;
-import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -35,7 +34,6 @@ public class Transfer {
     private String recipientAccountNumber;
 
     @Column(name = "description", length = 4000)
-    @CsvBindByName
     private String description;
 
     @NotNull(message = "Type of operation cannot be empty.")
