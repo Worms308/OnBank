@@ -3,14 +3,19 @@ package com.onbank.ftp;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 
 public class FtpConnection {
 
+    @Value("${onbank.server}")
     private String server;
+    @Value("${onbank.port}")
     private int port;
+    @Value("${onbank.user")
     private String user;
+    @Value("${onbank.password}")
     private String password;
     private FTPClient ftp;
 
