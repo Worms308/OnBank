@@ -21,8 +21,22 @@ export const useStyles = makeStyles(theme => ({
     icon: {
       marginLeft: 'auto',
       marginRight: 0,
-      fontSize: 40,
+      
+    },
+    icon2:{
+      fontSize: 30,
       color: '#707070',
+    },
+    personPaper:{
+      width:300,
+      height:100
+    },
+    insideDivPerson:{
+      paddingTop:20,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+
     },
     list: {
       width: 250,

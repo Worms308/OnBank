@@ -20,6 +20,9 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import { paths } from 'routes/paths';
 import { useStyles } from '../themes/appBarTheme';
+import Popover from '@material-ui/core/Popover';
+import { Paper} from '@material-ui/core';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const bookmarkArray = [
   { name: 'Strona główna', path: paths.home, icon: <Home /> },
@@ -39,6 +42,20 @@ const NavigationBar = ({ location }) => {
     }
     setState({ ...state, [side]: open });
   };
+
+
+   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const sideList = side => (
     <div
@@ -109,7 +126,40 @@ const NavigationBar = ({ location }) => {
               ))}
             </Tabs>
           </Hidden>
-          <AccountCircle className={classes.icon} />
+          <Button className={classes.icon} onClick={handleClick}><AccountCircle className={classes.icon2}/></Button>
+          <div>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <Paper className={classes.personPaper}>
+               <div className={classes.insideDivPerson}>
+                  <Typography >Jan Kowalski</Typography>
+                  <ButtonGroup
+                    variant="contained"
+                    color="default"
+                    size="large"
+                  >
+                    <Button>1</Button>
+                    <Button>2</Button>
+                    <Button>3</Button>
+                  </ButtonGroup>
+                </div>
+              </Paper>
+            </Popover>
+          </div>
+
+
         </Toolbar>
       </AppBar>
     </Fragment>
