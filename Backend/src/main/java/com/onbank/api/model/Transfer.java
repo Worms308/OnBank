@@ -1,8 +1,8 @@
 package com.onbank.api.model;
 
 import com.onbank.api.validators.AccountNumber;
+import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +11,6 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -23,11 +22,9 @@ public class Transfer {
     private Long id;
 
     @Column(name = "date", nullable = false)
-    @NotNull(message = "Date cannot be empty.")
     private LocalDate date;
 
     @Column(name = "recipientname", nullable = false, length = 200)
-    @NotNull(message = "Recipient cannot be empty.")
     private String recipientName;
 
     @Column(name = "recipientaccountnumber", nullable = false)
@@ -38,12 +35,13 @@ public class Transfer {
     private String recipientAccountNumber;
 
     @Column(name = "description", length = 4000)
+    @CsvBindByName
     private String description;
 
     @NotNull(message = "Type of operation cannot be empty.")
     @Column(name = "typeofoperation", nullable = false, length = 200)
     @Enumerated(EnumType.STRING)
-    private OperationType OperationType;
+    private OperationType operationType;
 
     @Column(name = "amount", nullable = false)
     @NotNull(message = "Amount cannot be empty.")
