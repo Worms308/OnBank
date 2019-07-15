@@ -19,15 +19,12 @@ public class Transfer {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @CsvBindByName
     private Long id;
 
     @Column(name = "date", nullable = false)
-    @CsvBindByName
     private LocalDate date;
 
     @Column(name = "recipientname", nullable = false, length = 200)
-    @CsvBindByName
     private String recipientName;
 
     @Column(name = "recipientaccountnumber", nullable = false)
@@ -35,7 +32,6 @@ public class Transfer {
     @NotNull(message = "Account number cannot be empty.")
     @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
     @AccountNumber(message = "Invalid account number.")
-    @CsvBindByName
     private String recipientAccountNumber;
 
     @Column(name = "description", length = 4000)
@@ -45,28 +41,23 @@ public class Transfer {
     @NotNull(message = "Type of operation cannot be empty.")
     @Column(name = "typeofoperation", nullable = false, length = 200)
     @Enumerated(EnumType.STRING)
-    @CsvBindByName
     private OperationType operationType;
 
     @Column(name = "amount", nullable = false)
     @NotNull(message = "Amount cannot be empty.")
     @Positive(message = "Amount must be bigger than 0,00.")
-    @CsvBindByName
     private BigDecimal amount;
 
     @Column(name = "accountbalance", nullable = false)
-    @CsvBindByName
     private BigDecimal accountBalance;
 
     @Column(name = "realizationstate", nullable = false)
     @NotNull(message = "Transfer state cannot be empty.")
     @Enumerated(EnumType.STRING)
-    @CsvBindByName
     private TransferState realizationState;
 
     @Column(name = "sendername", length = 200)
     @NotNull(message = "Sender name cannot be empty.")
-    @CsvBindByName
     private String senderName;
 
     @Column(name = "senderaccountnumber", nullable = false)
@@ -74,7 +65,6 @@ public class Transfer {
     @NotNull(message = "Account number cannot be empty.")
     @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
     @AccountNumber(message = "Invalid account number.")
-    @CsvBindByName
     private String senderAccountNumber;
 
 }

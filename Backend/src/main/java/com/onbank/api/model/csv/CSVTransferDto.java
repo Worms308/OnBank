@@ -55,4 +55,21 @@ public class CSVTransferDto {
         transfer.setSenderAccountNumber(dto.getSenderAccountNumber());
         return transfer;
     }
+
+    public static CSVTransferDto convertToDTO(Transfer transfer){
+        CSVTransferDto dto = new CSVTransferDto();
+        dto.setId(transfer.getId());
+        if (transfer.getDate() != null)
+            dto.setDate(Date.from(transfer.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        dto.setRecipientName(transfer.getRecipientName());
+        dto.setRecipientAccountNumber(transfer.getRecipientAccountNumber());
+        dto.setDescription(transfer.getDescription());
+        dto.setOperationType(transfer.getOperationType().name());
+        dto.setAmount(transfer.getAmount());
+        dto.setAccountBalance(transfer.getAccountBalance());
+        dto.setRealizationState(transfer.getRealizationState().name());
+        dto.setSenderName(transfer.getSenderName());
+        dto.setSenderAccountNumber(transfer.getSenderAccountNumber());
+        return dto;
+    }
 }
