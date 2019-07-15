@@ -29,7 +29,7 @@ export const useStyles = makeStyles(theme => ({
     },
     personPaper:{
       width:300,
-      height:100
+      height:150
     },
     insideDivPerson:{
       paddingTop:20,

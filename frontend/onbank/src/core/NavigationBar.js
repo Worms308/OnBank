@@ -44,7 +44,9 @@ const NavigationBar = ({ location }) => {
   };
 
 
-   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl,] = React.useState(null);
+  const [disabledValue, setDisabledValue] = React.useState(true);
+  const [disabledValue2, setDisabledValue2] = React.useState(false);
 
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -52,6 +54,12 @@ const NavigationBar = ({ location }) => {
 
   function handleClose() {
     setAnchorEl(null);
+  }
+
+  function handleClickUserID()
+  {
+    setDisabledValue(!disabledValue);
+    setDisabledValue2(!disabledValue2);
   }
 
   const open = Boolean(anchorEl);
@@ -144,15 +152,15 @@ const NavigationBar = ({ location }) => {
             >
               <Paper className={classes.personPaper}>
                <div className={classes.insideDivPerson}>
-                  <Typography >Jan Kowalski</Typography>
+                  <Typography >Imie: Jan</Typography>
+                  <Typography >Nazwisko: Kowalski</Typography>
                   <ButtonGroup
                     variant="contained"
                     color="default"
                     size="large"
                   >
-                    <Button>1</Button>
-                    <Button>2</Button>
-                    <Button>3</Button>
+                    <Button onClick={handleClickUserID} disabled={disabledValue}>User 1</Button>
+                    <Button onClick={handleClickUserID} disabled={disabledValue2}>User 2</Button>
                   </ButtonGroup>
                 </div>
               </Paper>
