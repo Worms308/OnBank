@@ -6,7 +6,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.*;
 
-public class FtpClient {
+public class FtpConnection {
 
     private String server;
     private int port;
@@ -14,7 +14,7 @@ public class FtpClient {
     private String password;
     private FTPClient ftp;
 
-    public FtpClient(String server, int port, String user, String password){
+    public FtpConnection(String server, int port, String user, String password){
         this.server = server;
         this.port = port;
         this.user = user;
