@@ -6,7 +6,7 @@ import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import {MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import {
   Button,
   CircularProgress,
@@ -21,14 +21,14 @@ import {
 import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Formik, Form } from 'formik';
-import { sendTransactionsAction } from 'actions/transactionsActions';
-import {useStyles} from '../../themes/newTransferTheme'
-import {colorthemeButtonAndDate} from '../../themes/customTheme'
-import {AccountNumberMask} from './accountNumberMask'
-import {SignupSchema} from './signupSchema'
-import {NumberFormatCustom} from './numberFormatCustom'
+import { sendTransactionsAction, setIsSuccessAction } from 'actions/transactionsActions';
+import { useStyles } from 'themes/newTransferTheme';
+import { colorthemeButtonAndDate } from 'themes/customTheme';
+import { AccountNumberMask } from './AccountNumberMask';
+import { SignupSchema } from './signupSchema';
+import NumberFormatCustom from './NumberFormatCustom';
 
-const NewTransfer = ({ sendTransactions, isLoading, isSuccess }) => {
+const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) => {
   const classes = useStyles();
 
   return (
@@ -145,6 +145,7 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess }) => {
                   <MuiThemeProvider theme={colorthemeButtonAndDate}>
                     <>
                       <DatePicker
+                        disabled={values.typeTransfer === 'INSTANT'}
                         label="Data"
                         format="dd.MM.yyyy"
                         disablePast
@@ -179,7 +180,7 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess }) => {
                           color="default"
                         />
                       }
-                      label="Elixir"
+                      label="Standardowy"
                       labelPlacement="end"
                     />
                     <FormControlLabel
@@ -204,7 +205,12 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess }) => {
                     </Button>
                   </MuiThemeProvider>
                 )}
-                {isSuccess ? <Redirect to={paths.transactions} /> : null}
+                {isSuccess ? (
+                  <>
+                    <Redirect to={paths.transactions} />
+                    {setIsSuccess(false)}
+                  </>
+                ) : null}
               </div>
             </div>
           </Form>
@@ -223,6 +229,9 @@ const mapDispatchToProps = dispatch => {
   return {
     sendTransactions: values => {
       dispatch(sendTransactionsAction(values));
+    },
+    setIsSuccess: status => {
+      dispatch(setIsSuccessAction(status));
     },
   };
 };

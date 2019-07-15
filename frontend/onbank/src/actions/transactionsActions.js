@@ -1,10 +1,11 @@
 import { getAccountData, getTransactions, sendTransactions } from 'API/transactionsAPI';
-import DateFormat from 'core/DateFormat';
+import DateFormat from 'utils/DateFormat';
 
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const NEW_TRANSFER_REQUEST = 'NEW_TRANSFER_REQUEST';
 export const NEW_TRANSFER_SUCCESS = 'NEW_TRANSFER_SUCCESS';
 export const NEW_TRANSFER_FAILURE = 'NEW_TRANSFER_FAILURE';
+export const SET_IS_SUCCESS = 'SET_IS_SUCCESS';
 
 export const getAccountDataAction = name => dispatch => {
   return getAccountData()
@@ -43,4 +44,8 @@ export const sendTransactionsAction = data => dispatch => {
     .catch(() => {
       dispatch({ type: NEW_TRANSFER_FAILURE });
     });
+};
+
+export const setIsSuccessAction = status => dispatch => {
+  dispatch({ type: SET_IS_SUCCESS, payload: { status } });
 };

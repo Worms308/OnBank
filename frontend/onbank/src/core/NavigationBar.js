@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -27,12 +27,10 @@ const bookmarkArray = [
   { name: 'Przelew', path: paths.newTransfer, icon: <SwapHoriz /> },
 ];
 
-export default function MyAppBar() {
+const NavigationBar = ({ location }) => {
   const [state, setState] = React.useState({
     left: false,
   });
-  const [value, setValue] = React.useState(bookmarkArray[0].name);
-  const [redirect, setRedirect] = React.useState('');
   const classes = useStyles();
 
   const toggleDrawer = (side, open) => event => {
@@ -40,26 +38,6 @@ export default function MyAppBar() {
       return;
     }
     setState({ ...state, [side]: open });
-  };
-
-  const handleChangeTabs = (event, newValue) => {
-    setValue(newValue);
-    bookmarkArray.map(bookmark => {
-      if (newValue === bookmark.name) {
-        setRedirect(bookmark.path);
-      }
-      return newValue;
-    });
-  };
-
-  const handleChangeList = newValue => {
-    setValue(newValue);
-    bookmarkArray.map(bookmark => {
-      if (newValue === bookmark.name) {
-        setRedirect(bookmark.path);
-      }
-      return newValue;
-    });
   };
 
   const sideList = side => (
@@ -82,7 +60,7 @@ export default function MyAppBar() {
       </List>
       <List>
         {bookmarkArray.map(bookmark => (
-          <ListItem key={bookmark.name} button onClick={() => handleChangeList(bookmark.name)}>
+          <ListItem key={bookmark.name} component={Link} to={bookmark.path} button>
             <ListItemIcon>{bookmark.icon}</ListItemIcon>
             <ListItemText primary={bookmark.name} />
           </ListItem>
@@ -90,6 +68,8 @@ export default function MyAppBar() {
       </List>
     </div>
   );
+
+  const pathname = location.pathname.match(/((\/([\w\-\\.]+[^#?\\/]+))|\/)/g);
 
   return (
     <Fragment>
@@ -112,8 +92,7 @@ export default function MyAppBar() {
           </Typography>
           <Hidden smDown>
             <Tabs
-              value={value}
-              onChange={handleChangeTabs}
+              value={pathname[0]}
               indicatorColor="primary"
               textColor="primary"
               variant="fullWidth"
@@ -122,16 +101,19 @@ export default function MyAppBar() {
                 <Tab
                   key={bookmark.name}
                   label={bookmark.name}
-                  value={bookmark.name}
+                  value={bookmark.path}
+                  component={Link}
+                  to={bookmark.path}
                   className={classes.bookmark}
                 />
               ))}
             </Tabs>
           </Hidden>
           <AccountCircle className={classes.icon} />
-          {redirect && <Redirect to={redirect} />}
         </Toolbar>
       </AppBar>
     </Fragment>
   );
-}
+};
+
+export default withRouter(NavigationBar);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const baseURL = 'http://localhost:8080/api/';
+const baseURL = 'http://192.168.1.150:8080/api/';
 
 const axiosInstanceGet = axios.create({ baseURL });
 const axiosInstancePost = axios.create({ baseURL });
@@ -15,7 +15,8 @@ const errorHandler = error => {
     toast.error('Sprawdź połączenie z internetem');
   } else if (error.response) {
     toast.error(
-      `${error.response.code || 'Kod błędu'} - ${error.response.description || 'Komunikat błędu'}`,
+      `${error.response.data.code || 'Kod błędu'} - ${error.response.data.description ||
+        'Komunikat błędu'}`,
     );
   }
   return Promise.reject(error);
@@ -23,21 +24,10 @@ const errorHandler = error => {
 
 axiosInstanceGet.interceptors.request.use(request => requestHandler(request));
 
-axiosInstanceGet.interceptors.response.use(
-  response => {
-    return response;
-  },
-  error => errorHandler(error),
-);
+axiosInstanceGet.interceptors.response.use(response => response, error => errorHandler(error));
 
 axiosInstancePost.interceptors.request.use(request => requestHandler(request));
 
-axiosInstancePost.interceptors.response.use(
-  response => {
-    toast.success('Wiadomość wysłana');
-    return response;
-  },
-  error => errorHandler(error),
-);
+axiosInstancePost.interceptors.response.use(response => response, error => errorHandler(error));
 
 export { axiosInstanceGet, axiosInstancePost };

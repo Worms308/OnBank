@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import currencyFormat from 'core/CurrencyFormat';
-import AccountNumberFormat from 'core/AccountNumberFormat';
+import currencyFormat from 'utils/CurrencyFormat';
+import AccountNumberFormat from 'utils/AccountNumberFormat';
 import { getAccountDataAction } from 'actions/transactionsActions';
-import {useStyles} from '../../themes/accountBarTheme'
+import { useStyles } from 'themes/accountBarTheme';
 
 const AccountBar = ({ accountData, getAccountData }) => {
   const classes = useStyles();

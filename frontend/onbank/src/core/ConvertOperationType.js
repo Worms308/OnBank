@@ -27,7 +27,7 @@ const ConvertOperationType = type => {
     case operationType.OTHERS:
       return 'OTHERS';
     case operationType.NORMAL:
-      return 'Elixir';
+      return 'Standardowy';
     case operationType.INSTANT:
       return 'Natychmiastowy';
     default:
