@@ -5,8 +5,9 @@ const userProfileReducer = (state = userProfileMock, action) => {
   switch (action.type) {
     case FETCH_USER_PROFILE_SUCCESS:
       return {
-        ...state,
-        [action.payload.name]: action.payload.data,
+        id: action.payload.data.id,
+        name: action.payload.data.name,
+        surname: action.payload.data.surname,
       };
     default:
       return state;

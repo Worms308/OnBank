@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const baseURL = 'http://192.168.1.150:8080/api/';
+const baseURL = 'http://localhost:8080/api/';
 
 const axiosInstanceGet = axios.create({ baseURL });
 const axiosInstancePost = axios.create({ baseURL });

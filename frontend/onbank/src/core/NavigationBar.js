@@ -1,29 +1,28 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Home from '@material-ui/icons/Home';
-import ViewList from '@material-ui/icons/ViewList';
-import SwapHoriz from '@material-ui/icons/SwapHoriz';
-import ViewHeadline from '@material-ui/icons/ViewHeadline';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Hidden from '@material-ui/core/Hidden';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
+import {
+  AppBar,
+  Button,
+  ButtonGroup,
+  Divider,
+  Drawer,
+  Hidden,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Popover,
+  Tab,
+  Tabs,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
+import { AccountCircle, Home, SwapHoriz, ViewHeadline, ViewList } from '@material-ui/icons';
 import { paths } from 'routes/paths';
 import { useStyles } from 'themes/appBarTheme';
-import Popover from '@material-ui/core/Popover';
-import { Paper } from '@material-ui/core';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { getUserProfileAction } from 'actions/userProfileActions';
 
 const bookmarkArray = [
   { name: 'Strona główna', path: paths.home, icon: <Home /> },
@@ -31,11 +30,17 @@ const bookmarkArray = [
   { name: 'Przelew', path: paths.newTransfer, icon: <SwapHoriz /> },
 ];
 
-const NavigationBar = ({ location, userProfile }) => {
+const NavigationBar = ({ location, userProfile, getUserProfile }) => {
   const [state, setState] = React.useState({
     left: false,
   });
   const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [disabledValue, setDisabledValue] = React.useState(true);
+  const [disabledValue2, setDisabledValue2] = React.useState(false);
+
+  useEffect(() => getUserProfile(localStorage.getItem('userId') || 1), []);
 
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown') {
@@ -43,10 +48,6 @@ const NavigationBar = ({ location, userProfile }) => {
     }
     setState({ ...state, [side]: open });
   };
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [disabledValue, setDisabledValue] = React.useState(true);
-  const [disabledValue2, setDisabledValue2] = React.useState(false);
 
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -57,7 +58,8 @@ const NavigationBar = ({ location, userProfile }) => {
   }
 
   function handleClickUserID(id) {
-    console.log(id);
+    localStorage.setItem('userId', id);
+    getUserProfile(id);
     setDisabledValue(!disabledValue);
     setDisabledValue2(!disabledValue2);
   }
@@ -178,4 +180,17 @@ const mapStateToProps = ({ userProfile }) => {
   return { userProfile };
 };
 
-export default withRouter(connect(mapStateToProps)(NavigationBar));
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserProfile: id => {
+      dispatch(getUserProfileAction('userData', id));
+    },
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(NavigationBar),
+);
