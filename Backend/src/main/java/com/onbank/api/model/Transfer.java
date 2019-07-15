@@ -1,7 +1,10 @@
 package com.onbank.api.model;
 
+import com.onbank.api.model.enums.OperationType;
+import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.validators.AccountNumber;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,11 +17,8 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "transfer")
-public class Transfer {
-    @Id
-    @Column(name = "id", nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@EqualsAndHashCode(callSuper = true)
+public class Transfer extends EntityCore{
 
     @Column(name = "date", nullable = false)
     private LocalDate date;

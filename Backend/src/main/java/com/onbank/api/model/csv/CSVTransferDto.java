@@ -1,8 +1,8 @@
 package com.onbank.api.model.csv;
 
-import com.onbank.api.model.OperationType;
+import com.onbank.api.model.enums.OperationType;
 import com.onbank.api.model.Transfer;
-import com.onbank.api.model.TransferState;
+import com.onbank.api.model.enums.TransferState;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;
 import lombok.Data;

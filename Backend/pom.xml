@@ -21,6 +21,7 @@
         <junit.jupiter.version>5.3.2</junit.jupiter.version>
         <mockito.version>2.28.2</mockito.version>
         <opencsv.version>4.1</opencsv.version>
+        <hibernate.version>5.4.3.Final</hibernate.version>
     </properties>
 
     <dependencies>
@@ -78,6 +79,11 @@
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>${opencsv.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
 
     </dependencies>

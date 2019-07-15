@@ -3,7 +3,6 @@ package com.onbank.api.transformer;
 import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.dto.TransferDto;
 import com.onbank.api.model.Transfer;
-import com.onbank.api.model.TransferState;
 import org.springframework.beans.BeanUtils;
 
 public class TransferTransformer {

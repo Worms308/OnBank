@@ -1,15 +1,11 @@
 package com.onbank.api.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.onbank.LoadProperties;
 import com.onbank.ObjectToJson;
 import com.onbank.api.dto.CreateTransferDto;
-import com.onbank.api.model.OperationType;
+import com.onbank.api.model.enums.OperationType;
 import com.onbank.api.model.Transfer;
-import com.onbank.api.model.TransferState;
+import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.repository.TransferRepository;
 import com.onbank.api.transformer.TransferTransformer;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,8 +20,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
