@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,9 +20,9 @@ import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import { paths } from 'routes/paths';
-import { useStyles } from '../themes/appBarTheme';
+import { useStyles } from 'themes/appBarTheme';
 import Popover from '@material-ui/core/Popover';
-import { Paper} from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const bookmarkArray = [
@@ -30,7 +31,7 @@ const bookmarkArray = [
   { name: 'Przelew', path: paths.newTransfer, icon: <SwapHoriz /> },
 ];
 
-const NavigationBar = ({ location }) => {
+const NavigationBar = ({ location, userProfile }) => {
   const [state, setState] = React.useState({
     left: false,
   });
@@ -43,8 +44,7 @@ const NavigationBar = ({ location }) => {
     setState({ ...state, [side]: open });
   };
 
-
-  const [anchorEl, setAnchorEl,] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [disabledValue, setDisabledValue] = React.useState(true);
   const [disabledValue2, setDisabledValue2] = React.useState(false);
 
@@ -56,8 +56,8 @@ const NavigationBar = ({ location }) => {
     setAnchorEl(null);
   }
 
-  function handleClickUserID()
-  {
+  function handleClickUserID(id) {
+    console.log(id);
     setDisabledValue(!disabledValue);
     setDisabledValue2(!disabledValue2);
   }
@@ -134,7 +134,9 @@ const NavigationBar = ({ location }) => {
               ))}
             </Tabs>
           </Hidden>
-          <Button className={classes.icon} onClick={handleClick}><AccountCircle className={classes.icon2}/></Button>
+          <Button className={classes.icon} onClick={handleClick}>
+            <AccountCircle className={classes.icon2} />
+          </Button>
           <div>
             <Popover
               id={id}
@@ -151,27 +153,29 @@ const NavigationBar = ({ location }) => {
               }}
             >
               <Paper className={classes.personPaper}>
-               <div className={classes.insideDivPerson}>
-                  <Typography >Imie: Jan</Typography>
-                  <Typography >Nazwisko: Kowalski</Typography>
-                  <ButtonGroup
-                    variant="contained"
-                    color="default"
-                    size="large"
-                  >
-                    <Button onClick={handleClickUserID} disabled={disabledValue}>User 1</Button>
-                    <Button onClick={handleClickUserID} disabled={disabledValue2}>User 2</Button>
+                <div className={classes.insideDivPerson}>
+                  <Typography>Imie: {userProfile.name}</Typography>
+                  <Typography>Nazwisko: {userProfile.surname}</Typography>
+                  <ButtonGroup variant="contained" color="default" size="large">
+                    <Button onClick={() => handleClickUserID(1)} disabled={disabledValue}>
+                      User 1
+                    </Button>
+                    <Button onClick={() => handleClickUserID(2)} disabled={disabledValue2}>
+                      User 2
+                    </Button>
                   </ButtonGroup>
                 </div>
               </Paper>
             </Popover>
           </div>
-
-
         </Toolbar>
       </AppBar>
     </Fragment>
   );
 };
 
-export default withRouter(NavigationBar);
+const mapStateToProps = ({ userProfile }) => {
+  return { userProfile };
+};
+
+export default withRouter(connect(mapStateToProps)(NavigationBar));

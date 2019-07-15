@@ -24,9 +24,9 @@ import { Formik, Form } from 'formik';
 import { sendTransactionsAction, setIsSuccessAction } from 'actions/transactionsActions';
 import { useStyles } from 'themes/newTransferTheme';
 import { colorthemeButtonAndDate } from 'themes/customTheme';
-import { AccountNumberMask } from './AccountNumberMask';
+import { AccountNumberMask } from './accountNumberMask';
 import { SignupSchema } from './signupSchema';
-import NumberFormatCustom from './NumberFormatCustom';
+import NumberFormatCustom from './numberFormatCustom';
 
 const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) => {
   const classes = useStyles();

@@ -1,7 +1,7 @@
 const userProfile = {
   id: 1,
-  name: 'Jan',
-  surname: 'Kowalski',
+  name: 'Andrzej',
+  surname: 'Nowak',
 };
 
 export default userProfile;
