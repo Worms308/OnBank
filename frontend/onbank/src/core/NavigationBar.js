@@ -20,6 +20,9 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import { paths } from 'routes/paths';
 import { useStyles } from '../themes/appBarTheme';
+import Popover from '@material-ui/core/Popover';
+import { Paper} from '@material-ui/core';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const bookmarkArray = [
   { name: 'Strona główna', path: paths.home, icon: <Home /> },
@@ -39,6 +42,28 @@ const NavigationBar = ({ location }) => {
     }
     setState({ ...state, [side]: open });
   };
+
+
+  const [anchorEl, setAnchorEl,] = React.useState(null);
+  const [disabledValue, setDisabledValue] = React.useState(true);
+  const [disabledValue2, setDisabledValue2] = React.useState(false);
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  function handleClickUserID()
+  {
+    setDisabledValue(!disabledValue);
+    setDisabledValue2(!disabledValue2);
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   const sideList = side => (
     <div
@@ -109,7 +134,40 @@ const NavigationBar = ({ location }) => {
               ))}
             </Tabs>
           </Hidden>
-          <AccountCircle className={classes.icon} />
+          <Button className={classes.icon} onClick={handleClick}><AccountCircle className={classes.icon2}/></Button>
+          <div>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <Paper className={classes.personPaper}>
+               <div className={classes.insideDivPerson}>
+                  <Typography >Imie: Jan</Typography>
+                  <Typography >Nazwisko: Kowalski</Typography>
+                  <ButtonGroup
+                    variant="contained"
+                    color="default"
+                    size="large"
+                  >
+                    <Button onClick={handleClickUserID} disabled={disabledValue}>User 1</Button>
+                    <Button onClick={handleClickUserID} disabled={disabledValue2}>User 2</Button>
+                  </ButtonGroup>
+                </div>
+              </Paper>
+            </Popover>
+          </div>
+
+
         </Toolbar>
       </AppBar>
     </Fragment>
