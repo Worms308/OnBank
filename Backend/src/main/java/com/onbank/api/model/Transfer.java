@@ -3,8 +3,7 @@ package com.onbank.api.model;
 import com.onbank.api.model.enums.OperationType;
 import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.validators.AccountNumber;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,10 +13,13 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "transfer")
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class Transfer extends EntityCore{
 
     @Column(name = "date", nullable = false)

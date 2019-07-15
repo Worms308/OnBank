@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@Audited
 @MappedSuperclass
 @EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)

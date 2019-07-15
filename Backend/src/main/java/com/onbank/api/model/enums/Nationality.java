@@ -1,5 +1,5 @@
 package com.onbank.api.model.enums;
 
 public enum Nationality {
-    POLAND
+    PL
 }
