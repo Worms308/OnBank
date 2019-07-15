@@ -1,30 +1,27 @@
 package com.onbank.ftp;
 
+import lombok.Data;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 
+@Component
+@Data
 public class FtpConnection {
 
     @Value("${onbank.server}")
     private String server;
     @Value("${onbank.port}")
     private int port;
-    @Value("${onbank.user")
+    @Value("${onbank.user}")
     private String user;
     @Value("${onbank.password}")
     private String password;
     private FTPClient ftp;
-
-    public FtpConnection(String server, int port, String user, String password){
-        this.server = server;
-        this.port = port;
-        this.user = user;
-        this.password = password;
-    }
 
     public void open() throws IOException {
         ftp = new FTPClient();
@@ -37,7 +34,6 @@ public class FtpConnection {
             ftp.disconnect();
             throw new IOException("Exception in connecting to FTP Server");
         }
-
         ftp.login(user, password);
     }
 
