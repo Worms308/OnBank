@@ -1,4 +1,4 @@
-import { getAccountData, getTransactions, sendTransactions } from 'API/transactionsAPI';
+import { getAccountDataApi, getTransactionsApi, sendTransactionsApi } from 'API/transactionsAPI';
 import DateFormat from 'utils/DateFormat';
 
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
@@ -8,7 +8,7 @@ export const NEW_TRANSFER_FAILURE = 'NEW_TRANSFER_FAILURE';
 export const SET_IS_SUCCESS = 'SET_IS_SUCCESS';
 
 export const getAccountDataAction = name => dispatch => {
-  return getAccountData()
+  return getAccountDataApi()
     .then(response => {
       // dispatch({ type: FETCH_SUCCESS, payload: { name, data: response.data } });
       console.log(response.data);
@@ -17,7 +17,7 @@ export const getAccountDataAction = name => dispatch => {
 };
 
 export const getTransactionsAction = name => dispatch => {
-  return getTransactions()
+  return getTransactionsApi()
     .then(response => {
       dispatch({ type: FETCH_SUCCESS, payload: { name, data: response.data } });
     })
@@ -37,7 +37,7 @@ export const sendTransactionsAction = data => dispatch => {
   };
 
   dispatch({ type: NEW_TRANSFER_REQUEST });
-  return sendTransactions(json)
+  return sendTransactionsApi(json)
     .then(() => {
       dispatch({ type: NEW_TRANSFER_SUCCESS });
     })
