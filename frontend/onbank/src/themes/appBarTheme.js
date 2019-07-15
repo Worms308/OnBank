@@ -18,14 +18,10 @@ export const useStyles = makeStyles(theme => ({
       textAlign: 'center',
       whiteSpace: 'nowrap',
     },
-    button: {
+    icon: {
       marginLeft: 'auto',
       marginRight: 0,
-      //fontSize: 30,
-     // color: '#707070',
-    },
-    icon:{
-      fontSize: 30,
+      fontSize: 40,
       color: '#707070',
     },
     list: {

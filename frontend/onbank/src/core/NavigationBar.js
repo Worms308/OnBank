@@ -20,9 +20,6 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import { paths } from 'routes/paths';
 import { useStyles } from '../themes/appBarTheme';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 
 const bookmarkArray = [
   { name: 'Strona główna', path: paths.home, icon: <Home /> },
@@ -42,16 +39,6 @@ const NavigationBar = ({ location }) => {
     }
     setState({ ...state, [side]: open });
   };
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleClose() {
-    setAnchorEl(null);
-  }
 
   const sideList = side => (
     <div
@@ -122,20 +109,7 @@ const NavigationBar = ({ location }) => {
               ))}
             </Tabs>
           </Hidden>
-          <Button onClick={handleClick} className={classes.button}><AccountCircle className={classes.icon}/><KeyboardArrowDown/></Button>
-          <div>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>User 1</MenuItem>
-              <MenuItem onClick={handleClose}>User 2</MenuItem>
-              <MenuItem onClick={handleClose}>User 3</MenuItem>
-            </Menu>
-          </div>
+          <AccountCircle className={classes.icon} />
         </Toolbar>
       </AppBar>
     </Fragment>
