@@ -81,7 +81,10 @@ class TransferControllerTest {
         fromDB.get(0).setSenderName(null);
         fromDB.get(0).setSenderAccountNumber(null);
 
-        assertThat(fromDB.get(0)).isEqualTo(TransferTransformer.convertToEntity(createTransferDto));
+        fromDB.get(0).setCreateDate(null);
+        fromDB.get(0).setLastModified(null);
+
+        assertThat(fromDB.get(0)).isEqualToComparingFieldByFieldRecursively(TransferTransformer.convertToEntity(createTransferDto));//isEqualTo();
     }
 
     private Transfer createMockObject() {

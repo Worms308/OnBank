@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,16 +14,19 @@ import java.time.LocalDateTime;
 @Audited
 @MappedSuperclass
 @EqualsAndHashCode
-public class EntityCore {
+@EntityListeners(AuditingEntityListener.class)
+public abstract class EntityCore {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Audited
     @CreatedDate
     @Column(name = "createdate", nullable = false, updatable = false)
     private LocalDateTime createDate;
 
+    @Audited
     @LastModifiedDate
     @Column(name = "lastmodified", nullable = false)
     private LocalDateTime lastModified;
