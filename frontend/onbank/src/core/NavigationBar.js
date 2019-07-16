@@ -40,7 +40,7 @@ const NavigationBar = ({ location, userProfile, getUserProfile }) => {
   const [disabledValue, setDisabledValue] = React.useState(true);
   const [disabledValue2, setDisabledValue2] = React.useState(false);
 
-  useEffect(() => getUserProfile(userProfile.id), [getUserProfile, userProfile.id]);
+  useEffect(() => getUserProfile(userProfile.userID), [getUserProfile, userProfile.userID]);
 
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown') {
@@ -58,7 +58,6 @@ const NavigationBar = ({ location, userProfile, getUserProfile }) => {
   }
 
   function handleClickUserID(id) {
-    localStorage.setItem('userId', id);
     getUserProfile(id);
     setDisabledValue(!disabledValue);
     setDisabledValue2(!disabledValue2);
@@ -182,8 +181,8 @@ const mapStateToProps = ({ userProfile }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserProfile: id => {
-      dispatch(getUserProfileAction(id));
+    getUserProfile: userID => {
+      dispatch(getUserProfileAction(userID));
     },
   };
 };

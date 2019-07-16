@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import transactions from 'reducers/transactionsReducer';
 import userProfile from 'reducers/userProfileReducer';
 import operationType from 'reducers/operationTypeReducer';
-import { loadState, saveState } from 'store//localStorage';
+import { loadState, saveState } from 'store/localStorage';
 
 const persistedState = loadState();
 
