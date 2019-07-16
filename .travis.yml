@@ -1,6 +1,6 @@
 language: java
 jdk: oraclejdk8
 os: linux
-before_script:
-  - install mvnw
-install: ./mvnw clean install -f ./Backend/pom.xml
+
+install: true
+script: mvnw install
