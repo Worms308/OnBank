@@ -3,7 +3,7 @@ jdk: oraclejdk8
 os: linux
 
 env:
-  - app.home=Backend\src\main\resources\
+  - app.home=src\main\resources\
 
 install: true
 script:
