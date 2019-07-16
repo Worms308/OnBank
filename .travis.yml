@@ -3,4 +3,6 @@ jdk: oraclejdk8
 os: linux
 
 install: true
-script: mvnw install
+script:
+  - mvn install
+  - ./mvnw clean install -f ./Backend/pom.xml
