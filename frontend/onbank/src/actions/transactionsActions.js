@@ -16,15 +16,15 @@ export const getAccountDataAction = name => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const getTransactionsAction = name => dispatch => {
-  return getTransactionsApi()
+export const getTransactionsAction = (name, userID) => dispatch => {
+  return getTransactionsApi(userID)
     .then(response => {
       dispatch({ type: FETCH_SUCCESS, payload: { name, data: response.data } });
     })
     .catch(err => console.log(err));
 };
 
-export const sendTransactionsAction = data => dispatch => {
+export const sendTransactionsAction = (data, userID) => dispatch => {
   const json = {
     date: DateFormat(
       new Date(`${data.date.getFullYear()}-${data.date.getMonth() + 1}-${data.date.getDate()}`),
@@ -37,7 +37,7 @@ export const sendTransactionsAction = data => dispatch => {
   };
 
   dispatch({ type: NEW_TRANSFER_REQUEST });
-  return sendTransactionsApi(json)
+  return sendTransactionsApi(json, userID)
     .then(() => {
       dispatch({ type: NEW_TRANSFER_SUCCESS });
     })

@@ -28,7 +28,7 @@ import { AccountNumberMask } from './accountNumberMask';
 import { SignupSchema } from './signupSchema';
 import NumberFormatCustom from './numberFormatCustom';
 
-const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) => {
+const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess, userID }) => {
   const classes = useStyles();
 
   return (
@@ -45,7 +45,7 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
         }}
         validationSchema={SignupSchema}
         onSubmit={values => {
-          sendTransactions(values);
+          sendTransactions(values, userID);
         }}
       >
         {({ errors, touched, handleChange, handleBlur, values }) => (
@@ -220,15 +220,16 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
   );
 };
 
-const mapStateToProps = ({ transactions }) => {
+const mapStateToProps = ({ transactions, userProfile }) => {
   const { isLoading, isSuccess } = transactions;
-  return { isLoading, isSuccess };
+  const {userID} = userProfile;
+  return { isLoading, isSuccess, userID };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendTransactions: values => {
-      dispatch(sendTransactionsAction(values));
+    sendTransactions: (values, userID) => {
+      dispatch(sendTransactionsAction(values, userID));
     },
     setIsSuccess: status => {
       dispatch(setIsSuccessAction(status));
