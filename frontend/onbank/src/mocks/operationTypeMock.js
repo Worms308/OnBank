@@ -11,6 +11,9 @@ const operationType = {
   CHARGES: 'CHARGES',
   CAPITALIZATION: 'CAPITALIZATION',
   OTHERS: 'OTHERS',
+
+  NORMAL: 'NORMAL',
+  INSTANT: 'INSTANT',
 };
 
 export default operationType;
