@@ -4,6 +4,7 @@ import Transactions from 'pages/Transactions/Transactions';
 import CompletedTransactions from 'pages/Transactions/TransactionsTable/ComplitedTransactions/ComplitedTransactions';
 import PendingTransactions from 'pages/Transactions/TransactionsTable/PendingTransactions/PendingTransactions';
 import NewTransfer from 'pages/NewTransfer/NewTransfer';
+import DetailsTransfer from '../pages/DetailsTransfer/DetailsTransfer';
 
 export const routes = [
   {
@@ -25,7 +26,12 @@ export const routes = [
     component: NewTransfer,
   },
   {
+    path: paths.detailsTransfer,
+    component: DetailsTransfer,
+  },
+  {
     path: paths.home,
     component: Dashboard,
   },
+  
 ];
