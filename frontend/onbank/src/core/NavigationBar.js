@@ -1,28 +1,28 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Home from '@material-ui/icons/Home';
-import ViewList from '@material-ui/icons/ViewList';
-import SwapHoriz from '@material-ui/icons/SwapHoriz';
-import ViewHeadline from '@material-ui/icons/ViewHeadline';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Hidden from '@material-ui/core/Hidden';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
+import {
+  AppBar,
+  Button,
+  ButtonGroup,
+  Divider,
+  Drawer,
+  Hidden,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Popover,
+  Tab,
+  Tabs,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
+import { AccountCircle, Home, SwapHoriz, ViewHeadline, ViewList } from '@material-ui/icons';
 import { paths } from 'routes/paths';
-import { useStyles } from '../themes/appBarTheme';
-import Popover from '@material-ui/core/Popover';
-import { Paper} from '@material-ui/core';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { useStyles } from 'themes/appBarTheme';
+import { getUserProfileAction } from 'actions/userProfileActions';
 
 const bookmarkArray = [
   { name: 'Strona główna', path: paths.home, icon: <Home /> },
@@ -30,11 +30,17 @@ const bookmarkArray = [
   { name: 'Przelew', path: paths.newTransfer, icon: <SwapHoriz /> },
 ];
 
-const NavigationBar = ({ location }) => {
+const NavigationBar = ({ location, userProfile, getUserProfile }) => {
   const [state, setState] = React.useState({
     left: false,
   });
   const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [disabledValue, setDisabledValue] = React.useState(true);
+  const [disabledValue2, setDisabledValue2] = React.useState(false);
+
+  useEffect(() => getUserProfile(userProfile.id), [getUserProfile, userProfile.id]);
 
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown') {
@@ -42,11 +48,6 @@ const NavigationBar = ({ location }) => {
     }
     setState({ ...state, [side]: open });
   };
-
-
-  const [anchorEl, setAnchorEl,] = React.useState(null);
-  const [disabledValue, setDisabledValue] = React.useState(true);
-  const [disabledValue2, setDisabledValue2] = React.useState(false);
 
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -56,8 +57,9 @@ const NavigationBar = ({ location }) => {
     setAnchorEl(null);
   }
 
-  function handleClickUserID()
-  {
+  function handleClickUserID(id) {
+    localStorage.setItem('userId', id);
+    getUserProfile(id);
     setDisabledValue(!disabledValue);
     setDisabledValue2(!disabledValue2);
   }
@@ -134,7 +136,9 @@ const NavigationBar = ({ location }) => {
               ))}
             </Tabs>
           </Hidden>
-          <Button className={classes.icon} onClick={handleClick}><AccountCircle className={classes.icon2}/></Button>
+          <Button className={classes.icon} onClick={handleClick}>
+            <AccountCircle className={classes.icon2} />
+          </Button>
           <div>
             <Popover
               id={id}
@@ -151,27 +155,42 @@ const NavigationBar = ({ location }) => {
               }}
             >
               <Paper className={classes.personPaper}>
-               <div className={classes.insideDivPerson}>
-                  <Typography >Imie: Jan</Typography>
-                  <Typography >Nazwisko: Kowalski</Typography>
-                  <ButtonGroup
-                    variant="contained"
-                    color="default"
-                    size="large"
-                  >
-                    <Button onClick={handleClickUserID} disabled={disabledValue}>User 1</Button>
-                    <Button onClick={handleClickUserID} disabled={disabledValue2}>User 2</Button>
+                <div className={classes.insideDivPerson}>
+                  <Typography>Imie: {userProfile.name}</Typography>
+                  <Typography>Nazwisko: {userProfile.surname}</Typography>
+                  <ButtonGroup variant="contained" color="default" size="large">
+                    <Button onClick={() => handleClickUserID(1)} disabled={disabledValue}>
+                      User 1
+                    </Button>
+                    <Button onClick={() => handleClickUserID(2)} disabled={disabledValue2}>
+                      User 2
+                    </Button>
                   </ButtonGroup>
                 </div>
               </Paper>
             </Popover>
           </div>
-
-
         </Toolbar>
       </AppBar>
     </Fragment>
   );
 };
 
-export default withRouter(NavigationBar);
+const mapStateToProps = ({ userProfile }) => {
+  return { userProfile };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserProfile: id => {
+      dispatch(getUserProfileAction(id));
+    },
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(NavigationBar),
+);
