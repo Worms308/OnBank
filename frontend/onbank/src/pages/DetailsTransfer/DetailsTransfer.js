@@ -1,14 +1,16 @@
 import React from 'react';
-import { Paper } from '@material-ui/core';
-import { useStyles } from 'themes/detailsTransferTheme';
 
+import DetailsComponentTitle from './DetailsComponentTitle'
+import DetailsComponent from './DetailsComponent'
 
 const DetailsTransfer =()=>{
-    const classes = useStyles();
+    
     return(
-        <Paper className={classes.root}>
-            <h1>Szczegóły przelewu</h1>
-        </Paper>
+        <>
+            <DetailsComponentTitle title='Szczegóły przelewu'/>
+            <DetailsComponent title='Szczegóły odbiorcy'/>
+
+        </>
 
     )
 }
