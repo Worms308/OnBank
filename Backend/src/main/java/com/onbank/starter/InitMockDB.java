@@ -1,15 +1,20 @@
 package com.onbank.starter;
 
 import com.onbank.api.model.Transfer;
+import com.onbank.api.model.User;
+import com.onbank.api.model.enums.Nationality;
 import com.onbank.api.model.enums.OperationType;
 import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.repository.TransferRepository;
+import com.onbank.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class InitMockDB {
@@ -22,6 +27,8 @@ public class InitMockDB {
 
     @Autowired
     private TransferRepository transferRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @PostConstruct
     public void init(){
@@ -30,7 +37,43 @@ public class InitMockDB {
     }
 
     private void initUsers(){
-        //TODO dodać użytkowników
+        List<Transfer> firstUserTransfers = new ArrayList<>();
+        firstUserTransfers.add(transferRepository.getOne(1L));
+        firstUserTransfers.add(transferRepository.getOne(3L));
+        firstUserTransfers.add(transferRepository.getOne(4L));
+        firstUserTransfers.add(transferRepository.getOne(5L));
+        firstUserTransfers.add(transferRepository.getOne(6L));
+        firstUserTransfers.add(transferRepository.getOne(7L));
+        firstUserTransfers.add(transferRepository.getOne(8L));
+        firstUserTransfers.add(transferRepository.getOne(9L));
+        userRepository.save(new User(
+                "Łukasz",
+                "Kowal",
+                "765966234",
+                "lukasz.k@gmail.com",
+                "91050500543",
+                Nationality.PL,
+                "Warszawa",
+                LocalDate.of(1991, 5, 5),
+                "Wasilewska",
+                "AYC934855",
+                firstUserTransfers
+        ));
+        List<Transfer> secondUserTransfers = new ArrayList<>();
+        secondUserTransfers.add(transferRepository.getOne(2L));
+        userRepository.save(new User(
+                "Mariusz",
+                "Kowalski",
+                "475684665",
+                "mariusz.k@gmail.com",
+                "90010122002",
+                Nationality.PL,
+                "Kraków",
+                LocalDate.of(1990, 1, 1),
+                "Nowak",
+                "AAB934438",
+                secondUserTransfers
+        ));
     }
 
     private void initTransfers(){

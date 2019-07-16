@@ -7,6 +7,7 @@ import com.onbank.api.model.enums.OperationType;
 import com.onbank.api.model.Transfer;
 import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.repository.TransferRepository;
+import com.onbank.api.repository.UserRepository;
 import com.onbank.api.transformer.TransferTransformer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,8 +45,12 @@ class TransferControllerTest {
     @Autowired
     private TransferRepository transferRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @BeforeEach
     void setup() {
+        userRepository.deleteAll();
         transferRepository.deleteAll();
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
