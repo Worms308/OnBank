@@ -40,7 +40,7 @@ const NavigationBar = ({ location, userProfile, getUserProfile }) => {
   const [disabledValue, setDisabledValue] = React.useState(true);
   const [disabledValue2, setDisabledValue2] = React.useState(false);
 
-  useEffect(() => getUserProfile(userProfile.id), []);
+  useEffect(() => getUserProfile(userProfile.id), [getUserProfile, userProfile.id]);
 
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown') {
