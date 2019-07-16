@@ -2,6 +2,9 @@ language: java
 jdk: oraclejdk8
 os: linux
 
+env:
+  - app.home=Backend\src\main\resources\
+
 install: true
 script:
   - mvn install -f ./Backend/pom.xml
