@@ -4,5 +4,4 @@ os: linux
 
 install: true
 script:
-  - mvn install
-  - ./mvnw clean install -f ./Backend/pom.xml
+  - mvn install -f ./Backend/pom.xml
