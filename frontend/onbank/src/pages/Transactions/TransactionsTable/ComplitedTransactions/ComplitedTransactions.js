@@ -5,8 +5,8 @@ import { getTransactionsAction } from 'actions/transactionsActions';
 
 class ComplitedTransactions extends React.Component {
   componentDidMount() {
-    const { getTransactions, userProfile } = this.props;
-    getTransactions(userProfile.userID);
+    const { getTransactions } = this.props;
+    getTransactions();
   }
 
   render() {
@@ -19,7 +19,7 @@ class ComplitedTransactions extends React.Component {
   }
 }
 
-const mapStateToProps = ({ transactions, userProfile }) => {
+const mapStateToProps = ({ transactions }) => {
   const dataTableData = [];
   if (transactions.transactionList) {
     transactions.transactionList.map(res =>
@@ -33,13 +33,13 @@ const mapStateToProps = ({ transactions, userProfile }) => {
       ]),
     );
   }
-  return { dataTableData, userProfile };
+  return { dataTableData };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getTransactions: userID => {
-      dispatch(getTransactionsAction('transactionList', userID));
+    getTransactions: () => {
+      dispatch(getTransactionsAction('transactionList'));
     },
   };
 };
