@@ -1,5 +1,5 @@
 const userProfile = {
-  id: 1,
+  userID: 1,
 };
 
 export default userProfile;
