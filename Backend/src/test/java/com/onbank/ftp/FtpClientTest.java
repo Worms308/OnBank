@@ -9,6 +9,7 @@ import org.mockftpserver.fake.filesystem.DirectoryEntry;
 import org.mockftpserver.fake.filesystem.FileEntry;
 import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.UnixFakeFileSystem;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +19,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class FtpClientTest {
 
     private static FtpConnection ftpConnection;
-
     private static FakeFtpServer fakeFtpServer;
+
+    @Value("${onbank.server}")
+    private static String server;
+    @Value("${onbank.user}")
+    private static String user;
+    @Value("${onbank.password}")
+    private static String password;
 
     @BeforeAll
     static void setup() throws IOException {
@@ -34,9 +41,9 @@ class FtpClientTest {
         fakeFtpServer.start();
 
         ftpConnection = new FtpConnection();
-        ftpConnection.setServer("localhost");
-        ftpConnection.setUser("admin");
-        ftpConnection.setPassword("admin");
+        ftpConnection.setServer(server);
+        ftpConnection.setUser(user);
+        ftpConnection.setPassword(password);
         ftpConnection.setPort(fakeFtpServer.getServerControlPort());
         ftpConnection.open();
     }
