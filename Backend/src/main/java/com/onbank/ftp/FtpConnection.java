@@ -1,6 +1,6 @@
 package com.onbank.ftp;
 
-import lombok.Data;
+import lombok.Setter;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 
 @Component
-@Data
+@Setter
 public class FtpConnection {
 
     @Value("${onbank.server}")
