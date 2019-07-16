@@ -1,8 +1,7 @@
 package com.onbank.ftp;
 
-import com.onbank.LoadProperties;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockftpserver.fake.FakeFtpServer;
 import org.mockftpserver.fake.UserAccount;
@@ -10,25 +9,20 @@ import org.mockftpserver.fake.filesystem.DirectoryEntry;
 import org.mockftpserver.fake.filesystem.FileEntry;
 import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.UnixFakeFileSystem;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@LoadProperties
-@SpringBootTest
 class FtpClientTest {
 
-    private FakeFtpServer fakeFtpServer;
+    private static FtpConnection ftpConnection;
 
-    @Autowired
-    private FtpConnection ftpConnection;
+    private static FakeFtpServer fakeFtpServer;
 
-    @BeforeEach
-    void setup() throws IOException {
+    @BeforeAll
+    static void setup() throws IOException {
         fakeFtpServer = new FakeFtpServer();
         fakeFtpServer.setServerControlPort(0);
         fakeFtpServer.addUserAccount(new UserAccount("user", "password", "/data"));
@@ -39,12 +33,16 @@ class FtpClientTest {
         fakeFtpServer.setFileSystem(fileSystem);
         fakeFtpServer.start();
 
+        ftpConnection = new FtpConnection();
+        ftpConnection.setServer("localhost");
+        ftpConnection.setUser("admin");
+        ftpConnection.setPassword("admin");
         ftpConnection.setPort(fakeFtpServer.getServerControlPort());
         ftpConnection.open();
     }
 
-    @AfterEach
-    void teardown() throws IOException {
+    @AfterAll
+    static void teardown() throws IOException {
         ftpConnection.close();
         fakeFtpServer.stop();
     }
