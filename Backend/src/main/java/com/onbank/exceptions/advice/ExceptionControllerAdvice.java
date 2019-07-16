@@ -1,6 +1,7 @@
 package com.onbank.exceptions.advice;
 
 import com.onbank.exceptions.ExceptionResponse;
+import com.onbank.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,8 +25,8 @@ public class ExceptionControllerAdvice {
         e.printStackTrace();
     }
 
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ExceptionResponse> notFound(final NoSuchElementException exception) {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> notFound(final UserNotFoundException exception) {
         String errorMessage = exception.toString();
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND.value(), errorMessage);
         this.printError(exception);

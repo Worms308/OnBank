@@ -3,6 +3,7 @@ package com.onbank.api.service.implementation;
 import com.onbank.api.model.User;
 import com.onbank.api.repository.UserRepository;
 import com.onbank.api.service.UserService;
+import com.onbank.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public Optional<User> getUser(Long id) {
-        return userRepository.findById(id);
+    public User getUser(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (!user.isPresent())
+            throw new UserNotFoundException("User id=" + id + " not found.");
+        return user.get();
     }
 }

@@ -22,7 +22,6 @@ public class UserController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public UserDto getUser(@PathVariable Long id) {
-        Optional<User> user = userService.getUser(id);
-        return UserTransformer.convertToDto(user.get());
+        return UserTransformer.convertToDto(userService.getUser(id));
     }
 }
