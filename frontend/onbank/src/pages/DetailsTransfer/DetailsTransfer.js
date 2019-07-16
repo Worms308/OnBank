@@ -1,14 +1,15 @@
 import React from 'react';
 
-import DetailsComponentTitle from './DetailsComponentTitle'
-import DetailsComponent from './DetailsComponent'
-
+import DetailsComponentTitle from '../../shared/DetailsComponentTitle'
+import DetailsReciever from './DetailsReciever';
+import DetailsSender from './DetailsSender'
 const DetailsTransfer =()=>{
     
     return(
         <>
             <DetailsComponentTitle title='Szczegóły przelewu'/>
-            <DetailsComponent title='Szczegóły odbiorcy'/>
+            <DetailsReciever/>
+            <DetailsSender/>
 
         </>
 
