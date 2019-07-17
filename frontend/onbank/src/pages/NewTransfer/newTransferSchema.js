@@ -11,19 +11,13 @@ export const newTransferSchema = () => {
       .required(requiredMessage),
     accountNumber: Yup.string()
       .required(requiredMessage)
-      .test(
-        'accountValidate',
-        'Błędny numer ',
-        value =>
-          new Promise((resolve, reject) => {
-            if (patt.test(value)) {
-              getIBANDataApi(value).then(response => console.log(response.data));
-              resolve(true);
-            } else {
-              resolve(false);
-            }
-          }),
-      ),
+      .test('accountValidate', 'Błędny numer ', value => {
+        if (patt.test(value)) {
+          getIBANDataApi(value).then(response => console.log(response.data));
+          return true;
+        }
+        return false;
+      }),
     description: Yup.string()
       .min(2, 'Opis jest za krótki')
       .max(4000, 'Opis jest za długi')
