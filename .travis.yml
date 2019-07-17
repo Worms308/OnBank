@@ -1,7 +1,14 @@
-language: java
-jdk: oraclejdk8
-os: linux
+matrix:
+  include:
+    - language: java
+      jdk: oraclejdk8
+      os: windows
+      before_install: cd Backend
+      install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      script:  mvn test
 
-before_install: cd Backend
-install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-script:  mvn test
+    - language: node_js
+      os: windows
+      before_install: cd Frontend
+      install: npm i
+      script: npm start
