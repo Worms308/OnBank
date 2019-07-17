@@ -1,6 +1,7 @@
 package com.onbank.exceptions.advice;
 
 import com.onbank.exceptions.ExceptionResponse;
+import com.onbank.exceptions.TransferNotFoundException;
 import com.onbank.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,14 @@ public class ExceptionControllerAdvice {
     private void printError(Exception e){
         System.err.print(new Timestamp(new Date().getTime()) + "  EXCEPTION: ");
         e.printStackTrace();
+    }
+
+    @ExceptionHandler(TransferNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> notFound(final TransferNotFoundException exception) {
+        String errorMessage = exception.toString();
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND.value(), errorMessage);
+        this.printError(exception);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFoundException.class)

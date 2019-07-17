@@ -125,4 +125,21 @@ class TransferControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
     }
+
+    @Test
+    void shouldReturnOneTransfer() throws Exception {
+        Transfer transfer = createMockObject();
+        transfer = transferRepository.save(transfer);
+
+        mockMvc.perform(get("/api/transfers/" + transfer.getId()))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldNotFoundTransfer() throws Exception {
+        mockMvc.perform(get("/api/transfers/1"))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
 }
