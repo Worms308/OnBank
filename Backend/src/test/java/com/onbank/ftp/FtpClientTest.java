@@ -40,12 +40,7 @@ class FtpClientTest {
         fakeFtpServer.setFileSystem(fileSystem);
         fakeFtpServer.start();
 
-        ftpConnection = new FtpConnection();
-        ftpConnection.setServer(server);
-        ftpConnection.setUser(user);
-        ftpConnection.setPassword(password);
-        ftpConnection.setPort(fakeFtpServer.getServerControlPort());
-        ftpConnection.open();
+        ftpConnection = new FtpConnection(server, fakeFtpServer.getServerControlPort(), user, password);
     }
 
     @AfterAll

@@ -9,41 +9,45 @@ import com.onbank.ftp.FtpConnection;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
 public class TransferSessions {
 
-    @Autowired
-    private FtpConnection ftpConnection;
+    @Value("${onbank.server}")
+    private String server;
+    @Value("${onbank.port}")
+    private int port;
+    @Value("${onbank.user}")
+    private String user;
+    @Value("${onbank.password}")
+    private String password;
+
+
     private final TransferRepository transferRepository;
 
     @Scheduled(cron = "${onbank.outgoing.transfer.date}")
     public void outgoingTransferMorningSession() {
-        List<Transfer> transfers = new ArrayList<>();
         System.out.println("Session outgoing");
 
-        for(Transfer i: transferRepository.findAll()){
-            if(LocalDate.now().isAfter(i.getDate()) && (i.getRealizationState() == TransferState.WAITING)){
-                transfers.add(i);
-            }
-        }
+        List<Transfer> transfers = transferRepository.findAll().stream()
+                .filter((transfer) -> (LocalDate.now().isAfter(transfer.getDate())) && (transfer.getRealizationState() == TransferState.WAITING))
+                .collect(Collectors.toList());
 
-        try {
+        try(FtpConnection ftpConnection = new FtpConnection(server, port, user, password)) {
             TransferToCSV.generateCSV("transferOutcoming.csv", transfers);
             File file = new File("csv/outcoming/transferOutcoming.csv");
-            ftpConnection.open();
             ftpConnection.uploadFile(file,"transferOutcoming.csv");
-            ftpConnection.close();
         }catch(CsvDataTypeMismatchException ex){
             System.out.println("------------ CSV data mismatch exception ------------");
             ex.printStackTrace();
@@ -58,21 +62,21 @@ public class TransferSessions {
 
     @Scheduled(cron = "${onbank.incoming.transfer.date}")
     public void incomingTransferMorningSession() {
+        List<Transfer> transferCSV;
         System.out.println("Session incoming");
+        try(FtpConnection ftpConnection = new FtpConnection(server, port, user, password)){
+            if(!Paths.get("csv/incoming").toFile().exists()) {
+                return;
+            }
 
-        try {
-            new File("csv").mkdir();
-            new File("csv/incoming/").mkdir();
-            File file = new File("csv/incoming/transferIncoming.csv");
-            if(!file.exists())
-                file.createNewFile();
-            ftpConnection.open();
             ftpConnection.downloadFile("/transferIncoming.csv", "csv/incoming/transferIncoming.csv");
-            ftpConnection.close();
-            CSVToTransfer.generateTransfers("csv/incoming/transferIncoming.csv");
+            transferCSV = CSVToTransfer.generateTransfers("csv/incoming/transferIncoming.csv");
+            transferCSV.forEach((transferRepository::save));
+
         }catch(IOException ex){
             System.out.println("------------ IO exception ------------");
             ex.printStackTrace();
         }
+
     }
 }
