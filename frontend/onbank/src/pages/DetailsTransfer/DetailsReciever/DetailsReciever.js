@@ -1,7 +1,7 @@
 import React from 'react';
 
-import DetailsComponent from '../../shared/DetailsComponent'
-import StringComponent from '../../shared/StringComponent'
+import DetailsComponent from 'shared/DetailsComponent'
+import StringComponent from 'shared/StringComponent'
 const DetailsReciever =()=>{
     
     return(

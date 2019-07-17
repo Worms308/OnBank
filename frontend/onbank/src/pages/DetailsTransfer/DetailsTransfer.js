@@ -1,8 +1,9 @@
 import React from 'react';
 
 import DetailsComponentTitle from '../../shared/DetailsComponentTitle'
-import DetailsReciever from './DetailsReciever';
-import DetailsSender from './DetailsSender'
+import DetailsReciever from './DetailsReciever/DetailsReciever';
+import DetailsSender from './DetailsSender/DetailsSender'
+import Details from './Details/Details'
 const DetailsTransfer =()=>{
     
     return(
@@ -10,7 +11,7 @@ const DetailsTransfer =()=>{
             <DetailsComponentTitle title='Szczegóły przelewu'/>
             <DetailsReciever/>
             <DetailsSender/>
-
+            <Details/>
         </>
 
     )

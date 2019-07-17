@@ -1,6 +1,21 @@
 import React from 'react';
-import { useStyles } from 'themes/detailsTransferTheme';
 import { Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    detialsTransferBar:{
+        width:'100%',
+        height:50,
+        backgroundColor:'green',
+        marginBottom:20,
+    },
+    detailsTitle:{
+        textAlign: 'center',
+        color:'#FFF',
+        whiteSpace:'nowrap'
+    },
+}));
+
 
 
 const DetailsComponentTitle =(props)=>{

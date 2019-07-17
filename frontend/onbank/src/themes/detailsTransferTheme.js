@@ -12,22 +12,13 @@ export const useStyles = makeStyles(theme => ({
         color:'#FFF',
         whiteSpace:'nowrap'
     },
-    detailsBar:{
-        width:'100%',
-    },
-    detailsTitleReciever:{
-        marginLeft:20,
-    },
-    divString:{
-        marginBottom:5,
-    },
-    string1:{
-        marginLeft: 40,
-        display:'inline-block',
-    },
-    string2:{
-        float:'right',
-        paddingRight:10,
-    }
+    // string1:{
+    //     marginLeft: 40,
+    //     display:'inline-block',
+    // },
+    // string2:{
+    //     float:'right',
+    //     paddingRight:10,
+    // }
 
 }));

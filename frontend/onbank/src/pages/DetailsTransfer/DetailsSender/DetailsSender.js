@@ -1,6 +1,6 @@
 import React from 'react';
-import DetailsComponent from '../../shared/DetailsComponent'
-import StringComponent from '../../shared/StringComponent'
+import DetailsComponent from 'shared/DetailsComponent'
+import StringComponent from 'shared/StringComponent'
 
 const DetailsSender =()=>{
 
@@ -8,7 +8,7 @@ const DetailsSender =()=>{
     return(
         <DetailsComponent title='Szczegóły nadawcy'>
             <StringComponent string1='Przelew na nr konta:' string2='PL 11 1111 1111 1111 1111 1111 1111'/>
-            <StringComponent string1='Dane nadawcy' string2='Mateusz Zakościelny'/>
+            <StringComponent string1='Dane nadawcy:' string2='Mateusz Zakościelny'/>
         </DetailsComponent>
     )
 }

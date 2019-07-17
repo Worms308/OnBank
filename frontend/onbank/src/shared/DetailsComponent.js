@@ -1,6 +1,16 @@
 import React from 'react';
-import { useStyles } from 'themes/detailsTransferTheme';
 import { Paper } from '@material-ui/core';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    detailsBar:{
+        width:'100%',
+    },
+    detailsTitleReciever:{
+        marginLeft:20,
+    },
+}));
 
 const DetailsComponentTitle =(props)=>{
     const classes = useStyles();
