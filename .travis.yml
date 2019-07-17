@@ -10,9 +10,10 @@ matrix:
     - language: node_js
       node_js: "6"
       os: linux
-      before_install: cd ../Frontend
+      before_install:
+        - pwd
+        - cd ../Frontend
       install: npm install
-      before_script: cd ../Frontend
       script:
-       - npm start
-       - npm test
+        - npm start
+        - npm test
