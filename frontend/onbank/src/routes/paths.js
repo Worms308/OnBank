@@ -3,5 +3,6 @@ export const paths = {
   transactions: '/transaction-list',
   completedTransactions: '/transaction-list/completed-transactions',
   pendingTransactions: '/transaction-list/pending-transactions',
-  newTransfer:'/new-transfer'
+  newTransfer:'/new-transfer',
+  detailsTransfer:'/details-transfer'
 };
