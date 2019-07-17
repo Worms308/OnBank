@@ -8,7 +8,11 @@ matrix:
       script:  mvn test
 
     - language: node_js
+      node_js: "6"
       os: linux
       before_install: cd ../Frontend
-      install: npm i
-      script: npm start
+      install: npm install
+      before_script: cd ../Frontend
+      script:
+       - npm start
+       - npm test
