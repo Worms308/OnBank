@@ -11,8 +11,8 @@ matrix:
       node_js: "6"
       os: linux
       before_install:
-        - pwd
-        - cd ../Frontend
+        - ls
+        - cd Frontend
       install: npm install
       script:
         - npm start
