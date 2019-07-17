@@ -11,9 +11,9 @@ matrix:
       node_js: "6"
       os: linux
       before_cache:
-        - cd frontend
+        - cd frontend/onbank
       before_install:
-        - cd frontend
+        - cd frontend/onbank
       install: npm install
       script:
         - npm start
