@@ -6,11 +6,14 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
     detailsBar:{
         width:'100%',
+        height:'auto'
     },
     detailsTitleReciever:{
+        paddingTop:10,
         marginLeft:20,
     },
     div:{
+       
         width:'100%',
         height:'auto'
     }
