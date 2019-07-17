@@ -15,5 +15,5 @@ matrix:
       before_install:
         - cd frontend/onbank
       install: npm install
-      script:
-        - npm test
+#      script:
+#        - npm start
