@@ -23,7 +23,6 @@ public class TransferDetailsDto {
     private String recipientName;
     private String recipientAccountNumber;
     private String description;
-    @Enumerated(EnumType.STRING)
     private OperationType OperationType;
     private BigDecimal amount;
     private BigDecimal accountBalance;
