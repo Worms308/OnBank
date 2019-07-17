@@ -25,7 +25,7 @@ import { sendTransactionsAction, setIsSuccessAction } from 'actions/transactions
 import { useStyles } from 'themes/newTransferTheme';
 import { colorthemeButtonAndDate } from 'themes/customTheme';
 import { AccountNumberMask } from './accountNumberMask';
-import { SignupSchema } from './signupSchema';
+import { newTransferSchema } from './newTransferSchema';
 import NumberFormatCustom from './numberFormatCustom';
 
 const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) => {
@@ -43,7 +43,9 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
           typeTransfer: 'NORMAL',
           saveReceiver: false,
         }}
-        validationSchema={SignupSchema}
+        validationSchema={newTransferSchema}
+        validateOnBlur
+        validateOnChange
         onSubmit={values => {
           sendTransactions(values);
         }}
@@ -227,7 +229,7 @@ const mapStateToProps = ({ transactions }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendTransactions: (values) => {
+    sendTransactions: values => {
       dispatch(sendTransactionsAction(values));
     },
     setIsSuccess: status => {
