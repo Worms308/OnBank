@@ -19,6 +19,7 @@ public class TransferToCSV {
 
         List<CSVTransferDto> temp = transfers.stream().map(CSVTransferDto::convertToDTO).collect(Collectors.toList());
         filename = "csv/outcoming/" + filename;
+        new File("csv").mkdir();
         new File("csv/outcoming/").mkdir();
         FileWriter writer = new FileWriter(filename);
 
