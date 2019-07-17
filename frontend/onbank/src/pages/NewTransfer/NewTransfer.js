@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { paths } from 'routes/paths';
@@ -30,6 +30,7 @@ import NumberFormatCustom from './numberFormatCustom';
 
 const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) => {
   const classes = useStyles();
+  const [bankName, setBankName] = useState(null);
 
   return (
     <Paper className={classes.root}>
@@ -43,7 +44,7 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
           typeTransfer: 'NORMAL',
           saveReceiver: false,
         }}
-        validationSchema={newTransferSchema}
+        validationSchema={() => newTransferSchema(setBankName)}
         validateOnBlur
         validateOnChange
         onSubmit={values => {
@@ -92,6 +93,11 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
                     className={classes.inputWidth}
                     aria-describedby="accountNumber-error-text"
                   />
+                  {bankName ? (
+                    <FormHelperText>
+                      {bankName}
+                    </FormHelperText>
+                  ) : null}
                   {errors.accountNumber && touched.accountNumber ? (
                     <FormHelperText id="accountNumber-error-text">
                       {errors.accountNumber}
