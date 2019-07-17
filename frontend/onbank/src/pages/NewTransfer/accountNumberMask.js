@@ -1,7 +1,7 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
 
-export const AccountNumberMask = props => {
+ export const AccountNumberMask = props => {
   const { inputRef, onChange, ...other } = props;
 
   return (

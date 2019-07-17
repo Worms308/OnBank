@@ -11,9 +11,15 @@ const useStyles = makeStyles(theme => ({
         float:'right',
         paddingRight:15,
     },
+    string2Bold:{
+        float:'right',
+        paddingRight:15,
+        fontWeight:'bold'
+    },
     div:{
         paddingBottom:5,
     }
+
 }))
 
 const StringComponent =(props)=>{
@@ -21,7 +27,7 @@ const StringComponent =(props)=>{
     return(
         <div className={classes.div}>
             <Typography variant="subtitle1" className={classes.string1}> {props.string1}</Typography>
-            <Typography variant="subtitle1" className={classes.string2}> {props.string2}</Typography>
+            <Typography variant="subtitle1" className={props.bold ? classes.string2Bold : classes.string2}> {props.string2}</Typography>
         </div>
     )
 }

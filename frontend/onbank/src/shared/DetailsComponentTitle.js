@@ -6,13 +6,15 @@ const useStyles = makeStyles(theme => ({
     detialsTransferBar:{
         width:'100%',
         height:50,
-        backgroundColor:'green',
+        backgroundColor:'#27AE60',
         marginBottom:20,
+       
     },
     detailsTitle:{
         textAlign: 'center',
         color:'#FFF',
-        whiteSpace:'nowrap'
+        whiteSpace:'nowrap',
+        paddingTop:10,
     },
 }));
 
