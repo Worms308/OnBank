@@ -8,7 +8,7 @@ matrix:
       script:  mvn test
 
     - language: node_js
-      node_js: "6"
+      node_js: "10"
       os: linux
       before_cache:
         - cd frontend/onbank
