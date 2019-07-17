@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { getIBANDataApi } from 'API/jakitobankAPI';
 
-export const newTransferSchema = () => {
+export const newTransferSchema = setBankName => {
   const requiredMessage = 'Wymagane';
   const patt = /[a-zA-Z]{2}[0-9]{26}/g;
   return Yup.object().shape({
@@ -13,9 +13,16 @@ export const newTransferSchema = () => {
       .required(requiredMessage)
       .test('accountValidate', 'Błędny numer ', value => {
         if (patt.test(value)) {
-          getIBANDataApi(value).then(response => console.log(response.data));
-          return true;
+          const returnValue = getIBANDataApi(value).then(({ data }) => {
+            if (data.suma_poprawna !== '0') {
+              setBankName(data.nazwa_banku);
+              return true;
+            }
+            return false;
+          });
+          return returnValue;
         }
+        setBankName(null);
         return false;
       }),
     description: Yup.string()
