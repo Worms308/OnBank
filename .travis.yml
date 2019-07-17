@@ -9,6 +9,6 @@ matrix:
 
     - language: node_js
       os: linux
-      before_install: cd Frontend
+      before_install: cd ../Frontend
       install: npm i
       script: npm start
