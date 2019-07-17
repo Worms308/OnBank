@@ -14,4 +14,6 @@ matrix:
         - cd frontend/onbank
       before_install:
         - cd frontend/onbank
+      script: 'true'
       install: npm install
+
