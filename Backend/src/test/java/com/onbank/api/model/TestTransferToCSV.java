@@ -67,7 +67,7 @@ public class TestTransferToCSV {
         FileWriter writer = new FileWriter(csv);
         writer.append(
                 "ACCOUNTBALANCE,\"amount\",\"date\",\"description\",\"id\",\"operationType\",\"realizationState\",\"recipientAccountNumber\",\"recipientName\",\"senderAccountNumber\",\"senderName\"\n" +
-                "32388.3,\"32324.3\",\"2019-07-15\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n" +
+                "32324.3,\"32324.3\",\"2019-07-15\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n" +
                 "32324.3,\"32324.3\",\"2019-07-15\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n" +
                 "32324.3,\"32324.3\",\"2019-07-15\",\"Opis operacji\",\"\",\"INSTANT\",\"WAITING\",\"PL32349188939421535264612669\",\"Jan Kowalski\",\"PL32349188939421535264612669\",\"Jan Kowalski\"\n"
         );
