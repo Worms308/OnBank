@@ -1,0 +1,19 @@
+matrix:
+  include:
+    - language: java
+      jdk: oraclejdk8
+      os: linux
+      before_install: cd Backend
+      install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      script:  mvn test
+
+    - language: node_js
+      node_js: "10"
+      os: linux
+      before_cache:
+        - cd frontend/onbank
+      before_install:
+        - cd frontend/onbank
+      script: 'true'
+      install: npm install
+#
