@@ -1,17 +1,18 @@
 import React from 'react';
 import { createMuiTheme, MuiThemeProvider, useTheme } from '@material-ui/core/styles';
 import MUIDataTable from 'mui-datatables';
-import currencyFormat from 'core/CurrencyFormat';
-import AccountNumberFormat from 'core/AccountNumberFormat';
-import DateFormat from 'core/DateFormat';
+import currencyFormat from 'utils/CurrencyFormat';
+import AccountNumberFormat from 'utils/AccountNumberFormat';
+import DateFormat from 'utils/DateFormat';
+import ConvertOperationType from 'core/ConvertOperationType';
 
 const columns = [
   {
     name: 'date',
     label: 'Data',
     options: {
-      customBodyRender: value => {
-        return <span>{DateFormat(new Date(value), true)}</span>;
+      customBodyRender: (value = '') => {
+        return Date.parse(value) ? <span>{DateFormat(new Date(value), true)}</span> : '';
       },
     },
   },
@@ -19,7 +20,7 @@ const columns = [
     name: 'account',
     label: 'Odbiorca / Nadawca',
     options: {
-      customBodyRender: value => {
+      customBodyRender: (value = '') => {
         const array = value.split(',');
         return (
           <div>
@@ -34,20 +35,29 @@ const columns = [
     name: 'description',
     label: 'Opis operacji',
     options: {
-      customBodyRender: value => {
-        if (value.length > 32) {
-          return <div style={{ width: '120px' }}>{value.substring(0, 32)}...</div>;
-        }
-        return <div>{value}</div>;
+      customBodyRender: (value = '') => {
+        return value.length > 32 ? (
+          <div style={{ width: '120px' }}>{value.substring(0, 32)}...</div>
+        ) : (
+          value
+        );
       },
     },
   },
-  { name: 'type', label: 'Rodzaj operacji' },
+  {
+    name: 'type',
+    label: 'Rodzaj operacji',
+    options: {
+      customBodyRender: (value = '') => {
+        return ConvertOperationType(value);
+      },
+    },
+  },
   {
     name: 'cost',
     label: 'Kwota operacji',
     options: {
-      customBodyRender: value => {
+      customBodyRender: (value = '') => {
         if (value < 0) {
           return <span style={{ color: '#C0392B' }}>{currencyFormat(value)}</span>;
         }
@@ -62,7 +72,7 @@ const columns = [
     name: 'saldo',
     label: 'Saldo',
     options: {
-      customBodyRender: value => {
+      customBodyRender: (value = '') => {
         return <span>{currencyFormat(value)}</span>;
       },
     },
@@ -91,6 +101,11 @@ const Table = ({ data }) => {
             borderRadius: 0,
             boxShadow:
               '-5px 0 5px -5px rgba(0,0,0,0.2), 5px 0 5px -5px rgba(0,0,0,0.2), 0 5px 5px -5px rgba(0,0,0,0.2)',
+          },
+        },
+        MUIDataTableHeadCell: {
+          root: {
+            whiteSpace: 'nowrap',
           },
         },
         MUIDataTableBodyRow: {

@@ -1,38 +1,68 @@
 package com.onbank.api.model;
 
+import com.onbank.api.validators.AccountNumber;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "transfer")
 public class Transfer {
     @Id
+    @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id", nullable=false, unique = true)
     private Long id;
-    @Column(name="date", nullable=false)
-    private LocalDateTime date;
-    @Column(name="name", nullable=false, length=50)
-    private String name;
-    @Column(name="surname", nullable=false, length=100)
-    private String surname;
-    @Column(name="accountnumber", nullable=false)
-    @Size(min = 26, max = 28)
-    private String accountNumber;
-    @Column(name="description", nullable=false, length=4000)
+
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
+
+    @Column(name = "recipientname", nullable = false, length = 200)
+    private String recipientName;
+
+    @Column(name = "recipientaccountnumber", nullable = false)
+    @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
+    @NotNull(message = "Account number cannot be empty.")
+    @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
+    @AccountNumber(message = "Invalid account number.")
+    private String recipientAccountNumber;
+
+    @Column(name = "description", length = 4000)
     private String description;
-    @Column(name="typeofoperation", nullable=false, length=200)
+
+    @NotNull(message = "Type of operation cannot be empty.")
+    @Column(name = "typeofoperation", nullable = false, length = 200)
     @Enumerated(EnumType.STRING)
-    private OperationType OperationType;
-    @Column(name="ammount", nullable=false)
-    private BigDecimal ammount;
-    @Column(name="accountballance", nullable=false)
-    private BigDecimal accountBallance;
+    private OperationType operationType;
+
+    @Column(name = "amount", nullable = false)
+    @NotNull(message = "Amount cannot be empty.")
+    @Positive(message = "Amount must be bigger than 0,00.")
+    private BigDecimal amount;
+
+    @Column(name = "accountbalance", nullable = false)
+    private BigDecimal accountBalance;
+
+    @Column(name = "realizationstate", nullable = false)
+    @NotNull(message = "Transfer state cannot be empty.")
+    @Enumerated(EnumType.STRING)
+    private TransferState realizationState;
+
+    @Column(name = "sendername", length = 200)
+    @NotNull(message = "Sender name cannot be empty.")
+    private String senderName;
+
+    @Column(name = "senderaccountnumber", nullable = false)
+    @Size(min = 26, max = 28, message = "Account number must be between 26-28 characters.")
+    @NotNull(message = "Account number cannot be empty.")
+    @Pattern(regexp = "(^[A-Z]{2}\\d{26}$)|(^\\d{26}$)")
+    @AccountNumber(message = "Invalid account number.")
+    private String senderAccountNumber;
+
 }
