@@ -33,21 +33,23 @@ public class TransferSessions {
     @Value("${onbank.password}")
     private String password;
 
-
     private final TransferRepository transferRepository;
 
     @Scheduled(cron = "${onbank.outgoing.transfer.date}")
     public void outgoingTransferMorningSession() {
         System.out.println("Session outgoing");
 
-        List<Transfer> transfers = transferRepository.findAll().stream()
-                .filter((transfer) -> (LocalDate.now().isAfter(transfer.getDate())) && (transfer.getRealizationState() == TransferState.WAITING))
+        String transferOutcoming = "transferOutcoming.csv";
+        String outcomingFolders = "csv/outcoming/";
+
+        List<Transfer> transfers = transferRepository.findByRealizationStateAndDateAfter(TransferState.WAITING,LocalDate.now())
+                .stream()
                 .collect(Collectors.toList());
 
         try(FtpConnection ftpConnection = new FtpConnection(server, port, user, password)) {
-            TransferToCSV.generateCSV("transferOutcoming.csv", transfers);
-            File file = new File("csv/outcoming/transferOutcoming.csv");
-            ftpConnection.uploadFile(file,"transferOutcoming.csv");
+            TransferToCSV.generateCSV(transferOutcoming, transfers);
+            File file = new File(outcomingFolders+transferOutcoming);
+            ftpConnection.uploadFile(file,transferOutcoming);
         }catch(CsvDataTypeMismatchException ex){
             System.out.println("------------ CSV data mismatch exception ------------");
             ex.printStackTrace();
@@ -62,15 +64,19 @@ public class TransferSessions {
 
     @Scheduled(cron = "${onbank.incoming.transfer.date}")
     public void incomingTransferMorningSession() {
-        List<Transfer> transferCSV;
         System.out.println("Session incoming");
+
+        String transferIncoming = "/transferIncoming.csv";
+        String incomingFolders = "csv/incoming";
+
+        List<Transfer> transferCSV;
         try(FtpConnection ftpConnection = new FtpConnection(server, port, user, password)){
-            if(!Paths.get("csv/incoming").toFile().exists()) {
+            if(!Paths.get(incomingFolders).toFile().exists()) {
                 return;
             }
 
-            ftpConnection.downloadFile("/transferIncoming.csv", "csv/incoming/transferIncoming.csv");
-            transferCSV = CSVToTransfer.generateTransfers("csv/incoming/transferIncoming.csv");
+            ftpConnection.downloadFile(transferIncoming, incomingFolders + transferIncoming);
+            transferCSV = CSVToTransfer.generateTransfers(incomingFolders + transferIncoming);
             transferCSV.forEach((transferRepository::save));
 
         }catch(IOException ex){
