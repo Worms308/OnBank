@@ -4,26 +4,27 @@ import lombok.Setter;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.*;
 
-@Component
 @Setter
-public class FtpConnection {
+public class FtpConnection implements Closeable{
 
-    @Value("${onbank.server}")
-    private String server;
-    @Value("${onbank.port}")
-    private int port;
-    @Value("${onbank.user}")
-    private String user;
-    @Value("${onbank.password}")
-    private String password;
+    private final String server;
+    private final int port;
+    private final String user;
+    private final String password;
     private FTPClient ftp;
 
-    public void open() throws IOException {
+    public FtpConnection(String server, int port, String user, String password) throws IOException {
+        this.server = server;
+        this.port = port;
+        this.user = user;
+        this.password = password;
+        open();
+    }
+
+    private void open() throws IOException {
         ftp = new FTPClient();
 
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
