@@ -42,9 +42,7 @@ public class TransferSessions {
         String transferOutcoming = "transferOutcoming.csv";
         String outcomingFolders = "csv/outcoming/";
 
-        List<Transfer> transfers = transferRepository.findByRealizationStateAndDateAfter(TransferState.WAITING,LocalDate.now())
-                .stream()
-                .collect(Collectors.toList());
+        List<Transfer> transfers = transferRepository.findByRealizationStateAndDateAfter(TransferState.WAITING,LocalDate.now());
 
         try(FtpConnection ftpConnection = new FtpConnection(server, port, user, password)) {
             TransferToCSV.generateCSV(transferOutcoming, transfers);

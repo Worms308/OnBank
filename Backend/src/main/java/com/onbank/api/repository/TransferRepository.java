@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface TransferRepository extends JpaRepository<Transfer, Long> {
 
-    public List<Transfer> findByRealizationStateAndDateAfter(TransferState realizationState, LocalDate firstDate);
+    List<Transfer> findByRealizationStateAndDateAfter(TransferState realizationState, LocalDate firstDate);
 
 }
