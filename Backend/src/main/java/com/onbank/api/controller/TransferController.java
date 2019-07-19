@@ -40,13 +40,13 @@ public class TransferController {
     @ResponseStatus(HttpStatus.OK)
     public void createTransfer(@Valid @RequestBody CreateTransferDto transferDto) {
         Transfer tmpTransfer = TransferTransformer.convertToEntity(transferDto);
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) auth.getPrincipal();
-//        tmpTransfer.setSenderName(user.getName());
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        tmpTransfer.setSenderName(user.getName());
+
         tmpTransfer.setAccountBalance(new BigDecimal("0.00"));
-        tmpTransfer.setSenderName("test");
         tmpTransfer.setSenderAccountNumber(Mocks.getMockUser().getAccountNumber());
-        
         tmpTransfer.setRealizationState(TransferState.WAITING);
         transferService.createTransfer(tmpTransfer);
     }

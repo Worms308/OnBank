@@ -11,7 +11,7 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
     private User authenticatedUser;
     private Long uid;
 
-    public AuthenticationToken(Long uid){
+    public AuthenticationToken(Long uid) {
         super(Arrays.asList());
         this.uid = uid;
     }
@@ -26,7 +26,7 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
         return authenticatedUser;
     }
 
-    public void setPrincipal(User user){
+    public void setPrincipal(User user) {
         this.authenticatedUser = user;
     }
 
