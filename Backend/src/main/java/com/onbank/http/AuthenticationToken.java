@@ -1,11 +1,9 @@
 package com.onbank.http;
 
 import java.util.Arrays;
-import java.util.Collection;
 
 import com.onbank.api.model.User;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 
 public class AuthenticationToken extends AbstractAuthenticationToken {
 
