@@ -1,11 +1,9 @@
 package com.onbank.http;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import com.onbank.api.model.User;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Arrays;
 
 public class AuthenticationToken extends AbstractAuthenticationToken {
 
@@ -13,7 +11,7 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
     private User authenticatedUser;
     private Long uid;
 
-    public AuthenticationToken(Long uid){
+    public AuthenticationToken(Long uid) {
         super(Arrays.asList());
         this.uid = uid;
     }
@@ -28,7 +26,7 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
         return authenticatedUser;
     }
 
-    public void setPrincipal(User user){
+    public void setPrincipal(User user) {
         this.authenticatedUser = user;
     }
 

@@ -20,15 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private HeadersAuthenticationProvider headersHandler;
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth)
-//            throws Exception {
-//        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
-//    }
 
     @Override
-    protected void configure(HttpSecurity http) {
-        http.addFilterBefore(new HeadersAuthenticationFilter(), BasicAuthenticationFilter.class);
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .authorizeRequests().anyRequest().authenticated()
+                .and()
+                .addFilterBefore(new HeadersAuthenticationFilter(), BasicAuthenticationFilter.class);
     }
 
     @Override
