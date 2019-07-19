@@ -1,11 +1,5 @@
 package com.onbank.http;
 
-import com.onbank.api.model.User;
-import com.onbank.api.repository.UserRepository;
-import com.onbank.exceptions.UserNotFoundException;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
