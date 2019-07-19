@@ -1,8 +1,8 @@
 export const paths = {
   home: '/',
-  transactions: '/transaction-list',
-  completedTransactions: '/transaction-list/completed-transactions',
-  pendingTransactions: '/transaction-list/pending-transactions',
-  newTransfer:'/new-transfer',
-  detailsTransfer:'/details-transfer'
+  transactions: '/transactions',
+  completedTransactions: '/transactions/completed-transactions',
+  pendingTransactions: '/transactions/pending-transactions',
+  newTransfer: '/new-transfer',
+  detailsTransaction: '/transactions/details-transactions/:idTransaction',
 };

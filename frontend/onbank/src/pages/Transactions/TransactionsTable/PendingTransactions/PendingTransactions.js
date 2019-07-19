@@ -3,8 +3,9 @@ import Table from 'pages/Transactions/TransactionsTable/Table';
 
 const datatableData = [
   [
+    1,
     '02.01.2019',
-    'Jan Kowalski, PL00000000000000000000000000',
+    'Jan Kowalski,PL00000000000000000000000000',
     'Hajs za YT',
     'Przelew z rachunku',
     50.0,

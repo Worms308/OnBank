@@ -1,9 +1,10 @@
-import { FETCH_SUCCESS } from 'actions/transactionsActions';
 import operationType from 'mocks/operationTypeMock';
+
+export const FETCH_OPERATION_TYPE_SUCCESS = 'FETCH_OPERATION_TYPE_SUCCESS';
 
 const operationTypeReducer = (state = operationType, action) => {
   switch (action.type) {
-    case FETCH_SUCCESS:
+    case FETCH_OPERATION_TYPE_SUCCESS:
       return {
         ...state,
         [action.payload.name]: action.payload.data,
