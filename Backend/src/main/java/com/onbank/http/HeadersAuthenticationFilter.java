@@ -1,6 +1,8 @@
 package com.onbank.http;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -11,7 +13,7 @@ import java.io.IOException;
 
 import static org.springframework.boot.context.properties.source.ConfigurationPropertyName.isValid;
 
-public class HeadersAuthenticator extends OncePerRequestFilter {
+public class HeadersAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -20,16 +22,12 @@ public class HeadersAuthenticator extends OncePerRequestFilter {
 
         String userID = request.getHeader("userID");
 
-        // validate the value in xAuth
         if(!isValid(userID)){
             throw new SecurityException();
         }
+        Long id = Long.valueOf(userID);
 
-        // The token is 'valid' so magically get a user id from it
-        Long id = getUserIdFromToken(userID);
-
-        // Create our Authentication and let Spring know about it
-        Authentication auth = new DemoAuthenticationToken(id);
+        Authentication auth = new AuthenticationToken(id);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         filterChain.doFilter(request, response);

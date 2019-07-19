@@ -4,11 +4,14 @@ import com.onbank.Mocks;
 import com.onbank.api.dto.CreateTransferDto;
 import com.onbank.api.dto.TransferDto;
 import com.onbank.api.model.Transfer;
+import com.onbank.api.model.User;
 import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.service.TransferService;
 import com.onbank.api.transformer.TransferTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,8 +40,11 @@ public class TransferController {
     @ResponseStatus(HttpStatus.OK)
     public void createTransfer(@Valid @RequestBody CreateTransferDto transferDto) {
         Transfer tmpTransfer = TransferTransformer.convertToEntity(transferDto);
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User) auth.getPrincipal();
+//        tmpTransfer.setSenderName(user.getName());
         tmpTransfer.setAccountBalance(new BigDecimal("0.00"));
-        tmpTransfer.setSenderName(Mocks.getMockUser().getUsername());
+        tmpTransfer.setSenderName("test");
         tmpTransfer.setSenderAccountNumber(Mocks.getMockUser().getAccountNumber());
         
         tmpTransfer.setRealizationState(TransferState.WAITING);
