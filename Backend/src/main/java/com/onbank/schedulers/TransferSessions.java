@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -32,6 +31,7 @@ public class TransferSessions {
     private String user;
     @Value("${onbank.password}")
     private String password;
+    String transferRemote = "/transfer.csv";
 
     private final TransferRepository transferRepository;
 
@@ -42,12 +42,16 @@ public class TransferSessions {
         String transferOutcoming = "transferOutcoming.csv";
         String outcomingFolders = "csv/outcoming/";
 
-        List<Transfer> transfers = transferRepository.findByRealizationStateAndDateAfter(TransferState.WAITING,LocalDate.now());
+        List<Transfer> transfers = transferRepository.findByRealizationStateAndDateBefore(TransferState.WAITING,LocalDate.now());
+
+        transfers.stream()
+                .peek(transfer -> transfer.setRealizationState(TransferState.IN_PROGRESS))
+                .forEach((transferRepository::save));
 
         try(FtpConnection ftpConnection = new FtpConnection(server, port, user, password)) {
             TransferToCSV.generateCSV(transferOutcoming, transfers);
             File file = new File(outcomingFolders+transferOutcoming);
-            ftpConnection.uploadFile(file,transferOutcoming);
+            ftpConnection.uploadFile(file,transferRemote);
         }catch(CsvDataTypeMismatchException ex){
             System.out.println("------------ CSV data mismatch exception ------------");
             ex.printStackTrace();
@@ -70,12 +74,16 @@ public class TransferSessions {
         List<Transfer> transferCSV;
         try(FtpConnection ftpConnection = new FtpConnection(server, port, user, password)){
             if(!Paths.get(incomingFolders).toFile().exists()) {
-                return;
+                new File("csv").mkdir();
+                new File("csv/incoming/").mkdir();
             }
 
-            ftpConnection.downloadFile(transferIncoming, incomingFolders + transferIncoming);
+            ftpConnection.downloadFile(transferRemote, incomingFolders + transferIncoming);
             transferCSV = CSVToTransfer.generateTransfers(incomingFolders + transferIncoming);
-            transferCSV.forEach((transferRepository::save));
+
+            transferCSV.stream()
+                    .peek(transfer -> transfer.setRealizationState(TransferState.REALIZED))
+                    .forEach((transferRepository::save));
 
         }catch(IOException ex){
             System.out.println("------------ IO exception ------------");

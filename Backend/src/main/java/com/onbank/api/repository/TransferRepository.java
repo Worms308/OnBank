@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface TransferRepository extends JpaRepository<Transfer, Long> {
 
-    List<Transfer> findByRealizationStateAndDateAfter(TransferState realizationState, LocalDate firstDate);
     List<Transfer> getTransfersBySenderAccountNumberOrRecipientAccountNumber(String senderAccountNumber, String recipientAccountNumber);
+    List<Transfer> findByRealizationStateAndDateBefore(TransferState realizationState, LocalDate firstDate);
 
 }
