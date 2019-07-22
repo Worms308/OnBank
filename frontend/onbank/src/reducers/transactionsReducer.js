@@ -1,6 +1,7 @@
 import {
   FETCH_TRANSACTION_LIST_SUCCESS,
   FETCH_DETAILS_TRANSACTION_SUCCESS,
+  FETCH_LOCKED_TRANSACTION_SUCCESS,
   NEW_TRANSFER_REQUEST,
   NEW_TRANSFER_SUCCESS,
   NEW_TRANSFER_FAILURE,
@@ -16,6 +17,11 @@ const transactionsReducer = (state = transactionList, action) => {
         [action.payload.name]: action.payload.data,
       };
     case FETCH_DETAILS_TRANSACTION_SUCCESS:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.data,
+      };
+    case FETCH_LOCKED_TRANSACTION_SUCCESS:
       return {
         ...state,
         [action.payload.name]: action.payload.data,

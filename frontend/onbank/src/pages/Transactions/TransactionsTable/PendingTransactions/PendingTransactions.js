@@ -1,18 +1,43 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { connect } from 'react-redux';
 import Table from 'pages/Transactions/TransactionsTable/Table';
+import { getLockedTransactionsAction } from 'actions/transactionsActions';
 
-const datatableData = [
-  [
-    1,
-    '02.01.2019',
-    'Jan Kowalski,PL00000000000000000000000000',
-    'Hajs za YT',
-    'Przelew z rachunku',
-    50.0,
-    999950.0,
-  ],
-];
+const PendingTransactions = ({dataTable, getLockedTransactions}) => {
 
-const PendingTransactions = () => <Table data={datatableData} />;
+  useEffect(() => getLockedTransactions(), [getLockedTransactions])
 
-export default PendingTransactions;
+return <Table data={dataTable} />;
+}
+
+const mapStateToProps = ({ transactions, userProfile }) => {
+  const dataTable = [];
+  if (transactions.lockedTransactionList) {
+    transactions.lockedTransactionList.map(res =>
+      dataTable.push([
+        res.id,
+        res.date,
+        res.recipientAccountNumber === userProfile.accountNumber ? `${res.senderName || ''},${res.senderAccountNumber || ''}` : `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
+        res.description,
+        res.operationType,
+        res.recipientAccountNumber === userProfile.accountNumber ? -1 * res.amount : res.amount,
+        res.accountBalance,
+      ]),
+    );
+  }
+  console.log(dataTable)
+  return { dataTable};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getLockedTransactions: () => {
+      dispatch(getLockedTransactionsAction('lockedTransactionList'));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PendingTransactions);

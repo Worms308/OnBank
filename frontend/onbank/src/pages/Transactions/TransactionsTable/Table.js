@@ -9,6 +9,7 @@ import currencyFormat from 'utils/CurrencyFormat';
 import AccountNumberFormat from 'utils/AccountNumberFormat';
 import DateFormat from 'utils/DateFormat';
 import ConvertOperationType from 'core/ConvertOperationType';
+import { colorthemeButtonAndDate } from 'themes/customTheme';
 
 const Table = ({ data, history }) => {
   const theme = useTheme();
@@ -80,6 +81,7 @@ const Table = ({ data, history }) => {
       name: 'date',
       label: 'Data',
       options: {
+        sortDirection: 'desc',
         filterType: 'custom',
         customFilterListRender: v => {
           if (v['from'] && v['to']) {
@@ -107,6 +109,7 @@ const Table = ({ data, history }) => {
             <div>
               <FormLabel>Data</FormLabel>
               <FormGroup row style={{ marginTop: '8px' }}>
+              <MuiThemeProvider theme={colorthemeButtonAndDate}>
                 <KeyboardDatePicker
                   label="od"
                   format="dd.MM.yyyy"
@@ -137,6 +140,7 @@ const Table = ({ data, history }) => {
                   }}
                   style={{ width: '47%' }}
                 />
+                </MuiThemeProvider>
               </FormGroup>
             </div>
           ),
@@ -150,6 +154,7 @@ const Table = ({ data, history }) => {
       name: 'account',
       label: 'Odbiorca / Nadawca',
       options: {
+        filter: false,
         customBodyRender: (value = '') => {
           const array = value.split(',');
           return (
@@ -165,6 +170,7 @@ const Table = ({ data, history }) => {
       name: 'description',
       label: 'Opis operacji',
       options: {
+        filter: false,
         customBodyRender: (value = '') => {
           return value.length > 32 ? (
             <div style={{ width: '120px' }}>{value.substring(0, 32)}...</div>
@@ -251,6 +257,7 @@ const Table = ({ data, history }) => {
       name: 'saldo',
       label: 'Saldo',
       options: {
+        filter: false,
         customBodyRender: (value = '') => {
           return <span>{currencyFormat(value)}</span>;
         },

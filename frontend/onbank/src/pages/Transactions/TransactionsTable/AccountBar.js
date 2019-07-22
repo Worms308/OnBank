@@ -1,29 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import currencyFormat from 'utils/CurrencyFormat';
 import AccountNumberFormat from 'utils/AccountNumberFormat';
-import { getAccountDataAction } from 'actions/transactionsActions';
 import { useStyles } from 'themes/accountBarTheme';
 
-const AccountBar = ({ accountData, accountNumber, getAccountData }) => {
+const AccountBar = ({ accountData, accountNumber }) => {
   const classes = useStyles();
 
-  useEffect(getAccountData);
   return (
-    <Paper>
+    <div className={classes.wrapper}>
       <div className={classes.divNameAccount}>
         <Typography variant="h5" className={classes.nameAccount}>
           {accountData.name}
         </Typography>
-        <Typography variant="h5" className={classes.nameAccount}>
+        <Typography variant="h5" className={classes.numberAccount}>
           {AccountNumberFormat(accountNumber) || 'Brak numeru konta'}
         </Typography>
       </div>
 
       <div className={classes.divAvalaibleFunds}>
-        <Typography variant="subtitle1" className={classes.avalaibleFunds}>
+        <Typography variant="subtitle1" className={classes.avalaibleFundsLabel}>
           Dostępne środki
         </Typography>
         <Typography variant="h5" className={classes.avalaibleFunds}>
@@ -39,7 +36,7 @@ const AccountBar = ({ accountData, accountNumber, getAccountData }) => {
           {currencyFormat(accountData.blockedFunds)}
         </Typography>
       </div>
-    </Paper>
+    </div>
   );
 };
 
@@ -49,15 +46,6 @@ const mapStateToProps = ({ transactions, userProfile }) => {
   return { accountData, accountNumber };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getAccountData: () => {
-      dispatch(getAccountDataAction('accountData'));
-    },
-  };
-};
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  mapStateToProps
 )(AccountBar);
