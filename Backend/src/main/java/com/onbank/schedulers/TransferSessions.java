@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -44,10 +43,14 @@ public class TransferSessions {
 
         List<Transfer> transfers = transferRepository.findByRealizationStateAndDateAfter(TransferState.WAITING,LocalDate.now());
 
+        transfers.stream()
+                .peek(transfer -> transfer.setRealizationState(TransferState.IN_PROGRESS))
+                .forEach((transferRepository::save));
+
         try(FtpConnection ftpConnection = new FtpConnection(server, port, user, password)) {
             TransferToCSV.generateCSV(transferOutcoming, transfers);
             File file = new File(outcomingFolders+transferOutcoming);
-            ftpConnection.uploadFile(file,transferOutcoming);
+            ftpConnection.uploadFile(file,"transfer.csv");
         }catch(CsvDataTypeMismatchException ex){
             System.out.println("------------ CSV data mismatch exception ------------");
             ex.printStackTrace();
@@ -73,9 +76,11 @@ public class TransferSessions {
                 return;
             }
 
-            ftpConnection.downloadFile(transferIncoming, incomingFolders + transferIncoming);
+            ftpConnection.downloadFile("/transfer.csv", incomingFolders + transferIncoming);
             transferCSV = CSVToTransfer.generateTransfers(incomingFolders + transferIncoming);
-            transferCSV.forEach((transferRepository::save));
+            transferCSV.stream()
+                    .peek(transfer -> transfer.setRealizationState(TransferState.REALIZED))
+                    .forEach((transferRepository::save));
 
         }catch(IOException ex){
             System.out.println("------------ IO exception ------------");
