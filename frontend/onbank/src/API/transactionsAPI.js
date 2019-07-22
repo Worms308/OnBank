@@ -1,10 +1,21 @@
 import { axiosInstanceGet, axiosInstancePost } from 'core/axiosConfig';
+import store from 'store';
 
 export const TRANSACTIONS_URL = '/transfers';
 
-const getAccountData = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
-const getTransactions = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
-const sendTransactions = json =>
-  axiosInstancePost({ method: 'post', url: TRANSACTIONS_URL, data: json });
+const getAccountDataApi = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
+const getTransactionsApi = () =>
+  axiosInstanceGet({
+    method: 'get',
+    headers: { userID: store.getState().userProfile.userID },
+    url: TRANSACTIONS_URL,
+  });
+const sendTransactionsApi = json =>
+  axiosInstancePost({
+    method: 'post',
+    headers: { userID: store.getState().userProfile.userID },
+    url: TRANSACTIONS_URL,
+    data: json,
+  });
 
-export { getAccountData, getTransactions, sendTransactions };
+export { getAccountDataApi, getTransactionsApi, sendTransactionsApi };

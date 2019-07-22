@@ -227,7 +227,7 @@ const mapStateToProps = ({ transactions }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendTransactions: values => {
+    sendTransactions: (values) => {
       dispatch(sendTransactionsAction(values));
     },
     setIsSuccess: status => {

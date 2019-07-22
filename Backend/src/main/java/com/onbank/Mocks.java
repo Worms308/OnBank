@@ -1,10 +1,10 @@
 package com.onbank;
 
-import com.onbank.api.model.User;
+import com.onbank.api.model.UserMock;
 
 public class Mocks {
 
-    public static User getMockUser() {
-        return new User();
+    public static UserMock getMockUser() {
+        return new UserMock();
     }
 }

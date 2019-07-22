@@ -3,17 +3,22 @@ package com.onbank.api.controller;
 import com.onbank.LoadProperties;
 import com.onbank.ObjectToJson;
 import com.onbank.api.dto.CreateTransferDto;
-import com.onbank.api.model.OperationType;
+import com.onbank.api.model.enums.OperationType;
 import com.onbank.api.model.Transfer;
-import com.onbank.api.model.TransferState;
+import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.repository.TransferRepository;
+import com.onbank.api.repository.UserRepository;
 import com.onbank.api.transformer.TransferTransformer;
+import com.onbank.http.AuthenticationToken;
+import com.onbank.starter.InitMockDB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -44,10 +49,18 @@ class TransferControllerTest {
     @Autowired
     private TransferRepository transferRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @BeforeEach
     void setup() {
+        userRepository.deleteAll();
         transferRepository.deleteAll();
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        AuthenticationToken authT = new AuthenticationToken(1L);
+        authT.setPrincipal(UserControllerTest.createMockUser("99112200998"));
+        Authentication auth = authT;
+        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
     private CreateTransferDto createTransferDto(){
@@ -67,6 +80,7 @@ class TransferControllerTest {
         String requestJson = ObjectToJson.convert(createTransferDto);
 
         this.mockMvc.perform(post("/api/transfers")
+                .header("userID", "1")
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(requestJson))
                 .andDo(print())
@@ -81,7 +95,10 @@ class TransferControllerTest {
         fromDB.get(0).setSenderName(null);
         fromDB.get(0).setSenderAccountNumber(null);
 
-        assertThat(fromDB.get(0)).isEqualTo(TransferTransformer.convertToEntity(createTransferDto));
+        fromDB.get(0).setCreateDate(null);
+        fromDB.get(0).setLastModified(null);
+
+        assertThat(fromDB.get(0)).isEqualToComparingFieldByFieldRecursively(TransferTransformer.convertToEntity(createTransferDto));//isEqualTo();
     }
 
     private Transfer createMockObject() {
@@ -89,7 +106,7 @@ class TransferControllerTest {
         Transfer transfer = new Transfer();
         transfer.setOperationType(OperationType.INSTANT);
         transfer.setAccountBalance(bigDecimal);
-        transfer.setRecipientAccountNumber("PL32349188939421535264612669");
+        transfer.setRecipientAccountNumber("PL61306662783096158101751159");
         transfer.setSenderAccountNumber("PL32349188939421535264612669");
         transfer.setAmount(bigDecimal);
         transfer.setDate(LocalDate.now());
@@ -103,7 +120,8 @@ class TransferControllerTest {
     @Test
     void shouldReturnTransfers() throws Exception {
         transferRepository.save(createMockObject());
-        mockMvc.perform(get("/api/transfers"))
+        mockMvc.perform(get("/api/transfers")
+                .header("userID", "1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
@@ -112,7 +130,8 @@ class TransferControllerTest {
     @Test
     void shouldReturnNoTransfers() throws Exception {
 
-        mockMvc.perform(get("/api/transfers"))
+        mockMvc.perform(get("/api/transfers")
+                .header("userID", "1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));

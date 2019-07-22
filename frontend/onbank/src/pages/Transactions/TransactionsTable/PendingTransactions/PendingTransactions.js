@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from 'shared/Table';
+import Table from 'pages/Transactions/TransactionsTable/Table';
 
 const datatableData = [
   [

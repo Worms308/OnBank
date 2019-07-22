@@ -1,8 +1,8 @@
 package com.onbank.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.onbank.api.model.OperationType;
-import com.onbank.api.model.TransferState;
+import com.onbank.api.model.enums.OperationType;
+import com.onbank.api.model.enums.TransferState;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
