@@ -24,6 +24,7 @@ const mapStateToProps = ({ transactions }) => {
   if (transactions.transactionList) {
     transactions.transactionList.map(res =>
       dataTableData.push([
+        res.id,
         res.date,
         `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
         res.description,

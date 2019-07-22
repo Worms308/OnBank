@@ -10,19 +10,19 @@ class TransferTransformerTest {
     @Test
     void convertToDtoSuccessTest(){
         Transfer transfer = new Transfer();
-        transfer.setSurname("Abacki");
+        transfer.setRecipientName("Abacki");
         TransferTransformer transferTransformer = new TransferTransformer();
 
-        assertEquals(true, transfer.getSurname().equals(transferTransformer.convertToDto(transfer).getSurname()));
+        assertEquals(true, transfer.getRecipientName().equals(transferTransformer.convertToDto(transfer).getRecipientName()));
     }
 
     @Test
     void convertToEntitySuccessTest(){
         TransferDto transferDto = new TransferDto();
-        transferDto.setSurname("Abacki");
+        transferDto.setRecipientName("Abacki");
         TransferTransformer transferTransformer = new TransferTransformer();
 
-        assertEquals(true, transferDto.getSurname().equals(transferTransformer.convertToEntity(transferDto).getSurname()));
+        assertEquals(true, transferDto.getRecipientName().equals(transferTransformer.convertToEntity(transferDto).getRecipientName()));
     }
 
 }
