@@ -27,6 +27,19 @@ const transactions = {
       accountBalance: 0,
     },
   ],
+  mockDetailsTransaction: {
+    accountBalance: 2400,
+    amount: 150,
+    createDate: '2019-07-17 20:29:11',
+    date: '2019-03-23',
+    description: 'Przykładowy przelew z utf-8.',
+    operationType: 'NORMAL',
+    realizationState: 'REALIZED',
+    recipientAccountNumber: 'PL61306662783096158101751159',
+    recipientName: 'Mariusz Kowalski',
+    senderAccountNumber: 'PL57665182618431955785589025',
+    senderName: 'Łukasz Nowak',
+  },
 };
 
 export default transactions;

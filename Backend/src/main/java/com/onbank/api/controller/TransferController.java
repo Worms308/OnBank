@@ -2,6 +2,7 @@ package com.onbank.api.controller;
 
 import com.onbank.Mocks;
 import com.onbank.api.dto.CreateTransferDto;
+import com.onbank.api.dto.TransferDetailsDto;
 import com.onbank.api.dto.TransferDto;
 import com.onbank.api.model.Transfer;
 import com.onbank.api.model.enums.TransferState;
@@ -43,6 +44,12 @@ public class TransferController {
         tmpTransfer.setSenderAccountNumber(Mocks.getMockUser().getAccountNumber());
         tmpTransfer.setRealizationState(TransferState.WAITING);
         transferService.createTransfer(tmpTransfer);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public TransferDetailsDto getTransfer(@PathVariable Long id){
+        return TransferTransformer.convertToTransferDetailsDto(transferService.getTransfer(id));
     }
 }
 

@@ -8,4 +8,5 @@ public interface TransferService {
 
     List<Transfer> getTransfers();
     Transfer createTransfer(Transfer transfer);
+    Transfer getTransfer(Long id);
 }
