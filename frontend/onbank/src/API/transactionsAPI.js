@@ -4,6 +4,10 @@ import store from 'store';
 export const TRANSACTIONS_URL = '/transfers';
 
 const getAccountDataApi = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
+const getTransactionsApi = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
+const getDetailsTransactionApi = idTransaction =>
+  axiosInstanceGet({ method: 'get', url: `${TRANSACTIONS_URL}/${idTransaction}` });
+
 const getTransactionsApi = () =>
   axiosInstanceGet({
     method: 'get',
@@ -18,4 +22,4 @@ const sendTransactionsApi = json =>
     data: json,
   });
 
-export { getAccountDataApi, getTransactionsApi, sendTransactionsApi };
+export { getAccountDataApi, getTransactionsApi, getDetailsTransactionApi, sendTransactionsApi };
