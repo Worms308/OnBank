@@ -1,7 +1,7 @@
 package com.onbank.api.repository;
 
 import com.onbank.api.model.Transfer;
-import com.onbank.api.model.TransferState;
+import com.onbank.api.model.enums.TransferState;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +12,6 @@ import java.util.List;
 public interface TransferRepository extends JpaRepository<Transfer, Long> {
 
     List<Transfer> findByRealizationStateAndDateAfter(TransferState realizationState, LocalDate firstDate);
+    List<Transfer> getTransfersBySenderAccountNumberOrRecipientAccountNumber(String senderAccountNumber, String recipientAccountNumber);
 
 }

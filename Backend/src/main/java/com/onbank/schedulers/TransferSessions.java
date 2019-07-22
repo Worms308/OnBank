@@ -1,7 +1,7 @@
 package com.onbank.schedulers;
 
 import com.onbank.api.model.Transfer;
-import com.onbank.api.model.TransferState;
+import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.model.csv.CSVToTransfer;
 import com.onbank.api.model.csv.TransferToCSV;
 import com.onbank.api.repository.TransferRepository;

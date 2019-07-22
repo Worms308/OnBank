@@ -3,6 +3,8 @@ package com.onbank.api.model;
 import com.onbank.LoadProperties;
 import com.onbank.api.model.csv.CSVToTransfer;
 import com.onbank.api.model.csv.TransferToCSV;
+import com.onbank.api.model.enums.OperationType;
+import com.onbank.api.model.enums.TransferState;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.junit.jupiter.api.Test;

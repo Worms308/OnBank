@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Table from 'shared/Table';
+import Table from 'pages/Transactions/TransactionsTable/Table';
 import { getTransactionsAction } from 'actions/transactionsActions';
 
 class ComplitedTransactions extends React.Component {
