@@ -7,7 +7,7 @@ import AccountNumberFormat from 'utils/AccountNumberFormat';
 import { getAccountDataAction } from 'actions/transactionsActions';
 import { useStyles } from 'themes/accountBarTheme';
 
-const AccountBar = ({ accountData, getAccountData }) => {
+const AccountBar = ({ accountData, accountNumber, getAccountData }) => {
   const classes = useStyles();
 
   useEffect(getAccountData);
@@ -18,7 +18,7 @@ const AccountBar = ({ accountData, getAccountData }) => {
           {accountData.name}
         </Typography>
         <Typography variant="h5" className={classes.nameAccount}>
-          {AccountNumberFormat(accountData.accountNumber)}
+          {AccountNumberFormat(accountNumber) || 'Brak numeru konta'}
         </Typography>
       </div>
 
@@ -43,9 +43,10 @@ const AccountBar = ({ accountData, getAccountData }) => {
   );
 };
 
-const mapStateToProps = ({ transactions }) => {
+const mapStateToProps = ({ transactions, userProfile }) => {
   const accountData = transactions.mockAccountBar;
-  return { accountData };
+  const {accountNumber} = userProfile;
+  return { accountData, accountNumber };
 };
 
 const mapDispatchToProps = dispatch => {

@@ -8,6 +8,7 @@ const userProfileReducer = (state = userProfileMock, action) => {
         userID: action.payload.data.id,
         name: action.payload.data.name,
         surname: action.payload.data.surname,
+        accountNumber: action.payload.data.accountNumber
       };
     default:
       return state;

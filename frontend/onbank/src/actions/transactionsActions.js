@@ -17,7 +17,6 @@ export const getAccountDataAction = name => dispatch => {
   return getAccountDataApi()
     .then(response => {
       // dispatch({ type: FETCH_SUCCESS, payload: { name, data: response.data } });
-      console.log(response.data);
     })
     .catch(err => console.log(err));
 };

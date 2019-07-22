@@ -1,12 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { paths } from 'routes/paths';
+import { Formik, Form } from 'formik';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { DatePicker } from '@material-ui/pickers';
 import {
   Button,
   CircularProgress,
@@ -16,20 +14,22 @@ import {
   FormHelperText,
   Input,
   InputLabel,
+  InputAdornment,
   Paper,
+  Radio,
+  RadioGroup,
 } from '@material-ui/core';
-import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import { Formik, Form } from 'formik';
+import { paths } from 'routes/paths';
 import { sendTransactionsAction, setIsSuccessAction } from 'actions/transactionsActions';
 import { useStyles } from 'themes/newTransferTheme';
 import { colorthemeButtonAndDate } from 'themes/customTheme';
-import { AccountNumberMask } from './accountNumberMask';
-import { SignupSchema } from './signupSchema';
+import AccountNumberMask from './accountNumberMask';
+import { newTransferSchema } from './newTransferSchema';
 import NumberFormatCustom from './numberFormatCustom';
 
 const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) => {
   const classes = useStyles();
+  const [bankName, setBankName] = useState(null);
 
   return (
     <Paper className={classes.root}>
@@ -43,7 +43,9 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
           typeTransfer: 'NORMAL',
           saveReceiver: false,
         }}
-        validationSchema={SignupSchema}
+        validationSchema={() => newTransferSchema(setBankName)}
+        validateOnBlur
+        validateOnChange
         onSubmit={values => {
           sendTransactions(values);
         }}
@@ -90,6 +92,11 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
                     className={classes.inputWidth}
                     aria-describedby="accountNumber-error-text"
                   />
+                  {bankName ? (
+                    <FormHelperText>
+                      {bankName}
+                    </FormHelperText>
+                  ) : null}
                   {errors.accountNumber && touched.accountNumber ? (
                     <FormHelperText id="accountNumber-error-text">
                       {errors.accountNumber}
@@ -141,7 +148,6 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
               </div>
 
               <div className={classes.inputStyle}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <MuiThemeProvider theme={colorthemeButtonAndDate}>
                     <>
                       <DatePicker
@@ -157,7 +163,6 @@ const NewTransfer = ({ sendTransactions, isLoading, isSuccess, setIsSuccess }) =
                       {errors.date && touched.date ? <div>{errors.date}</div> : null}
                     </>
                   </MuiThemeProvider>
-                </MuiPickersUtilsProvider>
               </div>
               <div>
                 <FormControl
