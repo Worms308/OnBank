@@ -1,5 +1,5 @@
 import { paths } from 'routes/paths';
-import Dashboard from 'pages/Dashboard/Dashboard';
+// import Dashboard from 'pages/Dashboard/Dashboard';
 import Transactions from 'pages/Transactions/Transactions';
 import TransactionDetails from 'pages/Transactions/TransactionDetails/TransactionDetails';
 import TransactionTable from 'pages/Transactions/TransactionsTable/TransactionsTable';
@@ -8,11 +8,11 @@ import PendingTransactions from 'pages/Transactions/TransactionsTable/PendingTra
 import NewTransfer from 'pages/NewTransfer/NewTransfer';
 
 export const routes = [
-  {
+  /*{
     exact: true,
     path: paths.home,
     component: Dashboard,
-  },
+  },*/
   {
     path: paths.transactions,
     component: Transactions,

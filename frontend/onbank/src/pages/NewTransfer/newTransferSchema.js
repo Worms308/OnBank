@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
+import { getIBANDataApi } from 'API/jakitobankAPI';
 
-export const SignupSchema = () => {
+export const newTransferSchema = setBankName => {
   const requiredMessage = 'Wymagane';
   const patt = /[a-zA-Z]{2}[0-9]{26}/g;
   return Yup.object().shape({
@@ -10,7 +11,20 @@ export const SignupSchema = () => {
       .required(requiredMessage),
     accountNumber: Yup.string()
       .required(requiredMessage)
-      .test('accountValidate', 'Błędny numer ', value => patt.test(value)),
+      .test('accountValidate', 'Błędny numer ', value => {
+        if (patt.test(value)) {
+          const returnValue = getIBANDataApi(value).then(({ data }) => {
+            if (data.suma_poprawna !== '0') {
+              setBankName(data.nazwa_banku);
+              return true;
+            }
+            return false;
+          });
+          return returnValue;
+        }
+        setBankName(null);
+        return false;
+      }),
     description: Yup.string()
       .min(2, 'Opis jest za krótki')
       .max(4000, 'Opis jest za długi')
