@@ -5,6 +5,7 @@ import com.onbank.api.repository.TransferRepository;
 import com.onbank.api.service.TransferService;
 import com.onbank.http.UserData;
 import com.onbank.starter.InitMockDB;
+import com.onbank.exceptions.TransferNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +37,10 @@ public class TransferServiceImpl implements TransferService {
         return transferRepository.save(transfer);
     }
 
+    @Override
+    public Transfer getTransfer(Long id) {
+        return transferRepository.findById(id).orElseThrow(
+                () -> new TransferNotFoundException("Transfer id=" + id + " not found.")
+        );
+    }
 }

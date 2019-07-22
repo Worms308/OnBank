@@ -1,8 +1,8 @@
 import { axiosInstanceGet } from 'core/axiosConfig';
 
-export const USER_PROFILE_URL = '/getUserProfile';
+export const USER_PROFILE_URL = '/getProfileUser';
 
-const getUserProfileApi = userID =>
-  axiosInstanceGet({ method: 'get', url: `${USER_PROFILE_URL}/${userID}` });
+const getUserProfileApi = id =>
+  axiosInstanceGet({ method: 'get', url: `${USER_PROFILE_URL}/${id}` });
 
 export { getUserProfileApi };
