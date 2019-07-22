@@ -1,9 +1,13 @@
 package com.onbank.api.service.implementation;
 
 import com.onbank.api.model.Transfer;
+import com.onbank.api.model.User;
 import com.onbank.api.repository.TransferRepository;
 import com.onbank.api.service.TransferService;
+import com.onbank.http.UserData;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +25,10 @@ public class TransferServiceImpl implements TransferService {
 
     @Override
     public Transfer createTransfer(Transfer transfer) {
+
+        transfer.setSenderName(UserData.getUser().getName());
+
+
         return transferRepository.save(transfer);
     }
 
