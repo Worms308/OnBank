@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     detialsTransferBar:{
         width:'100%',
         height:50,
@@ -17,8 +17,6 @@ const useStyles = makeStyles(theme => ({
         paddingTop:10,
     },
 }));
-
-
 
 const DetailsComponentTitle =(props)=>{
     const classes = useStyles();

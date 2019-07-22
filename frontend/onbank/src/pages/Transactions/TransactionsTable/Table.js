@@ -8,7 +8,7 @@ import { paths } from 'routes/paths';
 import currencyFormat from 'utils/CurrencyFormat';
 import AccountNumberFormat from 'utils/AccountNumberFormat';
 import DateFormat from 'utils/DateFormat';
-import ConvertOperationType from 'core/ConvertOperationType';
+import ConvertOperationType from 'utils/ConvertOperationType';
 import { colorthemeButtonAndDate } from 'themes/customTheme';
 
 const Table = ({ data, history }) => {

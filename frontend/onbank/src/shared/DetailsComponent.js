@@ -1,32 +1,30 @@
 import React from 'react';
-import { Paper } from '@material-ui/core';
-
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-    detailsBar:{
-        width:'100%',
-        height:'auto'
+    detailsBar: {
+        marginBottom: '24px',
+        padding: '12px 10px',
     },
-    detailsTitleReciever:{
-        paddingTop:10,
-        marginLeft:20,
+    detailsTitleReciever: {
+        margin: '10px',
+        marginLeft: '16px',
     },
-    div:{
-       
-        width:'100%',
-        height:'auto'
+    div: {
+        boxShadow:
+      '-5px 0 5px -5px rgba(0,0,0,0.2), 5px 0 5px -5px rgba(0,0,0,0.2), 0 -5px 5px -5px rgba(0,0,0,0.2), 0 5px 5px -5px rgba(0,0,0,0.2)',
+      backgroundColor: '#fff',
     }
 }));
 
-const DetailsComponentTitle =(props)=>{
+const DetailsComponentTitle = (props) => {
     const classes = useStyles();
-    return(
+    return (
         <div className={classes.div}>
-         <Paper className={classes.detialsBar}>
-            <h2  className={classes.detailsTitleReciever}>{props.title}</h2>  
-            {props.children}
-         </Paper>
+            <div className={classes.detailsBar}>
+                <h2 className={classes.detailsTitleReciever}>{props.title}</h2>
+                {props.children}
+            </div>
         </div>
 
     )

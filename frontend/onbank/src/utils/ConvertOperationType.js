@@ -30,6 +30,8 @@ const ConvertOperationType = type => {
       return 'Standardowy';
     case operationType.INSTANT:
       return 'Natychmiastowy';
+    case operationType.REALIZED:
+      return 'W trakcie realizacji';
     default:
       return type;
   }
