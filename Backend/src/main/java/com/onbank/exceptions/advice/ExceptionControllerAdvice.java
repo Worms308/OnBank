@@ -52,7 +52,7 @@ public class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity <ExceptionResponse> unknown(final Exception e) {
+    public ResponseEntity <ExceptionResponse> unknownException(final Exception e) {
         ExceptionResponse exceptionResponse = new ExceptionResponse();
         exceptionResponse.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         exceptionResponse.setDescription("Exception msg: " + e.toString());

@@ -7,6 +7,7 @@ import com.onbank.api.model.enums.OperationType;
 import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.repository.TransferRepository;
 import com.onbank.api.repository.UserRepository;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +21,11 @@ import java.util.List;
 public class InitMockDB {
 
     private static final String ACCOUNT_NAME_1 = "Mariusz Kowalski";
+    @Getter
     private static final String ACCOUNT_NUMBER_1 = "PL61306662783096158101751159";
 
     private static final String ACCOUNT_NAME_2 = "Łukasz Nowak";
+    @Getter
     private static final String ACCOUNT_NUMBER_2 = "PL57665182618431955785589025";
 
     @Autowired

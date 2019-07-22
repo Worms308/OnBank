@@ -10,6 +10,7 @@ import com.onbank.api.service.TransferService;
 import com.onbank.api.transformer.TransferTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,10 +39,9 @@ public class TransferController {
     @ResponseStatus(HttpStatus.OK)
     public void createTransfer(@Valid @RequestBody CreateTransferDto transferDto) {
         Transfer tmpTransfer = TransferTransformer.convertToEntity(transferDto);
+
         tmpTransfer.setAccountBalance(new BigDecimal("0.00"));
-        tmpTransfer.setSenderName(Mocks.getMockUser().getUsername());
         tmpTransfer.setSenderAccountNumber(Mocks.getMockUser().getAccountNumber());
-        
         tmpTransfer.setRealizationState(TransferState.WAITING);
         transferService.createTransfer(tmpTransfer);
     }

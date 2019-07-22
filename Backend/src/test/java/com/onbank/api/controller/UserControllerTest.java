@@ -37,8 +37,9 @@ public class UserControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    private User createMockUser(String pesel) {
+    public static User createMockUser(String pesel) {
         User user = new User();
+        user.setId(1L);
         user.setName("Testman");
         user.setSurname("Testowski");
         user.setPhone("555666777");
@@ -56,7 +57,8 @@ public class UserControllerTest {
     void shouldReturnOneUser() throws Exception {
         User tmp = userRepository.saveAndFlush(createMockUser("99111100234"));
 
-        mockMvc.perform(get("/api/getProfileUser/" + tmp.getId()))
+        mockMvc.perform(get("/api/getProfileUser/" + tmp.getId())
+                .header("userID", "1"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -64,7 +66,8 @@ public class UserControllerTest {
     @Test
     void shouldReturnNoUser() throws Exception {
         userRepository.deleteAll();
-        mockMvc.perform(get("/api/getProfileUser/1"))
+        mockMvc.perform(get("/api/getProfileUser/1")
+                .header("userID", "1"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }

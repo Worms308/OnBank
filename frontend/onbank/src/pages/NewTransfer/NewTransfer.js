@@ -24,7 +24,7 @@ import { Formik, Form } from 'formik';
 import { sendTransactionsAction, setIsSuccessAction } from 'actions/transactionsActions';
 import { useStyles } from 'themes/newTransferTheme';
 import { colorthemeButtonAndDate } from 'themes/customTheme';
-import AccountNumberMask from './accountNumberMask';
+import { AccountNumberMask } from './accountNumberMask';
 import { SignupSchema } from './signupSchema';
 import NumberFormatCustom from './numberFormatCustom';
 
