@@ -19,8 +19,8 @@ public class UserTransformer {
         BeanUtils.copyProperties(user, dto);
         dto.setAccountNumber(
                 UserData.getUser().getId() == 1
-                        ? InitMockDB.getACCOUNT_NUMBER_1()
-                        : InitMockDB.getACCOUNT_NUMBER_2());
+                        ? InitMockDB.getACCOUNT_NUMBER_2()
+                        : InitMockDB.getACCOUNT_NUMBER_1());
         return dto;
     }
 }

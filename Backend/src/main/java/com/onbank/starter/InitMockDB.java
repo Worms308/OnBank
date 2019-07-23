@@ -22,11 +22,11 @@ public class InitMockDB {
 
     private static final String ACCOUNT_NAME_1 = "Mariusz Kowalski";
     @Getter
-    private static final String ACCOUNT_NUMBER_1 = "PL61306662783096158101751159";
+    private static final String ACCOUNT_NUMBER_1 = "PL13114000000787349936948743";
 
     private static final String ACCOUNT_NAME_2 = "Łukasz Nowak";
     @Getter
-    private static final String ACCOUNT_NUMBER_2 = "PL57665182618431955785589025";
+    private static final String ACCOUNT_NUMBER_2 = "PL48105000021021290496211203";
 
     @Autowired
     private TransferRepository transferRepository;
@@ -51,9 +51,9 @@ public class InitMockDB {
         firstUserTransfers.add(transferRepository.getOne(9L));
         userRepository.save(new User(
                 "Łukasz",
-                "Kowal",
+                "Nowak",
                 "765966234",
-                "lukasz.k@gmail.com",
+                "lukasz.n@gmail.com",
                 "91050500543",
                 Nationality.PL,
                 "Warszawa",

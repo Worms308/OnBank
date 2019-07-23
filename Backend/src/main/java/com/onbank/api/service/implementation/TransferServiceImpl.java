@@ -1,6 +1,7 @@
 package com.onbank.api.service.implementation;
 
 import com.onbank.api.model.Transfer;
+import com.onbank.api.model.enums.TransferState;
 import com.onbank.api.repository.TransferRepository;
 import com.onbank.api.service.TransferService;
 import com.onbank.http.UserData;
@@ -20,14 +21,34 @@ public class TransferServiceImpl implements TransferService {
     @Override
     public List<Transfer> getTransfers() {
         if (UserData.getUser().getId() == 1)
-            return transferRepository.getTransfersBySenderAccountNumberOrRecipientAccountNumber(
+            return transferRepository.getTransfersBySenderAccountNumberOrRecipientAccountNumberAndRealizationState(
                     InitMockDB.getACCOUNT_NUMBER_1(),
-                    InitMockDB.getACCOUNT_NUMBER_1()
+                    InitMockDB.getACCOUNT_NUMBER_1(),
+                    TransferState.REALIZED
             );
         else
-            return transferRepository.getTransfersBySenderAccountNumberOrRecipientAccountNumber(
+            return transferRepository.getTransfersBySenderAccountNumberOrRecipientAccountNumberAndRealizationState(
                     InitMockDB.getACCOUNT_NUMBER_2(),
-                    InitMockDB.getACCOUNT_NUMBER_2()
+                    InitMockDB.getACCOUNT_NUMBER_2(),
+                    TransferState.REALIZED
+            );
+    }
+
+    @Override
+    public List<Transfer> getLockedTransactions() {
+        if (UserData.getUser().getId() == 1)
+            return transferRepository.getTransfersBySenderAccountNumberOrRecipientAccountNumberAndRealizationStateOrRealizationState(
+                    InitMockDB.getACCOUNT_NUMBER_1(),
+                    InitMockDB.getACCOUNT_NUMBER_1(),
+                    TransferState.WAITING,
+                    TransferState.IN_PROGRESS
+            );
+        else
+            return transferRepository.getTransfersBySenderAccountNumberOrRecipientAccountNumberAndRealizationStateOrRealizationState(
+                    InitMockDB.getACCOUNT_NUMBER_2(),
+                    InitMockDB.getACCOUNT_NUMBER_2(),
+                    TransferState.WAITING,
+                    TransferState.IN_PROGRESS
             );
     }
 
