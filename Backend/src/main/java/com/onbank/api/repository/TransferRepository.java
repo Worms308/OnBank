@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface TransferRepository extends JpaRepository<Transfer, Long> {
 
-    List<Transfer> getTransfersBySenderAccountNumberOrRecipientAccountNumberAndRealizationState
-            (String senderAccountNumber, String recipientAccountNumber, TransferState transferState);
+    List<Transfer> getTransfersByRealizationState
+            (TransferState transferState);
     List<Transfer> findByRealizationStateAndDateBefore(TransferState realizationState, LocalDate firstDate);
-    List<Transfer> getTransfersBySenderAccountNumberOrRecipientAccountNumberAndRealizationStateOrRealizationState
-            (String senderAccountNumber, String recipientAccountNumber, TransferState transferState, TransferState transferStateSecond);
+    List<Transfer> getTransfersByRealizationStateOrRealizationState
+            (TransferState transferState, TransferState transferStateSecond);
 
 }

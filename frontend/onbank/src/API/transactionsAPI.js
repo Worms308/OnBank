@@ -2,7 +2,7 @@ import { axiosInstanceGet, axiosInstancePost } from 'core/axiosConfig';
 import store from 'store';
 
 const TRANSACTIONS_URL = '/transfers';
-const LOCKED_TRANSACTIONS = '/getLockedTransactions';
+const LOCKED_TRANSACTIONS = '/transfers/getLockedTransactions';
 
 const getLockedTransactionsApi = () => axiosInstanceGet({ method: 'get', headers: { userID: store.getState().userProfile.userID }, url: LOCKED_TRANSACTIONS });
 
