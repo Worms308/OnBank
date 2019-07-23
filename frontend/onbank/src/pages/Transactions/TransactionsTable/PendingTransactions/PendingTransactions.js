@@ -1,14 +1,13 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Table from 'pages/Transactions/TransactionsTable/Table';
 import { getLockedTransactionsAction } from 'actions/transactionsActions';
 
-const PendingTransactions = ({dataTable, getLockedTransactions}) => {
+const PendingTransactions = ({ dataTable, getLockedTransactions }) => {
+  useEffect(() => getLockedTransactions(), [getLockedTransactions]);
 
-  useEffect(() => getLockedTransactions(), [getLockedTransactions])
-
-return <Table data={dataTable} />;
-}
+  return <Table data={dataTable} />;
+};
 
 const mapStateToProps = ({ transactions, userProfile }) => {
   const dataTable = [];
@@ -17,16 +16,18 @@ const mapStateToProps = ({ transactions, userProfile }) => {
       dataTable.push([
         res.id,
         res.date,
-        res.recipientAccountNumber === userProfile.accountNumber ? `${res.senderName || ''},${res.senderAccountNumber || ''}` : `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
+        res.recipientAccountNumber === userProfile.accountNumber
+          ? `${res.senderName || ''},${res.senderAccountNumber || ''}`
+          : `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
         res.description,
         res.operationType,
-        res.recipientAccountNumber === userProfile.accountNumber ? -1 * res.amount : res.amount,
+        res.recipientAccountNumber === userProfile.accountNumber ? res.amount : -1 * res.amount,
         res.accountBalance,
       ]),
     );
   }
-  console.log(dataTable)
-  return { dataTable};
+  console.log(dataTable);
+  return { dataTable };
 };
 
 const mapDispatchToProps = dispatch => {

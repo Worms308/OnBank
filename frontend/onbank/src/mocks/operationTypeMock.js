@@ -14,6 +14,9 @@ const operationType = {
 
   NORMAL: 'NORMAL',
   INSTANT: 'INSTANT',
+  REALIZED: 'REALIZED',
+  WAITING: 'WAITING',
+  IN_PROGRESS: 'IN_PROGRESS',
 };
 
 export default operationType;
