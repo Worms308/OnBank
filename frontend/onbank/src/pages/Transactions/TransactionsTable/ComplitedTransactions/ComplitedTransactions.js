@@ -11,9 +11,7 @@ class ComplitedTransactions extends React.Component {
 
   render() {
     const { dataTable } = this.props;
-    return (
-        <Table data={dataTable} />
-    );
+    return <Table data={dataTable} />;
   }
 }
 
@@ -24,15 +22,17 @@ const mapStateToProps = ({ transactions, userProfile }) => {
       dataTable.push([
         res.id,
         res.date,
-        res.recipientAccountNumber === userProfile.accountNumber ? `${res.senderName || ''},${res.senderAccountNumber || ''}` : `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
+        res.recipientAccountNumber === userProfile.accountNumber
+          ? `${res.senderName || ''},${res.senderAccountNumber || ''}`
+          : `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
         res.description,
         res.operationType,
-        res.recipientAccountNumber === userProfile.accountNumber ? -1 * res.amount : res.amount,
+        res.recipientAccountNumber === userProfile.accountNumber ? res.amount : -1 * res.amount,
         res.accountBalance,
       ]),
     );
   }
-  return { dataTable};
+  return { dataTable };
 };
 
 const mapDispatchToProps = dispatch => {

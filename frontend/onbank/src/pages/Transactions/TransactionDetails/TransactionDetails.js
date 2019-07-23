@@ -58,7 +58,7 @@ const DetailsTransaction = ({ match, getDetailsTransaction, detailsTransaction }
         <StringComponent string1="Data zaksięgowania:" string2={date} />
         <StringComponent string1="Rodzaj przelewu:" string2={operationType} ConvertType />
         <StringComponent string1="Kwota przelewu:" string2={amount} bold amount />
-        <StringComponent string1="Status przelewu:" string2={realizationState} />
+        <StringComponent string1="Status przelewu:" string2={realizationState} ConvertType />
         <StringComponent string1="Opis:" string2={description} />
       </DetailsComponent>
     </div>
