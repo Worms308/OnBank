@@ -35,6 +35,14 @@ public class TransferController {
         return transfer.stream().map(TransferTransformer::convertToDto).collect(Collectors.toList());
     }
 
+    @GetMapping("/getLockedTransactions")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TransferDto> getLockedTransactions() {
+        List<Transfer> transfer = transferService.getLockedTransactions();
+        return transfer.stream().map(TransferTransformer::convertToDto).collect(Collectors.toList());
+    }
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public void createTransfer(@Valid @RequestBody CreateTransferDto transferDto) {

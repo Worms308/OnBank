@@ -30,6 +30,12 @@ const ConvertOperationType = type => {
       return 'Standardowy';
     case operationType.INSTANT:
       return 'Natychmiastowy';
+    case operationType.REALIZED:
+      return 'Zrealizowany';
+    case operationType.WAITING:
+      return 'Oczekujący';
+    case operationType.IN_PROGRESS:
+      return 'W trakcie realizacji';
     default:
       return type;
   }

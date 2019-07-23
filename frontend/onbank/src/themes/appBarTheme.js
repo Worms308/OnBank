@@ -9,8 +9,11 @@ export const useStyles = makeStyles(theme => ({
       backgroundColor: '#FFF',
     },
     on: {
-      fontWeight: 'bold',
+      fontWeight: '600',
       color: '#27AE60',
+    },
+    title: {
+      fontWeight: '600'
     },
     bookmark: {
       marginLeft: theme.spacing(6),
@@ -45,13 +48,13 @@ export const useStyles = makeStyles(theme => ({
       width: 'auto',
     },
     burgerTitleOn: {
-      fontWeight: 'bold',
+      fontWeight: '600',
       color: '#27AE60',
-  
       marginLeft: 70,
       display: 'inline',
     },
     burgerTitleBank: {
+      fontWeight: '600',
       display: 'inline',
     },
   }));

@@ -10,31 +10,29 @@ class ComplitedTransactions extends React.Component {
   }
 
   render() {
-    const { dataTableData } = this.props;
-    return (
-      <>
-        <Table data={dataTableData} />
-      </>
-    );
+    const { dataTable } = this.props;
+    return <Table data={dataTable} />;
   }
 }
 
-const mapStateToProps = ({ transactions }) => {
-  const dataTableData = [];
-  if (transactions.mockTransactionList) {
-    transactions.mockTransactionList.map(res =>
-      dataTableData.push([
+const mapStateToProps = ({ transactions, userProfile }) => {
+  const dataTable = [];
+  if (transactions.transactionList) {
+    transactions.transactionList.map(res =>
+      dataTable.push([
         res.id,
         res.date,
-        `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
+        res.recipientAccountNumber === userProfile.accountNumber
+          ? `${res.senderName || ''},${res.senderAccountNumber || ''}`
+          : `${res.recipientName || ''},${res.recipientAccountNumber || ''}`,
         res.description,
         res.operationType,
-        res.amount,
+        res.recipientAccountNumber === userProfile.accountNumber ? res.amount : -1 * res.amount,
         res.accountBalance,
       ]),
     );
   }
-  return { dataTableData };
+  return { dataTable };
 };
 
 const mapDispatchToProps = dispatch => {

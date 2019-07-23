@@ -22,11 +22,11 @@ public class InitMockDB {
 
     private static final String ACCOUNT_NAME_1 = "Mariusz Kowalski";
     @Getter
-    private static final String ACCOUNT_NUMBER_1 = "PL61306662783096158101751159";
+    private static final String ACCOUNT_NUMBER_1 = "PL13114000000787349936948743";
 
     private static final String ACCOUNT_NAME_2 = "Łukasz Nowak";
     @Getter
-    private static final String ACCOUNT_NUMBER_2 = "PL57665182618431955785589025";
+    private static final String ACCOUNT_NUMBER_2 = "PL48105000021021290496211203";
 
     @Autowired
     private TransferRepository transferRepository;
@@ -51,9 +51,9 @@ public class InitMockDB {
         firstUserTransfers.add(transferRepository.getOne(9L));
         userRepository.save(new User(
                 "Łukasz",
-                "Kowal",
+                "Nowak",
                 "765966234",
-                "lukasz.k@gmail.com",
+                "lukasz.n@gmail.com",
                 "91050500543",
                 Nationality.PL,
                 "Warszawa",
@@ -107,14 +107,14 @@ public class InitMockDB {
         ));
 
         transferRepository.save(new Transfer(
-                LocalDate.of(2019, 07, 29),
+                LocalDate.of(2019, 07, 20),
                 ACCOUNT_NAME_2,
                 ACCOUNT_NUMBER_2,
                 "Sprzedaż oprogramowania.",
                 OperationType.NORMAL,
                 new BigDecimal("1150.0"),
                 new BigDecimal("3000.0"),
-                TransferState.REALIZED,
+                TransferState.WAITING,
                 ACCOUNT_NAME_1,
                 ACCOUNT_NUMBER_1
         ));
@@ -134,15 +134,15 @@ public class InitMockDB {
 
         transferRepository.save(new Transfer(
                 LocalDate.of(2018, 2, 1),
-                ACCOUNT_NAME_1,
-                ACCOUNT_NUMBER_1,
+                ACCOUNT_NAME_2,
+                ACCOUNT_NUMBER_2,
                 "Przelew na piwo.",
                 OperationType.NORMAL,
                 new BigDecimal("15.0"),
                 new BigDecimal("2000.0"),
                 TransferState.REALIZED,
-                ACCOUNT_NAME_2,
-                ACCOUNT_NUMBER_2
+                ACCOUNT_NAME_1,
+                ACCOUNT_NUMBER_1
         ));
 
         transferRepository.save(new Transfer(
@@ -185,7 +185,7 @@ public class InitMockDB {
         ));
 
         transferRepository.save(new Transfer(
-                LocalDate.of(2019, 7, 8),
+                LocalDate.of(2019, 7, 29),
                 ACCOUNT_NAME_1,
                 ACCOUNT_NUMBER_1,
                 "Pieniądze dla studentów",

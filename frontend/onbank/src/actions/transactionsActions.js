@@ -1,5 +1,5 @@
 import {
-  getAccountDataApi,
+  getLockedTransactionsApi,
   getTransactionsApi,
   getDetailsTransactionApi,
   sendTransactionsApi,
@@ -8,16 +8,16 @@ import DateFormat from 'utils/DateFormat';
 
 export const FETCH_TRANSACTION_LIST_SUCCESS = 'FETCH_TRANSACTION_LIST_SUCCESS';
 export const FETCH_DETAILS_TRANSACTION_SUCCESS = 'FETCH_DETAILS_TRANSACTION_SUCCESS';
+export const FETCH_LOCKED_TRANSACTION_SUCCESS = 'FETCH_LOCKED_TRANSACTION_SUCCESS';
 export const NEW_TRANSFER_REQUEST = 'NEW_TRANSFER_REQUEST';
 export const NEW_TRANSFER_SUCCESS = 'NEW_TRANSFER_SUCCESS';
 export const NEW_TRANSFER_FAILURE = 'NEW_TRANSFER_FAILURE';
 export const SET_IS_SUCCESS = 'SET_IS_SUCCESS';
 
-export const getAccountDataAction = name => dispatch => {
-  return getAccountDataApi()
+export const getLockedTransactionsAction = name => dispatch => {
+  return getLockedTransactionsApi()
     .then(response => {
-      // dispatch({ type: FETCH_SUCCESS, payload: { name, data: response.data } });
-      console.log(response.data);
+      dispatch({ type: FETCH_LOCKED_TRANSACTION_SUCCESS, payload: { name, data: response.data } });
     })
     .catch(err => console.log(err));
 };

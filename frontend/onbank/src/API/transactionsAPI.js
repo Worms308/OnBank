@@ -1,12 +1,22 @@
 import { axiosInstanceGet, axiosInstancePost } from 'core/axiosConfig';
 import store from 'store';
 
-export const TRANSACTIONS_URL = '/transfers';
+const TRANSACTIONS_URL = '/transfers';
+const LOCKED_TRANSACTIONS = '/transfers/getLockedTransactions';
 
-const getAccountDataApi = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
-const getTransactionsApi = () => axiosInstanceGet({ method: 'get', url: TRANSACTIONS_URL });
+const getLockedTransactionsApi = () =>
+  axiosInstanceGet({
+    method: 'get',
+    headers: { userID: store.getState().userProfile.userID },
+    url: LOCKED_TRANSACTIONS,
+  });
+
 const getDetailsTransactionApi = idTransaction =>
-  axiosInstanceGet({ method: 'get', url: `${TRANSACTIONS_URL}/${idTransaction}` });
+  axiosInstanceGet({
+    method: 'get',
+    headers: { userID: store.getState().userProfile.userID },
+    url: `${TRANSACTIONS_URL}/${idTransaction}`,
+  });
 
 const getTransactionsApi = () =>
   axiosInstanceGet({
@@ -14,6 +24,7 @@ const getTransactionsApi = () =>
     headers: { userID: store.getState().userProfile.userID },
     url: TRANSACTIONS_URL,
   });
+
 const sendTransactionsApi = json =>
   axiosInstancePost({
     method: 'post',
@@ -22,4 +33,9 @@ const sendTransactionsApi = json =>
     data: json,
   });
 
-export { getAccountDataApi, getTransactionsApi, getDetailsTransactionApi, sendTransactionsApi };
+export {
+  getLockedTransactionsApi,
+  getTransactionsApi,
+  getDetailsTransactionApi,
+  sendTransactionsApi,
+};
