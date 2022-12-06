@@ -21,7 +21,7 @@
         <junit.jupiter.version>5.3.2</junit.jupiter.version>
         <mockito.version>2.28.2</mockito.version>
         <opencsv.version>4.1</opencsv.version>
-        <commons.net.version>3.6</commons.net.version>
+        <commons.net.version>3.9.0</commons.net.version>
         <mockftpserver.version>2.7.1</mockftpserver.version>
         <hibernate.version>5.4.3.Final</hibernate.version>
     </properties>
